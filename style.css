@@ -1,0 +1,24 @@
+#canvas {
+    position: fixed;
+    z-index: -1;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/*some basic reset*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+canvas {
+    display: block;
+}
+
+body {
+    background: black;
+}
