@@ -42,19 +42,19 @@ class Figure {
 
     draw() {
 
-        ctx.fillStyle = this.color
-        ctx.beginPath()
-        ctx.rect(this.x, this.y, this.size, this.size)
-        ctx.closePath()
-        ctx.fill()
-        ctx.stroke()
-        // ctx.drawImage(
-        //     this.img,
-        //     this.x,
-        //     this.y,
-        //     this.size * this.img.width / this.img.width,
-        //     this.size * this.img.height / this.img.width
-        // );
+        // ctx.fillStyle = this.color
+        // ctx.beginPath()
+        // ctx.rect(this.x, this.y, this.size, this.size)
+        // ctx.closePath()
+        // ctx.fill()
+        // ctx.stroke()
+        ctx.drawImage(
+            this.img,
+            this.x,
+            this.y,
+            this.size * this.img.width / this.img.width,
+            this.size * this.img.height / this.img.width
+        );
     }
 }
 
