@@ -64,9 +64,12 @@ var addElementToOrderedList = (function (figArray, element) {
 document.addEventListener("click", function (e) {
     var unsignedScale = (e.y - (initialHeight / scalingFactor)) / planeYCoordinate;
     var scale = unsignedScale > 0 ? unsignedScale : 0;
+    var newScale = e.y > initialHeight / highestAllowedToDraw ? scale : 0;
     var y = e.y;
-    var newDaisy = new Figure(e.x, e.y, e.y > initialHeight / highestAllowedToDraw ? scale : 0);
-    addElementToOrderedList(figuresArray, newDaisy);
+    if (newScale !== 0) {
+        var newDaisy = new Figure(e.x, e.y, newScale);
+        addElementToOrderedList(figuresArray, newDaisy);
+    }
     drawFlowers();
 });
 drawFlowers();

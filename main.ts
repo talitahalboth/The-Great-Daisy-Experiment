@@ -87,9 +87,13 @@ const addElementToOrderedList = ((figArray: Figure[], element: Figure) => {
 document.addEventListener("click", (e) => {
     const unsignedScale = (e.y - (initialHeight / scalingFactor)) / planeYCoordinate
     const scale = unsignedScale > 0 ? unsignedScale : 0
+    const newScale = e.y > initialHeight / highestAllowedToDraw ? scale : 0
     const y = e.y
-    const newDaisy = new Figure(e.x, e.y, e.y > initialHeight / highestAllowedToDraw ? scale : 0)
-    addElementToOrderedList(figuresArray, newDaisy)
+    if (newScale !== 0) {
+        const newDaisy = new Figure(e.x, e.y, newScale)
+        addElementToOrderedList(figuresArray, newDaisy)
+
+    }
     drawFlowers()
 })
 
