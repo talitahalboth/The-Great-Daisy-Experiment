@@ -7,8 +7,8 @@ var figuresArray = [];
 var w = canvas.width = window.innerWidth;
 var h = canvas.height = window.innerHeight;
 var initialHeight = h;
-var planeYCoordinate = 40;
-var highestAllowedToDraw = 2.7;
+var planeYCoordinate = 50;
+var highestAllowedToDraw = 3.5;
 var initialSize = 10;
 var scalingFactor = 4;
 setSize();
@@ -19,24 +19,26 @@ function getRandomInt(max) {
 var Figure = /** @class */ (function () {
     function Figure(newX, newY, scale) {
         var randomScale = Math.random();
-        var randomIndex = getRandomInt(imagesArray.length);
-        this.img = imagesArray[randomIndex];
-        this.size = initialSize;
-        this.size = this.size * scale;
+        var imgIndex = getRandomInt(imagesArray.length);
+        this.img = imagesArray[imgIndex];
+        var size = initialSize;
+        size = size * scale;
         // slightly increase the size randomly
-        this.size += this.size * randomScale / 5;
-        this.y = newY - Math.floor((this.size * this.img.height / this.img.width) / 2);
-        this.x = newX - Math.floor((this.size) / 2);
-        this.color = "white";
+        size += size * randomScale / 5;
+        var y = newY - Math.floor((size * img.height / img.width) / 2);
+        var x = newX - Math.floor((size) / 2);
+        var color = "white";
+        var w = Math.floor(size * img.width / img.width);
+        var h = Math.floor(size * img.height / img.width);
+        this.properties = {
+            x: x,
+            y: y,
+            w: w,
+            h: h
+        };
     }
     Figure.prototype.draw = function () {
-        // ctx.fillStyle = this.color
-        // ctx.beginPath()
-        // ctx.rect(this.x, this.y, this.size, this.size)
-        // ctx.closePath()
-        // ctx.fill()
-        // ctx.stroke()
-        ctx.drawImage(this.img, Math.floor(this.x), Math.floor(this.y), Math.floor(this.size * this.img.width / this.img.width), Math.floor(this.size * this.img.height / this.img.width));
+        ctx.drawImage(this.img, Math.floor(this.properties.x), Math.floor(this.properties.y), Math.floor(this.properties.w), Math.floor(this.properties.h));
     };
     return Figure;
 }());
@@ -50,29 +52,26 @@ function drawFlowers() {
     figuresArray.forEach(function (figure) {
         figure.draw();
     });
-    requestAnimationFrame(drawFlowers);
 }
 var addElementToOrderedList = (function (figArray, element) {
     for (var i = 0; i < figArray.length; i++) {
-        if (figArray[i].y <= element.y) {
+        if (figArray[i].properties.y <= element.properties.y) {
             figArray.splice(i, 0, element);
             return;
         }
     }
     figArray.push(element);
 });
+var checkPositionIsAllowed = function (x, y) {
+    return y > initialHeight / highestAllowedToDraw ? true : false;
+};
 document.addEventListener("click", function (e) {
-    var unsignedScale = (e.y - (initialHeight / scalingFactor)) / planeYCoordinate;
-    var scale = unsignedScale > 0 ? unsignedScale : 0;
-    var newScale = e.y > initialHeight / highestAllowedToDraw ? scale : 0;
-    var y = e.y;
-    if (newScale !== 0) {
-        var newDaisy = new Figure(e.x, e.y, newScale);
-        addElementToOrderedList(figuresArray, newDaisy);
+    var signedScale = (e.y - (initialHeight / scalingFactor)) / planeYCoordinate;
+    var scale = signedScale > 0 ? signedScale : 0;
+    if (checkPositionIsAllowed(e.x, e.y)) {
+        var otherNewDaisy = new Figure(e.x, e.y, scale);
+        addElementToOrderedList(figuresArray, otherNewDaisy);
     }
     drawFlowers();
 });
 drawFlowers();
-// imagesArray.push(img)
-// imagesArray.push(img2)
-// imagesArray.push(img3)
