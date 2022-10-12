@@ -6,13 +6,13 @@ interface Properties {
     h: number
 }
 
+const initialSize = 5
 class Figure {
 
     properties: Properties
     img: HTMLImageElement
     constructor(newX: number, newY: number, scale: number, img: HTMLImageElement) {
         var randomScale = Math.random()
-        // var imgIndex = getRandomInt(imagesArray.length)
         this.img = img
         var size = initialSize
         size = size * scale

@@ -1,7 +1,7 @@
+var initialSize = 5;
 var Figure = /** @class */ (function () {
     function Figure(newX, newY, scale, img) {
         var randomScale = Math.random();
-        // var imgIndex = getRandomInt(imagesArray.length)
         this.img = img;
         var size = initialSize;
         size = size * scale;

@@ -12,11 +12,11 @@ function setSizeBackground() {
     width = backgroundCanvas.width = innerWidth;
     backgroundCtx.globalCompositeOperation = 'destination-over';
     backgroundCtx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
-    var grd = backgroundCtx.createLinearGradient(0, 0, 0, 200);
-    grd.addColorStop(0, "#8ad0f2");
-    grd.addColorStop(1, "#e5f0f2");
+    var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300);
+    grd.addColorStop(0, "#78ddfa");
+    grd.addColorStop(1, "#C9F6FF");
     backgroundCtx.fillStyle = grd;
-    // backgroundCtx.fillRect(0, 0, backgroundCanvas.width, initialBackgroundHeight / highestAllowedToDraw)
+    backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
     backgroundCtx.fillStyle = "#9ab843";
     backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
 }
