@@ -67,14 +67,16 @@ document.addEventListener("click", function (e) {
             var combinedNoise = CombineNoise(mountainsRanges2[index].range);
             var yPosition = combinedNoise.pos[e.x] + mountainsRanges2[index].height;
             var isGreaterTop = yPosition < (e.y);
-            var isGreaterBottom = yPosition < (e.y + otherNewDaisy.properties.h);
+            var isGreaterBottom = yPosition < (otherNewDaisy.properties.y + otherNewDaisy.properties.h);
             if (!isGreaterTop && isGreaterBottom && !pushed && rand < 0.5) {
                 addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy);
                 pushed = true;
+                console.log(index, "first");
             }
             if (isGreaterTop && !pushed) {
                 addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy);
                 pushed = true;
+                console.log(index);
             }
         }
     }

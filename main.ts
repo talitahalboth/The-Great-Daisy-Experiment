@@ -88,15 +88,17 @@ document.addEventListener("click", (e) => {
             const combinedNoise = CombineNoise(mountainsRanges2[index].range)
             const yPosition = combinedNoise.pos[e.x] + mountainsRanges2[index].height
             const isGreaterTop = yPosition < (e.y)
-            const isGreaterBottom = yPosition < (e.y + otherNewDaisy.properties.h)
+            const isGreaterBottom = yPosition < (otherNewDaisy.properties.y + otherNewDaisy.properties.h)
             if (!isGreaterTop && isGreaterBottom && !pushed && rand < 0.5) {
                 addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
                 pushed = true
+                console.log(index, "first")
 
             }
             if (isGreaterTop && !pushed) {
                 addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
                 pushed = true
+                console.log(index)
             }
 
         }
