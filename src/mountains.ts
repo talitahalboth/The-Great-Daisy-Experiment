@@ -7,6 +7,8 @@ export class MountainRange {
     height: number
     daisies: Figure[]
     color: string
+    highestYAxis: number
+    lowestYAxis: number
     constructor(props: { range: Perlin[], height: number, daisies: Figure[], color: string }) {
         const { range, height, daisies, color } = props
         this.range = range
@@ -14,6 +16,8 @@ export class MountainRange {
         this.daisies = daisies
         this.color = color
         this.rangeCombined = CombineNoise(range)
+        this.lowestYAxis = Math.min(...this.rangeCombined.pos) + this.height	
+        this.highestYAxis = Math.max(...this.rangeCombined.pos) + this.height
 
     }
 
@@ -23,6 +27,8 @@ export class MountainRange {
             this.height = h
         }
         this.rangeCombined = CombineNoise(this.range)
+        this.lowestYAxis = Math.min(...this.rangeCombined.pos) + this.height	
+        this.highestYAxis = Math.max(...this.rangeCombined.pos) + this.height
     }
 
     drawDaisies(ctx: CanvasRenderingContext2D) {
@@ -39,7 +45,9 @@ export class MountainRange {
         ctx.beginPath()
         ctx.moveTo(0, this.height + this.rangeCombined.pos[0] ?? this.height);
         for (var i = 0; i < this.rangeCombined.pos.length; i++) {
-            ctx.lineTo(i, this.height + this.rangeCombined.pos[i]);
+            var y = this.rangeCombined.pos[i] + this.height
+            // if (y > this.highestYAxis) this.highestYAxis = y;
+            ctx.lineTo(i, y);
         }
         ctx.lineTo(w, h);
         ctx.lineTo(0, h);

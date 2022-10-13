@@ -1,11 +1,13 @@
 /// <reference path="main.ts" />
 /// <reference path="perlin.ts" />
 
+import { h, w } from "./utils"
+
 const backgroundCanvas = document.getElementById("background-layer") as HTMLCanvasElement ?? new HTMLCanvasElement
 const backgroundCtx = backgroundCanvas.getContext("2d") ?? new CanvasRenderingContext2D()
 
-let width = backgroundCanvas.width = 450
-let height = backgroundCanvas.height = 450
+let width = w
+let height = h
 const initialBackgroundHeight = height
 
 
@@ -14,8 +16,6 @@ addEventListener("resize", () => setSizeBackground())
 
 
 export function setSizeBackground() {
-    // height = backgroundCanvas.height = innerHeight
-    // width = backgroundCanvas.width = innerWidth
     backgroundCtx.globalCompositeOperation = 'destination-over'
     backgroundCtx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height)
 

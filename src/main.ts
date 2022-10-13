@@ -3,10 +3,7 @@ import { src1, src2, src3 } from "./daisyImages";
 import { Figure } from "./figure";
 import { MountainRange } from "./mountains";
 import { GenerateNoise } from "./perlin";
-import { addElementToOrderedList, calculateScale, canvas, ctx, getRandomArbitrary, getRandomInt, getRandomWithProb, h, imagesArray, initialHeight, int, lerpColor, mountainsRanges2, planeYCoordinate, scalingFactor, w } from "./utils";
-// import {styles} from "./index.css"
-
-
+import { addElementToOrderedList, calculateScale, canvas, ctx, getRandomArbitrary, getRandomInt, getRandomWithProb, h, imagesArray, initialHeight, int, lerpColor, linearFunctionBounded, mountainsRanges, planeYCoordinate, scalingFactor, w } from "./utils";
 
 const img1 = new Image()
 img1.src = src1
@@ -19,28 +16,28 @@ imagesArray.push(img2)
 imagesArray.push(img3)
 addEventListener("resize", () => setSize())
 
-function setSize() {
+const setSize = () => {
     console.log(innerHeight, innerWidth)
     console.log()
     // h = canvas.height = innerHeight
     // w = canvas.width = innerWidth
     ctx.globalCompositeOperation = 'destination-over'
-    mountainsRanges2.forEach((mountain, index) => {
+    mountainsRanges.forEach((mountain, index) => {
         mountain.updateMountains(h / (index + 1), w)
     })
     drawScene()
 }
 
 
-function drawScene() {
+const drawScene = () => {
     ctx.clearRect(0, 0, w, h)
-    mountainsRanges2.forEach((mountain) => {
+    mountainsRanges.forEach((mountain) => {
         mountain.drawDaisies(ctx)
         mountain.drawMountain(ctx, w, h)
     })
 }
 
-function getXY(canvas: { getBoundingClientRect: () => any; }, event: { clientX: number; clientY: number; }) {
+const getXY = (canvas: { getBoundingClientRect: () => any; }, event: { clientX: number; clientY: number; }) => {
     var rect = canvas.getBoundingClientRect();  // absolute position of canvas
     return {
         x: int(event.clientX - rect.left),
@@ -48,25 +45,52 @@ function getXY(canvas: { getBoundingClientRect: () => any; }, event: { clientX: 
     }
 }
 
-const createFigureFromCoordinates = (pos: { x: number, y: number }, rand: number, img: HTMLImageElement) => {
+const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, rand: number, img: HTMLImageElement) => {
     var pushed = false
-    for (let index = 0; index < mountainsRanges2.length; index++) {
+    for (let index = 0; index < mountainsRanges.length; index++) {
         const otherNewDaisy = new Figure(pos.x, pos.y, calculateScale(pos.y, planeYCoordinate + index * 50, scalingFactor, initialHeight), img)
-        const combinedNoise = mountainsRanges2[index].rangeCombined
-        const yPosition = combinedNoise.pos[pos.x] + mountainsRanges2[index].height
+        const combinedNoise = mountainsRanges[index].rangeCombined
+        const yPosition = combinedNoise.pos[pos.x] + mountainsRanges[index].height
         const isGreaterTop = yPosition < (pos.y)
         const isGreaterBottom = yPosition < (otherNewDaisy.properties.y + otherNewDaisy.properties.h)
         if (!isGreaterTop && isGreaterBottom && !pushed && rand < 0.5) {
-            addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
+            addElementToOrderedList(mountainsRanges[index].daisies, otherNewDaisy)
             pushed = true
         }
         if (isGreaterTop && !pushed) {
-            addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
+            addElementToOrderedList(mountainsRanges[index].daisies, otherNewDaisy)
             pushed = true
         }
 
     }
 }
+
+const generateRandomDaisies = () => {
+    const x = getRandomInt(w)
+    const yCoordinates = mountainsRanges.map((mountain) => {
+        const y = mountain.rangeCombined.pos[x] + mountain.height
+        return y
+    })
+    const pow = 3.5
+    const max = pow**yCoordinates.length
+    const rand = getRandomArbitrary(1,max)
+    let ix = 0
+    for (let index = 1; index < max; index *= pow) {
+        if (rand >= index) {
+            ix++
+        }
+    }
+    const img = imagesArray[getRandomInt(imagesArray.length)]
+
+    const pos = {x, y : getRandomArbitrary(mountainsRanges[ix-1].lowestYAxis,ix-1-1 >= 0 ? mountainsRanges[ix-1-1].highestYAxis : h)}
+    if (pos.y > yCoordinates[ix-1] ) {
+        const otherNewDaisy = new Figure(pos.x, pos.y, calculateScale(pos.y, planeYCoordinate + (ix-1) * 50, scalingFactor, initialHeight), img)
+        addElementToOrderedList(mountainsRanges[ix-1].daisies, otherNewDaisy)
+    }
+    // 3, 9, 27, 81, 243, 729, 2187, 6561, 19683, 59049
+    
+}
+
 
 document.addEventListener("click", (e) => {
 
@@ -74,19 +98,23 @@ document.addEventListener("click", (e) => {
     if (img) {
         const rand = Math.random()
         const pos = getXY(canvas, e)
-        createFigureFromCoordinates(pos, rand, img)
+        createFigureFromCoordinatesRandomPos(pos, rand, img)
     }
-
     for (let index = 0; index < 1000; index++) {
-        const y = getRandomWithProb()
-        const x = getRandomInt(w)
-        const img = imagesArray[getRandomInt(imagesArray.length)]
-        if (img) {
-            const rand = Math.random()
-            const pos = { x, y }
-            createFigureFromCoordinates(pos, rand, img)
-        }
+
+        generateRandomDaisies()
     }
+    // for (let index = 0; index < 1000; index++) {
+    //     const y = getRandomWithProb()
+    //     const x = getRandomInt(w)
+        
+    //     const img = imagesArray[getRandomInt(imagesArray.length)]
+    //     if (img) {
+    //         const rand = Math.random()
+    //         const pos = { x, y }
+    //         createFigureFromCoordinatesRandomPos(pos, rand, img)
+    //     }
+    // }
 
     drawScene()
 })
@@ -113,7 +141,7 @@ const createMountainRanges = () => {
             height: y,
             daisies: []
         })
-        mountainsRanges2.push(m)
+        mountainsRanges.push(m)
     }
 }
 

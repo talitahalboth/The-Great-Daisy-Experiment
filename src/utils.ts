@@ -5,8 +5,8 @@ export const canvas = document.getElementById("canvas") as HTMLCanvasElement ?? 
 export const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
 export const imagesArray: HTMLImageElement[] = []
 export const figuresArray: Figure[] = []
-export const mountainsRanges2: MountainRange[] = []
-export let w = canvas.width = 450
+export const mountainsRanges: MountainRange[] = []
+export let w = canvas.width = 600
 export let h = canvas.height = 450
 export const initialHeight = h
 export const planeYCoordinate = 50
@@ -80,25 +80,49 @@ const map = (v: number, a1: number, b1: number, a2: number, b2: number) => {
     return (((v - a1) / (b1 - a1)) * (b2 - a2) + a2);
 }
 
+export const linearFunctionBounded = (min: number, max: number) => {
+    const rand = Math.random()
+    return map(rand*rand, 0, 1, min, max)
+}
+
 const exponentialFunction = (a: number, b: number, r: number, t: number) => {
     return a * (Math.pow(b, t / r))
 }
 
-export const getRandomWithProb = () => {
+export const getRandomWithProbBounded = (min: number, max: number) => {
     var d = 30
     var rand = Math.random() * d
     var a = 3
     var b = 3
     var r = 5
     var y = exponentialFunction(a, b, r, rand)
-    var min = h * 0.2 + 40
     return int(
         map(
             y,
             0,
             exponentialFunction(a, b, r, d),
             min,
-            h
+            max
         )
     )
+}
+
+export const getRandomWithProb = () => {
+        var min = h * 0.2 + 40
+    return getRandomWithProbBounded(min, h)
+//     var d = 30
+//     var rand = Math.random() * d
+//     var a = 3
+//     var b = 3
+//     var r = 5
+//     var y = exponentialFunction(a, b, r, rand)
+//     return int(
+//         map(
+//             y,
+//             0,
+//             exponentialFunction(a, b, r, d),
+//             min,
+//             h
+//         )
+//     )
 }

@@ -6,11 +6,13 @@ interface Properties {
     h: number
 }
 
-const initialSize = 3
+const initialSize = 5
 export class Figure {
 
     properties: Properties
     img: HTMLImageElement
+    maxY: number
+    minY: number
     constructor(newX: number, newY: number, scale: number, img: HTMLImageElement) {
         var randomScale = Math.random()
         this.img = img
@@ -29,6 +31,12 @@ export class Figure {
     }
     draw(ctx: CanvasRenderingContext2D) {
 
+        // ctx.fillStyle = "white"
+        // ctx.beginPath()
+        // ctx.rect(this.properties.x, this.properties.y, this.properties.w, this.properties.h)
+        // ctx.closePath()
+        // ctx.fill()
+        // ctx.stroke()
         ctx.drawImage(
             this.img,
             Math.floor(this.properties.x),

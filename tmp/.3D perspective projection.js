@@ -3,7 +3,7 @@
 // //creating a canvas using JS
 // var canvas = document.createElement("canvas");
 // //making the canvas fullscreen
-// var w = canvas.width = window.innerWidth;
+// var w = canvas.width = 700;
 // var h = canvas.height = window.innerHeight;
 
 // var fov = 250; //pixels are 250px away from us
