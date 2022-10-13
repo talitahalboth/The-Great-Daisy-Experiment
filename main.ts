@@ -53,7 +53,7 @@ function getXY(canvas: { getBoundingClientRect: () => any; }, event: { clientX: 
 const createFigureFromCoordinates = (pos: { x: number, y: number }, rand: number, img: HTMLImageElement) => {
     var pushed = false
     for (let index = 0; index < mountainsRanges2.length; index++) {
-        const otherNewDaisy = new Figure(pos.x, pos.y, calculateScale(pos.y, planeYCoordinate + index * 40, scalingFactor, initialHeight), img)
+        const otherNewDaisy = new Figure(pos.x, pos.y, calculateScale(pos.y, planeYCoordinate + index * 10, scalingFactor, initialHeight), img)
         const combinedNoise = CombineNoise(mountainsRanges2[index].range)
         const yPosition = combinedNoise.pos[pos.x] + mountainsRanges2[index].height
         const isGreaterTop = yPosition < (pos.y)
@@ -76,7 +76,6 @@ document.addEventListener("click", (e) => {
     if (img) {
         const rand = Math.random()
         const pos = getXY(canvas, e)
-        // createFigureFromCoordinates(e, rand)
         createFigureFromCoordinates(pos, rand, img)
     }
 
@@ -88,23 +87,6 @@ document.addEventListener("click", (e) => {
             const rand = Math.random()
             const pos = { x, y }
             createFigureFromCoordinates(pos, rand, img)
-            // var pushed = false
-            // for (let index = 0; index < mountainsRanges2.length; index++) {
-            //     const otherNewDaisy = new Figure(x, y, calculateScale(y, planeYCoordinate + index * 50, scalingFactor, initialHeight), img)
-            //     const combinedNoise = CombineNoise(mountainsRanges2[index].range)
-            //     const yPosition = combinedNoise.pos[x] + mountainsRanges2[index].height
-            //     const isGreaterTop = yPosition < (y)
-            //     const isGreaterBottom = yPosition < (otherNewDaisy.properties.y + otherNewDaisy.properties.h)
-            //     if (!isGreaterTop && isGreaterBottom && !pushed && rand < 0.5) {
-            //         addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
-            //         pushed = true
-            //     }
-            //     if (isGreaterTop && !pushed) {
-            //         addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
-            //         pushed = true
-            //     }
-
-            // }
         }
     }
 

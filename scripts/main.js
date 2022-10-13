@@ -37,7 +37,7 @@ function getXY(canvas, event) {
 var createFigureFromCoordinates = function (pos, rand, img) {
     var pushed = false;
     for (var index = 0; index < mountainsRanges2.length; index++) {
-        var otherNewDaisy = new Figure(pos.x, pos.y, calculateScale(pos.y, planeYCoordinate + index * 40, scalingFactor, initialHeight), img);
+        var otherNewDaisy = new Figure(pos.x, pos.y, calculateScale(pos.y, planeYCoordinate + index * 10, scalingFactor, initialHeight), img);
         var combinedNoise = CombineNoise(mountainsRanges2[index].range);
         var yPosition = combinedNoise.pos[pos.x] + mountainsRanges2[index].height;
         var isGreaterTop = yPosition < (pos.y);
@@ -57,7 +57,6 @@ document.addEventListener("click", function (e) {
     if (img) {
         var rand = Math.random();
         var pos = getXY(canvas, e);
-        // createFigureFromCoordinates(e, rand)
         createFigureFromCoordinates(pos, rand, img);
     }
     for (var index = 0; index < 1000; index++) {
@@ -68,22 +67,6 @@ document.addEventListener("click", function (e) {
             var rand = Math.random();
             var pos = { x: x, y: y };
             createFigureFromCoordinates(pos, rand, img_1);
-            // var pushed = false
-            // for (let index = 0; index < mountainsRanges2.length; index++) {
-            //     const otherNewDaisy = new Figure(x, y, calculateScale(y, planeYCoordinate + index * 50, scalingFactor, initialHeight), img)
-            //     const combinedNoise = CombineNoise(mountainsRanges2[index].range)
-            //     const yPosition = combinedNoise.pos[x] + mountainsRanges2[index].height
-            //     const isGreaterTop = yPosition < (y)
-            //     const isGreaterBottom = yPosition < (otherNewDaisy.properties.y + otherNewDaisy.properties.h)
-            //     if (!isGreaterTop && isGreaterBottom && !pushed && rand < 0.5) {
-            //         addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
-            //         pushed = true
-            //     }
-            //     if (isGreaterTop && !pushed) {
-            //         addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
-            //         pushed = true
-            //     }
-            // }
         }
     }
     drawScene();
