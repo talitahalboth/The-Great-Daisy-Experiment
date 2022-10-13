@@ -1,4 +1,4 @@
-var initialSize = 5;
+var initialSize = 3;
 var Figure = /** @class */ (function () {
     function Figure(newX, newY, scale, img) {
         var randomScale = Math.random();

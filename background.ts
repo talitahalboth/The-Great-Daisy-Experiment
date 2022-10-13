@@ -4,8 +4,8 @@
 const backgroundCanvas = document.getElementById("background-layer") as HTMLCanvasElement ?? new HTMLCanvasElement
 const backgroundCtx = backgroundCanvas.getContext("2d") ?? new CanvasRenderingContext2D()
 
-let width = backgroundCanvas.width = window.innerWidth
-let height = backgroundCanvas.height = window.innerHeight
+let width = backgroundCanvas.width = 450
+let height = backgroundCanvas.height = 450
 const initialBackgroundHeight = height
 
 
@@ -14,8 +14,8 @@ addEventListener("resize", () => setSizeBackground())
 
 
 function setSizeBackground() {
-    height = backgroundCanvas.height = innerHeight
-    width = backgroundCanvas.width = innerWidth
+    // height = backgroundCanvas.height = innerHeight
+    // width = backgroundCanvas.width = innerWidth
     backgroundCtx.globalCompositeOperation = 'destination-over'
     backgroundCtx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height)
 

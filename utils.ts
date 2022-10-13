@@ -4,14 +4,14 @@ const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
 const imagesArray: HTMLImageElement[] = []
 const figuresArray: Figure[] = []
 const mountainsRanges2: MountainRange[] = []
-let w = canvas.width = window.innerWidth
-let h = canvas.height = window.innerHeight
+let w = canvas.width = 450
+let h = canvas.height = 450
 const initialHeight = h
 const planeYCoordinate = 50
 const scalingFactor = 8
 let closestToXAxis = h
 
-var hexToRGB = function (hex: string) {
+const hexToRGB = (hex: string) => {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
         r: parseInt(result[1], 16),
@@ -20,24 +20,24 @@ var hexToRGB = function (hex: string) {
     } : null;
 };
 
-var int = function (n: number) {
+const int = (n: number) => {
     return Math.floor(n);
 };
-var componentToHex = function (c: any) {
+const componentToHex = (c: any) => {
     var hex = int(c).toString(16);
     return hex.length == 1 ? "0" + hex : hex;
 };
 
-var rgbToHex = function (r: number, g: number, b: number) {
+const rgbToHex = (r: number, g: number, b: number) => {
     return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 };
 
-var lerp = function (a: number, b: number, n: number) {
+const lerp = (a: number, b: number, n: number) => {
     return Math.abs((b - a) * n + a);
 };
 
 
-var lerpColor = function (beginning: string, end: string, percent: number) {
+const lerpColor = (beginning: string, end: string, percent: number) => {
     var c1 = hexToRGB(beginning) ?? { r: 0, b: 0, g: 0 };
     var c2 = hexToRGB(end) ?? { r: 0, b: 0, g: 0 };
     return rgbToHex(
@@ -47,11 +47,6 @@ var lerpColor = function (beginning: string, end: string, percent: number) {
     );
 };
 
-
-
-var map = function (v: number, a1: number, b1: number, a2: number, b2: number) {
-    return (((v - a1) / (b1 - a1)) * (b2 - a2) + a2);
-};
 
 
 
@@ -72,25 +67,29 @@ const calculateScale = (y: number, planeYCoordinate: number, scalingFactor: numb
     return scale
 }
 
-function getRandomArbitrary(min: number, max: number) {
+const getRandomArbitrary = (min: number, max: number) => {
     return Math.random() * (max - min) + min;
 }
-function getRandomInt(max: number) {
+const getRandomInt = (max: number) => {
     return int(Math.random() * max);
 }
 
-function exponentialFunction(a: number, b: number, r: number, t: number) {
+const map = (v: number, a1: number, b1: number, a2: number, b2: number) => {
+    return (((v - a1) / (b1 - a1)) * (b2 - a2) + a2);
+}
+
+const exponentialFunction = (a: number, b: number, r: number, t: number) => {
     return a * (Math.pow(b, t / r))
 }
 
-function getRandomWithProb() {
+const getRandomWithProb = () => {
     var d = 30
     var rand = Math.random() * d
     var a = 3
     var b = 3
     var r = 5
     var y = exponentialFunction(a, b, r, rand)
-    var min = h / 3.5
+    var min = h * 0.2 + 40
     return int(
         map(
             y,

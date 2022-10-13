@@ -1,6 +1,6 @@
 #canvas {
-    /* height: 450px;
-    width: 700px; */
+    height: 450px;
+    width: 450px;
     position: fixed;
     z-index: -1;
 }
@@ -19,8 +19,8 @@ body {
 }
 
 #background-layer {
-    /* height: 450px;
-    width: 700px; */
+    height: 450px;
+    width: 450px;
     position: fixed;
     z-index: -2;
 }

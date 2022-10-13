@@ -12,8 +12,8 @@ addEventListener("resize", function () { return setSize(); });
 function setSize() {
     console.log(innerHeight, innerWidth);
     console.log();
-    h = canvas.height = innerHeight;
-    w = canvas.width = innerWidth;
+    // h = canvas.height = innerHeight
+    // w = canvas.width = innerWidth
     ctx.globalCompositeOperation = 'destination-over';
     mountainsRanges2.forEach(function (mountain, index) {
         mountain.updateMountains(h / (index + 1));
@@ -34,10 +34,10 @@ function getXY(canvas, event) {
         y: int(event.clientY - rect.top)
     };
 }
-var createFigureFromCoordinates = function (pos, rand) {
+var createFigureFromCoordinates = function (pos, rand, img) {
     var pushed = false;
     for (var index = 0; index < mountainsRanges2.length; index++) {
-        var otherNewDaisy = new Figure(pos.x, pos.y, calculateScale(pos.y, planeYCoordinate + index * 50, scalingFactor, initialHeight), img);
+        var otherNewDaisy = new Figure(pos.x, pos.y, calculateScale(pos.y, planeYCoordinate + index * 40, scalingFactor, initialHeight), img);
         var combinedNoise = CombineNoise(mountainsRanges2[index].range);
         var yPosition = combinedNoise.pos[pos.x] + mountainsRanges2[index].height;
         var isGreaterTop = yPosition < (pos.y);
@@ -58,32 +58,34 @@ document.addEventListener("click", function (e) {
         var rand = Math.random();
         var pos = getXY(canvas, e);
         // createFigureFromCoordinates(e, rand)
-        createFigureFromCoordinates(pos, rand);
+        createFigureFromCoordinates(pos, rand, img);
     }
-    // for (let index = 0; index < 200; index++) {
-    //     const y = getRandomWithProb()
-    //     const x = getRandomInt(w)
-    //     const img = imagesArray[getRandomInt(imagesArray.length)]
-    //     if (img) {
-    //         const rand = Math.random();
-    //         var pushed = false
-    //         for (let index = 0; index < mountainsRanges2.length; index++) {
-    //             const otherNewDaisy = new Figure(x, y, calculateScale(y, planeYCoordinate + index * 50, scalingFactor, initialHeight), img)
-    //             const combinedNoise = CombineNoise(mountainsRanges2[index].range)
-    //             const yPosition = combinedNoise.pos[x] + mountainsRanges2[index].height
-    //             const isGreaterTop = yPosition < (y)
-    //             const isGreaterBottom = yPosition < (otherNewDaisy.properties.y + otherNewDaisy.properties.h)
-    //             if (!isGreaterTop && isGreaterBottom && !pushed && rand < 0.5) {
-    //                 addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
-    //                 pushed = true
-    //             }
-    //             if (isGreaterTop && !pushed) {
-    //                 addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
-    //                 pushed = true
-    //             }
-    //         }
-    //     }
-    // }
+    for (var index = 0; index < 1000; index++) {
+        var y = getRandomWithProb();
+        var x = getRandomInt(w);
+        var img_1 = imagesArray[getRandomInt(imagesArray.length)];
+        if (img_1) {
+            var rand = Math.random();
+            var pos = { x: x, y: y };
+            createFigureFromCoordinates(pos, rand, img_1);
+            // var pushed = false
+            // for (let index = 0; index < mountainsRanges2.length; index++) {
+            //     const otherNewDaisy = new Figure(x, y, calculateScale(y, planeYCoordinate + index * 50, scalingFactor, initialHeight), img)
+            //     const combinedNoise = CombineNoise(mountainsRanges2[index].range)
+            //     const yPosition = combinedNoise.pos[x] + mountainsRanges2[index].height
+            //     const isGreaterTop = yPosition < (y)
+            //     const isGreaterBottom = yPosition < (otherNewDaisy.properties.y + otherNewDaisy.properties.h)
+            //     if (!isGreaterTop && isGreaterBottom && !pushed && rand < 0.5) {
+            //         addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
+            //         pushed = true
+            //     }
+            //     if (isGreaterTop && !pushed) {
+            //         addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
+            //         pushed = true
+            //     }
+            // }
+        }
+    }
     drawScene();
 });
 addEventListener("resize", function () { return setSize(); });
@@ -96,7 +98,7 @@ var createMountainRanges = function () {
     var heightUnit = (bottom - top) / (layers + 1);
     for (var index = 0; index < layers; index++) {
         var y = top + getRandomArbitrary(heightUnit * index, heightUnit * (index + 1));
-        var noise = GenerateNoise(100, 128, 1, 1, w);
+        var noise = GenerateNoise(40, 100, 4, 1, w);
         var m = new MountainRange({
             color: lerpColor(start, end, index / layers),
             range: noise,

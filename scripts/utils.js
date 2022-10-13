@@ -4,8 +4,8 @@ var ctx = (_b = canvas.getContext("2d")) !== null && _b !== void 0 ? _b : new Ca
 var imagesArray = [];
 var figuresArray = [];
 var mountainsRanges2 = [];
-var w = canvas.width = window.innerWidth;
-var h = canvas.height = window.innerHeight;
+var w = canvas.width = 450;
+var h = canvas.height = 450;
 var initialHeight = h;
 var planeYCoordinate = 50;
 var scalingFactor = 8;
@@ -37,9 +37,6 @@ var lerpColor = function (beginning, end, percent) {
     var c2 = (_b = hexToRGB(end)) !== null && _b !== void 0 ? _b : { r: 0, b: 0, g: 0 };
     return rgbToHex(lerp(c1.r, c2.r, percent), lerp(c1.g, c2.g, percent), lerp(c1.b, c2.b, percent));
 };
-var map = function (v, a1, b1, a2, b2) {
-    return (((v - a1) / (b1 - a1)) * (b2 - a2) + a2);
-};
 var addElementToOrderedList = (function (figArray, element) {
     for (var i = 0; i < figArray.length; i++) {
         if (figArray[i].properties.y <= element.properties.y) {
@@ -54,22 +51,25 @@ var calculateScale = function (y, planeYCoordinate, scalingFactor, initialHeight
     var scale = signedScale > 0 ? signedScale : 0;
     return scale;
 };
-function getRandomArbitrary(min, max) {
+var getRandomArbitrary = function (min, max) {
     return Math.random() * (max - min) + min;
-}
-function getRandomInt(max) {
+};
+var getRandomInt = function (max) {
     return int(Math.random() * max);
-}
-function exponentialFunction(a, b, r, t) {
+};
+var map = function (v, a1, b1, a2, b2) {
+    return (((v - a1) / (b1 - a1)) * (b2 - a2) + a2);
+};
+var exponentialFunction = function (a, b, r, t) {
     return a * (Math.pow(b, t / r));
-}
-function getRandomWithProb() {
+};
+var getRandomWithProb = function () {
     var d = 30;
     var rand = Math.random() * d;
     var a = 3;
     var b = 3;
     var r = 5;
     var y = exponentialFunction(a, b, r, rand);
-    var min = h / 3.5;
+    var min = h * 0.2 + 40;
     return int(map(y, 0, exponentialFunction(a, b, r, d), min, h));
-}
+};
