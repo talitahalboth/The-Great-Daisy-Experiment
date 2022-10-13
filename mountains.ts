@@ -13,7 +13,7 @@ class MountainRange {
     }
 
     updateMountains(h: number) {
-        this.range.forEach((noise) => noise.fillPos(w + 1))
+        this.range.forEach((noise) => noise.fillPos(w))
         if (this.height === 0) {
             this.height = h
         }
@@ -31,7 +31,7 @@ class MountainRange {
         ctx.fillStyle = this.color
         ctx.strokeStyle = this.color
         ctx.beginPath()
-        ctx.moveTo(0, this.height);
+        ctx.moveTo(0, this.height + combinedNoise.pos[0] ?? this.height);
         for (var i = 0; i < combinedNoise.pos.length; i++) {
             ctx.lineTo(i, this.height + combinedNoise.pos[i]);
         }

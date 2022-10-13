@@ -9,10 +9,10 @@ function PSNG() {
     };
 }
 //cosine interpolation
-function Interpolate(pa, pb, px) {
+var Interpolate = function (pa, pb, px) {
     var ft = px * Math.PI, f = (1 - Math.cos(ft)) * 0.5;
     return pa * (1 - f) + pb * f;
-}
+};
 var Perlin = /** @class */ (function () {
     function Perlin(amp, wl) {
         this.index = 0;
@@ -44,7 +44,7 @@ var Perlin = /** @class */ (function () {
     return Perlin;
 }());
 //octave generator
-function GenerateNoise(amp, wl, octaves, divisor, width) {
+var GenerateNoise = function (amp, wl, octaves, divisor, width) {
     var result = [];
     for (var i = 0; i < octaves; i++) {
         result.push(new Perlin(amp, wl));
@@ -52,9 +52,9 @@ function GenerateNoise(amp, wl, octaves, divisor, width) {
         wl /= divisor;
     }
     return result;
-}
+};
 //combines octaves together
-function CombineNoise(pl) {
+var CombineNoise = function (pl) {
     var result = { pos: [] };
     if (!pl[0].pos)
         return result;
@@ -66,4 +66,4 @@ function CombineNoise(pl) {
         result.pos.push(total);
     }
     return result;
-}
+};

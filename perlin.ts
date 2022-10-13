@@ -13,7 +13,7 @@ function PSNG() {
 }
 
 //cosine interpolation
-function Interpolate(pa: number, pb: number, px: number) {
+const Interpolate = (pa: number, pb: number, px: number) => {
     var ft = px * Math.PI,
         f = (1 - Math.cos(ft)) * 0.5;
     return pa * (1 - f) + pb * f;
@@ -63,7 +63,7 @@ class Perlin {
 
 
 //octave generator
-function GenerateNoise(amp: number, wl: number, octaves: number, divisor: number, width: number) {
+const GenerateNoise = (amp: number, wl: number, octaves: number, divisor: number, width: number) => {
     var result: Perlin[] = [];
 
     for (var i = 0; i < octaves; i++) {
@@ -75,7 +75,7 @@ function GenerateNoise(amp: number, wl: number, octaves: number, divisor: number
 }
 
 //combines octaves together
-function CombineNoise(pl: string | any[]) {
+const CombineNoise = (pl: string | any[]) => {
     var result: { pos: number[] } = { pos: [] };
     if (!pl[0].pos) return result
     for (var i = 0, total = 0, j = 0; i < pl[0].pos.length; i++) {

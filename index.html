@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>var exports = {};</script>
 
+    <script src="scripts/utils.js" async></script>
     <script src="scripts/mountains.js" async></script>
     <script src="scripts/figure.js" async></script>
     <script src="scripts/perlin.js" async></script>
@@ -19,8 +20,11 @@
 
 
 <body>
-    <canvas id="canvas"></canvas>
-    <canvas id="background-layer" width="480" height="320"></canvas>
+    <div id="canvas-container">
+        <canvas id="canvas"></canvas>
+        <canvas id="background-layer" width="480" height="320"></canvas>
+
+    </div>
     <!-- <canvas id="landscape" width="720" height="405"></canvas> -->
 
     <!-- <button id="newGame">Restart game</button>

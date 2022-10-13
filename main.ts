@@ -14,17 +14,6 @@ img3.src = "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalo
 
 
 
-const canvas = document.getElementById("canvas") as HTMLCanvasElement ?? new HTMLCanvasElement
-const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
-const imagesArray: HTMLImageElement[] = []
-var pathCleared = true
-const figuresArray: Figure[] = []
-const mountainsRanges2: MountainRange[] = []
-let w = canvas.width = window.innerWidth
-let h = canvas.height = window.innerHeight
-const initialHeight = h
-const planeYCoordinate = 50
-const scalingFactor = 4
 
 
 imagesArray.push(img)
@@ -33,17 +22,13 @@ imagesArray.push(img3)
 addEventListener("resize", () => setSize())
 
 
-function getRandomArbitrary(min: number, max: number) {
-    return Math.random() * (max - min) + min;
-}
-function getRandomInt(max: number) {
-    return int(Math.random() * max);
-}
 
 
 function setSize() {
-    h = canvas.height = innerHeight
-    w = canvas.width = innerWidth
+    console.log(innerHeight, innerWidth)
+    console.log()
+    h = canvas.height = document.getElementById("canvas")?.clientHeight ?? innerHeight
+    w = canvas.width = document.getElementById("canvas")?.clientWidth ?? innerWidth
     ctx.globalCompositeOperation = 'destination-over'
     mountainsRanges2.forEach((mountain, index) => {
         mountain.updateMountains(h / (index + 1))
@@ -60,21 +45,32 @@ function drawScene() {
     })
 }
 
-const addElementToOrderedList = ((figArray: Figure[], element: Figure) => {
-    for (let i = 0; i < figArray.length; i++) {
-        if (figArray[i].properties.y <= element.properties.y) {
-            figArray.splice(i, 0, element)
-            return
-        }
+function getXY(canvas: { getBoundingClientRect: () => any; }, event: { clientX: number; clientY: number; }) {
+    var rect = canvas.getBoundingClientRect();  // absolute position of canvas
+    return {
+        x: int(event.clientX - rect.left),
+        y: int(event.clientY - rect.top)
     }
-    figArray.push(element)
-})
+}
 
+const createFigureFromCoordinates = (pos: { x: number, y: number }, rand: number) => {
+    var pushed = false
+    for (let index = 0; index < mountainsRanges2.length; index++) {
+        const otherNewDaisy = new Figure(pos.x, pos.y, calculateScale(pos.y, planeYCoordinate + index * 50, scalingFactor, initialHeight), img)
+        const combinedNoise = CombineNoise(mountainsRanges2[index].range)
+        const yPosition = combinedNoise.pos[pos.x] + mountainsRanges2[index].height
+        const isGreaterTop = yPosition < (pos.y)
+        const isGreaterBottom = yPosition < (otherNewDaisy.properties.y + otherNewDaisy.properties.h)
+        if (!isGreaterTop && isGreaterBottom && !pushed && rand < 0.5) {
+            addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
+            pushed = true
+        }
+        if (isGreaterTop && !pushed) {
+            addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
+            pushed = true
+        }
 
-const calculateScale = (y: number, planeYCoordinate: number, scalingFactor: number, initialHeight: number) => {
-    const signedScale = (y - ((initialHeight) / (scalingFactor * 2))) / planeYCoordinate
-    const scale = signedScale > 0 ? signedScale : 0
-    return scale
+    }
 }
 
 document.addEventListener("click", (e) => {
@@ -82,76 +78,42 @@ document.addEventListener("click", (e) => {
     const img = imagesArray[getRandomInt(imagesArray.length)]
     if (img) {
         const rand = Math.random();
-        var pushed = false
-        for (let index = 0; index < mountainsRanges2.length; index++) {
-            const otherNewDaisy = new Figure(e.x, e.y, calculateScale(e.y, planeYCoordinate + index * 50, scalingFactor, initialHeight), img)
-            const combinedNoise = CombineNoise(mountainsRanges2[index].range)
-            const yPosition = combinedNoise.pos[e.x] + mountainsRanges2[index].height
-            const isGreaterTop = yPosition < (e.y)
-            const isGreaterBottom = yPosition < (otherNewDaisy.properties.y + otherNewDaisy.properties.h)
-            if (!isGreaterTop && isGreaterBottom && !pushed && rand < 0.5) {
-                addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
-                pushed = true
-                console.log(index, "first")
-
-            }
-            if (isGreaterTop && !pushed) {
-                addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
-                pushed = true
-                console.log(index)
-            }
-
-        }
-
-
+        const pos = getXY(canvas, e)
+        // createFigureFromCoordinates(e, rand)
+        createFigureFromCoordinates(pos, rand)
     }
+
+    // for (let index = 0; index < 200; index++) {
+    //     const y = getRandomWithProb()
+    //     const x = getRandomInt(w)
+    //     const img = imagesArray[getRandomInt(imagesArray.length)]
+    //     if (img) {
+    //         const rand = Math.random();
+    //         var pushed = false
+    //         for (let index = 0; index < mountainsRanges2.length; index++) {
+    //             const otherNewDaisy = new Figure(x, y, calculateScale(y, planeYCoordinate + index * 50, scalingFactor, initialHeight), img)
+    //             const combinedNoise = CombineNoise(mountainsRanges2[index].range)
+    //             const yPosition = combinedNoise.pos[x] + mountainsRanges2[index].height
+    //             const isGreaterTop = yPosition < (y)
+    //             const isGreaterBottom = yPosition < (otherNewDaisy.properties.y + otherNewDaisy.properties.h)
+    //             if (!isGreaterTop && isGreaterBottom && !pushed && rand < 0.5) {
+    //                 addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
+    //                 pushed = true
+    //             }
+    //             if (isGreaterTop && !pushed) {
+    //                 addElementToOrderedList(mountainsRanges2[index].daisies, otherNewDaisy)
+    //                 pushed = true
+    //             }
+
+    //         }
+    //     }
+    // }
 
     drawScene()
 })
 
 addEventListener("resize", () => setSize())
 
-var hexToRGB = function (hex: string) {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
-};
-
-var int = function (n: number) {
-    return Math.floor(n);
-};
-var componentToHex = function (c: any) {
-    var hex = int(c).toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
-};
-
-var rgbToHex = function (r: number, g: number, b: number) {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-};
-
-var lerp = function (a: number, b: number, n: number) {
-    return Math.abs((b - a) * n + a);
-};
-
-
-var lerpColor = function (beginning: string, end: string, percent: number) {
-    var c1 = hexToRGB(beginning) ?? { r: 0, b: 0, g: 0 };
-    var c2 = hexToRGB(end) ?? { r: 0, b: 0, g: 0 };
-    return rgbToHex(
-        lerp(c1.r, c2.r, percent),
-        lerp(c1.g, c2.g, percent),
-        lerp(c1.b, c2.b, percent)
-    );
-};
-
-
-
-var map = function (v: number, a1: number, b1: number, a2: number, b2: number) {
-    return (((v - a1) / (b1 - a1)) * (b2 - a2) + a2);
-};
 
 const createMountainRanges = () => {
     const start = "#447741";
@@ -165,6 +127,7 @@ const createMountainRanges = () => {
     for (let index = 0; index < layers; index++) {
         var y = top + getRandomArbitrary(heightUnit * index, heightUnit * (index + 1));
         const noise = GenerateNoise(100, 128, 1, 1, w)
+
         const m = new MountainRange({
             color: lerpColor(start, end, index / layers),
             range: noise,

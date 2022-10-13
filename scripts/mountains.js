@@ -7,7 +7,7 @@ var MountainRange = /** @class */ (function () {
         this.color = color;
     }
     MountainRange.prototype.updateMountains = function (h) {
-        this.range.forEach(function (noise) { return noise.fillPos(w + 1); });
+        this.range.forEach(function (noise) { return noise.fillPos(w); });
         if (this.height === 0) {
             this.height = h;
         }
@@ -18,11 +18,12 @@ var MountainRange = /** @class */ (function () {
         });
     };
     MountainRange.prototype.drawMountain = function () {
+        var _a;
         var combinedNoise = CombineNoise(this.range);
         ctx.fillStyle = this.color;
         ctx.strokeStyle = this.color;
         ctx.beginPath();
-        ctx.moveTo(0, this.height);
+        ctx.moveTo(0, (_a = this.height + combinedNoise.pos[0]) !== null && _a !== void 0 ? _a : this.height);
         for (var i = 0; i < combinedNoise.pos.length; i++) {
             ctx.lineTo(i, this.height + combinedNoise.pos[i]);
         }

@@ -1,4 +1,6 @@
 #canvas {
+    /* height: 450px;
+    width: 700px; */
     position: fixed;
     z-index: -1;
 }
@@ -9,12 +11,16 @@ body {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-#background-layer {
-    position: fixed;
-    z-index: -2;
+#canvas-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
-#landscape {
+#background-layer {
+    /* height: 450px;
+    width: 700px; */
     position: fixed;
     z-index: -2;
 }
