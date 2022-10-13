@@ -1,15 +1,18 @@
+"use strict";
 var _a, _b;
-var canvas = (_a = document.getElementById("canvas")) !== null && _a !== void 0 ? _a : new HTMLCanvasElement;
-var ctx = (_b = canvas.getContext("2d")) !== null && _b !== void 0 ? _b : new CanvasRenderingContext2D();
-var imagesArray = [];
-var figuresArray = [];
-var mountainsRanges2 = [];
-var w = canvas.width = 450;
-var h = canvas.height = 450;
-var initialHeight = h;
-var planeYCoordinate = 50;
-var scalingFactor = 8;
-var closestToXAxis = h;
+exports.__esModule = true;
+exports.getRandomWithProb = exports.getRandomInt = exports.getRandomArbitrary = exports.calculateScale = exports.addElementToOrderedList = exports.lerpColor = exports.int = exports.closestToXAxis = exports.scalingFactor = exports.planeYCoordinate = exports.initialHeight = exports.h = exports.w = exports.mountainsRanges2 = exports.figuresArray = exports.imagesArray = exports.ctx = exports.canvas = void 0;
+exports.canvas = (_a = document.getElementById("canvas")) !== null && _a !== void 0 ? _a : new HTMLCanvasElement;
+exports.ctx = (_b = exports.canvas.getContext("2d")) !== null && _b !== void 0 ? _b : new CanvasRenderingContext2D();
+exports.imagesArray = [];
+exports.figuresArray = [];
+exports.mountainsRanges2 = [];
+exports.w = exports.canvas.width = 450;
+exports.h = exports.canvas.height = 450;
+exports.initialHeight = exports.h;
+exports.planeYCoordinate = 50;
+exports.scalingFactor = 8;
+exports.closestToXAxis = exports.h;
 var hexToRGB = function (hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
@@ -21,8 +24,9 @@ var hexToRGB = function (hex) {
 var int = function (n) {
     return Math.floor(n);
 };
+exports.int = int;
 var componentToHex = function (c) {
-    var hex = int(c).toString(16);
+    var hex = (0, exports.int)(c).toString(16);
     return hex.length == 1 ? "0" + hex : hex;
 };
 var rgbToHex = function (r, g, b) {
@@ -37,7 +41,8 @@ var lerpColor = function (beginning, end, percent) {
     var c2 = (_b = hexToRGB(end)) !== null && _b !== void 0 ? _b : { r: 0, b: 0, g: 0 };
     return rgbToHex(lerp(c1.r, c2.r, percent), lerp(c1.g, c2.g, percent), lerp(c1.b, c2.b, percent));
 };
-var addElementToOrderedList = (function (figArray, element) {
+exports.lerpColor = lerpColor;
+exports.addElementToOrderedList = (function (figArray, element) {
     for (var i = 0; i < figArray.length; i++) {
         if (figArray[i].properties.y <= element.properties.y) {
             figArray.splice(i, 0, element);
@@ -47,16 +52,19 @@ var addElementToOrderedList = (function (figArray, element) {
     figArray.push(element);
 });
 var calculateScale = function (y, planeYCoordinate, scalingFactor, initialHeight) {
-    var signedScale = (y - ((initialHeight) / (scalingFactor))) / planeYCoordinate;
+    var signedScale = (y - (initialHeight) / (scalingFactor)) / planeYCoordinate;
     var scale = signedScale > 0 ? signedScale : 0;
     return scale;
 };
+exports.calculateScale = calculateScale;
 var getRandomArbitrary = function (min, max) {
     return Math.random() * (max - min) + min;
 };
+exports.getRandomArbitrary = getRandomArbitrary;
 var getRandomInt = function (max) {
-    return int(Math.random() * max);
+    return (0, exports.int)(Math.random() * max);
 };
+exports.getRandomInt = getRandomInt;
 var map = function (v, a1, b1, a2, b2) {
     return (((v - a1) / (b1 - a1)) * (b2 - a2) + a2);
 };
@@ -70,6 +78,7 @@ var getRandomWithProb = function () {
     var b = 3;
     var r = 5;
     var y = exponentialFunction(a, b, r, rand);
-    var min = h * 0.2 + 40;
-    return int(map(y, 0, exponentialFunction(a, b, r, d), min, h));
+    var min = exports.h * 0.2 + 40;
+    return (0, exports.int)(map(y, 0, exponentialFunction(a, b, r, d), min, exports.h));
 };
+exports.getRandomWithProb = getRandomWithProb;

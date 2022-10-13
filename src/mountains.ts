@@ -1,5 +1,6 @@
 class MountainRange {
     range: Perlin[]
+    rangeCombined: { pos: number[] }
     height: number
     daisies: Figure[]
     color: string
@@ -9,31 +10,33 @@ class MountainRange {
         this.height = height
         this.daisies = daisies
         this.color = color
+        this.rangeCombined = CombineNoise(range)
 
     }
 
-    updateMountains(h: number) {
+    updateMountains(h: number, w: number) {
         this.range.forEach((noise) => noise.fillPos(w))
         if (this.height === 0) {
             this.height = h
         }
+        this.rangeCombined = CombineNoise(this.range)
     }
 
-    drawDaisies() {
+    drawDaisies(ctx) {
         this.daisies.forEach((figure) => {
             figure.draw(ctx)
         })
     }
 
-    drawMountain() {
+    drawMountain(ctx, w, h) {
 
-        const combinedNoise = CombineNoise(this.range)
+        // const combinedNoise = CombineNoise(this.range)
         ctx.fillStyle = this.color
         ctx.strokeStyle = this.color
         ctx.beginPath()
-        ctx.moveTo(0, this.height + combinedNoise.pos[0] ?? this.height);
-        for (var i = 0; i < combinedNoise.pos.length; i++) {
-            ctx.lineTo(i, this.height + combinedNoise.pos[i]);
+        ctx.moveTo(0, this.height + this.rangeCombined.pos[0] ?? this.height);
+        for (var i = 0; i < this.rangeCombined.pos.length; i++) {
+            ctx.lineTo(i, this.height + this.rangeCombined.pos[i]);
         }
         ctx.lineTo(w, h);
         ctx.lineTo(0, h);

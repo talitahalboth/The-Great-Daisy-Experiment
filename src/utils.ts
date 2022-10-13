@@ -1,15 +1,15 @@
 
-const canvas = document.getElementById("canvas") as HTMLCanvasElement ?? new HTMLCanvasElement
-const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
-const imagesArray: HTMLImageElement[] = []
-const figuresArray: Figure[] = []
-const mountainsRanges2: MountainRange[] = []
-let w = canvas.width = 450
-let h = canvas.height = 450
-const initialHeight = h
-const planeYCoordinate = 50
-const scalingFactor = 8
-let closestToXAxis = h
+export const canvas = document.getElementById("canvas") as HTMLCanvasElement ?? new HTMLCanvasElement
+export const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
+export const imagesArray: HTMLImageElement[] = []
+export const figuresArray: Figure[] = []
+export const mountainsRanges2: MountainRange[] = []
+export let w = canvas.width = 450
+export let h = canvas.height = 450
+export const initialHeight = h
+export const planeYCoordinate = 50
+export const scalingFactor = 8
+export let closestToXAxis = h
 
 const hexToRGB = (hex: string) => {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -20,7 +20,7 @@ const hexToRGB = (hex: string) => {
     } : null;
 };
 
-const int = (n: number) => {
+export const int = (n: number) => {
     return Math.floor(n);
 };
 const componentToHex = (c: any) => {
@@ -37,7 +37,7 @@ const lerp = (a: number, b: number, n: number) => {
 };
 
 
-const lerpColor = (beginning: string, end: string, percent: number) => {
+export const lerpColor = (beginning: string, end: string, percent: number) => {
     var c1 = hexToRGB(beginning) ?? { r: 0, b: 0, g: 0 };
     var c2 = hexToRGB(end) ?? { r: 0, b: 0, g: 0 };
     return rgbToHex(
@@ -50,7 +50,7 @@ const lerpColor = (beginning: string, end: string, percent: number) => {
 
 
 
-const addElementToOrderedList = ((figArray: Figure[], element: Figure) => {
+export const addElementToOrderedList = ((figArray: Figure[], element: Figure) => {
     for (let i = 0; i < figArray.length; i++) {
         if (figArray[i].properties.y <= element.properties.y) {
             figArray.splice(i, 0, element)
@@ -61,16 +61,16 @@ const addElementToOrderedList = ((figArray: Figure[], element: Figure) => {
 })
 
 
-const calculateScale = (y: number, planeYCoordinate: number, scalingFactor: number, initialHeight: number) => {
-    const signedScale = (y - ((initialHeight) / (scalingFactor))) / planeYCoordinate
+export const calculateScale = (y: number, planeYCoordinate: number, scalingFactor: number, initialHeight: number) => {
+    const signedScale = (y - (initialHeight) / (scalingFactor)) / planeYCoordinate
     const scale = signedScale > 0 ? signedScale : 0
     return scale
 }
 
-const getRandomArbitrary = (min: number, max: number) => {
+export const getRandomArbitrary = (min: number, max: number) => {
     return Math.random() * (max - min) + min;
 }
-const getRandomInt = (max: number) => {
+export const getRandomInt = (max: number) => {
     return int(Math.random() * max);
 }
 
@@ -82,7 +82,7 @@ const exponentialFunction = (a: number, b: number, r: number, t: number) => {
     return a * (Math.pow(b, t / r))
 }
 
-const getRandomWithProb = () => {
+export const getRandomWithProb = () => {
     var d = 30
     var rand = Math.random() * d
     var a = 3
