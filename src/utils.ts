@@ -1,17 +1,33 @@
 import { Figure } from "./figure"
-import { MountainRange } from "./mountains"
+import { HillsWithDaisies } from "./mountains"
 
 export const canvas = document.getElementById("canvas") as HTMLCanvasElement ?? new HTMLCanvasElement
 export const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
 export const imagesArray: HTMLImageElement[] = []
 export const figuresArray: Figure[] = []
-export const mountainsRanges: MountainRange[] = []
-export let w = canvas.width = 600
+export const hillsWithDaisies: HillsWithDaisies[] = []
+export const mountainRanges: HillsWithDaisies[] = []
+export let w = canvas.width = 700
 export let h = canvas.height = 450
 export const initialHeight = h
 export const planeYCoordinate = 50
 export const scalingFactor = 8
 export let closestToXAxis = h
+
+export const calculateYFromXAndANgle = (x: number, y: number, width: number, angle: number) => {
+    return y + Math.sin(angle) * (x - width / 2)
+}
+
+
+const setSize = () => {
+    // console.log(innerHeight, innerWidth)
+    console.log()
+    h = canvas.height = innerHeight
+    w = canvas.width = innerWidth
+    ctx.globalCompositeOperation = 'destination-over'
+}
+addEventListener("resize", () => setSize())
+
 
 const hexToRGB = (hex: string) => {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -82,7 +98,7 @@ const map = (v: number, a1: number, b1: number, a2: number, b2: number) => {
 
 export const linearFunctionBounded = (min: number, max: number) => {
     const rand = Math.random()
-    return map(rand*rand, 0, 1, min, max)
+    return map(rand * rand, 0, 1, min, max)
 }
 
 const exponentialFunction = (a: number, b: number, r: number, t: number) => {
@@ -108,21 +124,21 @@ export const getRandomWithProbBounded = (min: number, max: number) => {
 }
 
 export const getRandomWithProb = () => {
-        var min = h * 0.2 + 40
+    var min = h * 0.2 + 40
     return getRandomWithProbBounded(min, h)
-//     var d = 30
-//     var rand = Math.random() * d
-//     var a = 3
-//     var b = 3
-//     var r = 5
-//     var y = exponentialFunction(a, b, r, rand)
-//     return int(
-//         map(
-//             y,
-//             0,
-//             exponentialFunction(a, b, r, d),
-//             min,
-//             h
-//         )
-//     )
+    //     var d = 30
+    //     var rand = Math.random() * d
+    //     var a = 3
+    //     var b = 3
+    //     var r = 5
+    //     var y = exponentialFunction(a, b, r, rand)
+    //     return int(
+    //         map(
+    //             y,
+    //             0,
+    //             exponentialFunction(a, b, r, d),
+    //             min,
+    //             h
+    //         )
+    //     )
 }

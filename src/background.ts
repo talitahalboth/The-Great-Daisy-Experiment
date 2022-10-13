@@ -1,34 +1,95 @@
 /// <reference path="main.ts" />
 /// <reference path="perlin.ts" />
 
-import { h, w } from "./utils"
+import { HillsWithDaisies } from "./mountains"
+import { GenerateNoise } from "./perlin"
+import { getRandomArbitrary, h, int, lerpColor, mountainRanges, w } from "./utils"
 
 const backgroundCanvas = document.getElementById("background-layer") as HTMLCanvasElement ?? new HTMLCanvasElement
 const backgroundCtx = backgroundCanvas.getContext("2d") ?? new CanvasRenderingContext2D()
 
-let width = w
-let height = h
+let width = backgroundCanvas.width = w
+let height = backgroundCanvas.height = h
 const initialBackgroundHeight = height
 
+const drawSunGradient = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
+    var gradient = ctx.createRadialGradient(w / 4, h / 6, 1, w / 3, h / 6, w);
 
+    // grd.addColorStop(0, "#9eb9d4");
+    // gradient.addColorStop(1, "#FFFFFF");
+    gradient.addColorStop(0, '#FFFFFF');
+    // gradient.addColorStop(0.1, '#F8E2E2');
+    // gradient.addColorStop(0.3, '#7AE5F5');
+    // gradient.addColorStop(0.5, '#FCCABD');
+    // gradient.addColorStop(0.6, '#361e36');
+    // gradient.addColorStop(0.9, '#F0AEAF');
+    gradient.addColorStop(1, '#C4A1AE');
 
-addEventListener("resize", () => setSizeBackground())
+    /* Sun */
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, w, h);
+}
 
+const drawSun = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
 
-export function setSizeBackground() {
-    backgroundCtx.globalCompositeOperation = 'destination-over'
-    backgroundCtx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height)
+    const x = int(getRandomArbitrary(w / 3, 3 * w / 4))
+    const y = int(getRandomArbitrary(h / 8, 2 * h / 8))
 
-    var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300);
-    grd.addColorStop(0, "#78ddfa");
-    grd.addColorStop(1, "#C9F6FF");
-    backgroundCtx.fillStyle = grd;
-    backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height)
-
-
-    backgroundCtx.fillStyle = "#9ab843"
-    backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height)
+    ctx.beginPath();
+    ctx.arc(x, y, 50 + Math.random() * 10, 0, Math.PI * 2);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
 
 }
 
 
+const createMountains = () => {
+    const start = "#8ca4d0";
+    const end = "#aabad4";
+    const layers = 2
+    const bottom = h * 0.2
+    const top = h * 0.3
+
+    var heightUnit = (bottom - top) / (layers + 1);
+
+    for (let index = 0; index < layers; index++) {
+        var y = top + getRandomArbitrary(heightUnit * index, heightUnit * (index + 1));
+        const noise = GenerateNoise(100, 150, 2, 3, w)
+
+        const m = new HillsWithDaisies({
+            color: lerpColor(start, end, index / layers),
+            range: noise,
+            height: y,
+            daisies: [],
+            slopeAngle: 0//- Math.PI / 12
+        })
+        mountainRanges.push(m)
+    }
+}
+
+addEventListener("resize", () => setSizeBackground())
+
+
+export const setSizeBackground = () => {
+    backgroundCtx.globalCompositeOperation = 'destination-over'
+    backgroundCtx.clearRect(0, 0, width, backgroundCanvas.height)
+
+    mountainRanges.forEach((mountain) => {
+        mountain.drawMountain(backgroundCtx, w, h)
+    })
+    drawSun(backgroundCtx, w, h)
+    backgroundCtx.globalCompositeOperation = 'destination-over'
+    var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300);
+    grd.addColorStop(0, "#9eb9d4");
+    grd.addColorStop(1, "#FFFFFF");
+    backgroundCtx.fillStyle = grd;
+    backgroundCtx.fillRect(0, 0, width, backgroundCanvas.height)
+
+    // backgroundCtx.fillStyle = "#9ab843"
+    // backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height)
+
+}
+
+
+
+createMountains()
