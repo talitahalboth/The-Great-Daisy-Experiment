@@ -43,6 +43,6 @@ export class Figure {
             Math.floor(this.properties.y),
             Math.floor(this.properties.w),
             Math.floor(this.properties.h)
-        );
+        )
     }
 }

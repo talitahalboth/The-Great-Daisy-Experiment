@@ -1,9 +1,9 @@
-import { setSizeBackground } from "./background";
-import { src1, src2, src3 } from "./daisyImages";
-import { Figure } from "./figure";
-import { HillsWithDaisies } from "./mountains";
-import { GenerateNoise } from "./perlin";
-import { addElementToOrderedList, calculateScale, canvas, ctx, getRandomArbitrary, getRandomInt, getRandomWithProb, h, imagesArray, initialHeight, int, lerpColor, linearFunctionBounded, hillsWithDaisies, planeYCoordinate, scalingFactor, w, mountainRanges, calculateYFromXAndANgle } from "./utils";
+import { setSizeBackground } from "./background"
+import { src1, src2, src3 } from "./daisyImages"
+import { Figure } from "./figure"
+import { HillsWithDaisies } from "./mountains"
+import { GenerateNoise } from "./perlin"
+import { addElementToOrderedList, calculateScale, canvas, ctx, getRandomArbitrary, getRandomInt, getRandomWithProb, h, imagesArray, initialHeight, int, lerpColor, linearFunctionBounded, hillsWithDaisies, planeYCoordinate, scalingFactor, w, mountainRanges, calculateYFromXAndANgle } from "./utils"
 
 const img1 = new Image()
 img1.src = src1
@@ -125,18 +125,18 @@ document.addEventListener("click", (e) => {
 
 
 const createHillsWithDaisiess = () => {
-    const start = "#447741";
-    const end = "#C6CC51";
+    const start = "#447741"
+    const end = "#C6CC51"
     const layers = getRandomArbitrary(2, 5)
     const bottom = h * 0.5
     const top = h * 0.9
 
     const slope = getRandomArbitrary(-Math.PI / 12, Math.PI / 12)
 
-    var heightUnit = (bottom - top) / (layers + 1);
+    var heightUnit = (bottom - top) / (layers + 1)
 
     for (let index = 0; index < layers; index++) {
-        var y = top + getRandomArbitrary(heightUnit * index, heightUnit * (index + 1));
+        var y = top + getRandomArbitrary(heightUnit * index, heightUnit * (index + 1))
         const noise = GenerateNoise(60, 150, 2, 3, w)// GenerateNoise(40, 100, 16, 2, w)
 
         const m = new HillsWithDaisies({

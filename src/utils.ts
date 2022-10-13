@@ -32,40 +32,40 @@ addEventListener("resize", () => setSize())
 
 
 const hexToRGB = (hex: string) => {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
     return result ? {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16)
-    } : null;
-};
+    } : null
+}
 
 export const int = (n: number) => {
-    return Math.floor(n);
-};
+    return Math.floor(n)
+}
 const componentToHex = (c: any) => {
-    var hex = int(c).toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
-};
+    var hex = int(c).toString(16)
+    return hex.length == 1 ? "0" + hex : hex
+}
 
 const rgbToHex = (r: number, g: number, b: number) => {
-    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-};
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b)
+}
 
 const lerp = (a: number, b: number, n: number) => {
-    return Math.abs((b - a) * n + a);
-};
+    return Math.abs((b - a) * n + a)
+}
 
 
 export const lerpColor = (beginning: string, end: string, percent: number) => {
-    var c1 = hexToRGB(beginning) ?? { r: 0, b: 0, g: 0 };
-    var c2 = hexToRGB(end) ?? { r: 0, b: 0, g: 0 };
+    var c1 = hexToRGB(beginning) ?? { r: 0, b: 0, g: 0 }
+    var c2 = hexToRGB(end) ?? { r: 0, b: 0, g: 0 }
     return rgbToHex(
         lerp(c1.r, c2.r, percent),
         lerp(c1.g, c2.g, percent),
         lerp(c1.b, c2.b, percent)
-    );
-};
+    )
+}
 
 
 
@@ -88,14 +88,14 @@ export const calculateScale = (y: number, planeYCoordinate: number, scalingFacto
 }
 
 export const getRandomArbitrary = (min: number, max: number) => {
-    return Math.random() * (max - min) + min;
+    return Math.random() * (max - min) + min
 }
 export const getRandomInt = (max: number) => {
-    return int(Math.random() * max);
+    return int(Math.random() * max)
 }
 
 const map = (v: number, a1: number, b1: number, a2: number, b2: number) => {
-    return (((v - a1) / (b1 - a1)) * (b2 - a2) + a2);
+    return (((v - a1) / (b1 - a1)) * (b2 - a2) + a2)
 }
 
 export const linearFunctionBounded = (min: number, max: number) => {
