@@ -30,19 +30,38 @@ const drawSunGradient = (ctx: CanvasRenderingContext2D, w: number, h: number) =>
     ctx.fillRect(0, 0, w, h);
 }
 
-const drawSun = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
+class Sun {
+    x: number
+    y: number
+    r: number
+    constructor(x: number, y: number, r: number) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+    }
+    draw(ctx: CanvasRenderingContext2D) {
 
-    const x = int(getRandomArbitrary(w / 3, 3 * w / 4))
-    const y = int(getRandomArbitrary(h / 8, 2 * h / 8))
-
-    ctx.beginPath();
-    ctx.arc(x, y, 50 + Math.random() * 10, 0, Math.PI * 2);
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fill();
-
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+    }
 }
 
+const sun = new Sun(int(getRandomArbitrary(w / 3, 3 * w / 4)), int(getRandomArbitrary(h / 8, 2 * h / 8)), 50 + Math.random() * 10)
 
+
+// const drawSun = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
+
+//     const x = int(getRandomArbitrary(w / 3, 3 * w / 4))
+//     const y = int(getRandomArbitrary(h / 8, 2 * h / 8))
+
+//     ctx.beginPath();
+//     ctx.arc(x, y, 50 + Math.random() * 10, 0, Math.PI * 2);
+//     ctx.fillStyle = '#FFFFFF';
+//     ctx.fill();
+
+// }
 const createMountains = () => {
     const start = "#8ca4d0";
     const end = "#aabad4";
@@ -77,7 +96,7 @@ export const setSizeBackground = () => {
     mountainRanges.forEach((mountain) => {
         mountain.drawMountain(backgroundCtx, w, h)
     })
-    drawSun(backgroundCtx, w, h)
+    sun.draw(backgroundCtx)
     backgroundCtx.globalCompositeOperation = 'destination-over'
     var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300);
     grd.addColorStop(0, "#9eb9d4");

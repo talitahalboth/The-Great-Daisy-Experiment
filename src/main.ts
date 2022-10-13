@@ -18,7 +18,6 @@ addEventListener("resize", () => setSize())
 
 const setSize = () => {
     // console.log(innerHeight, innerWidth)
-    console.log()
     // h = canvas.height = innerHeight
     // w = canvas.width = innerWidth
     ctx.globalCompositeOperation = 'destination-over'
@@ -61,6 +60,7 @@ const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, ran
             pushed = true
         }
         if (isGreaterTop && !pushed) {
+
             addElementToOrderedList(hillsWithDaisies[index].daisies, otherNewDaisy)
             pushed = true
         }
@@ -158,7 +158,6 @@ const createHillsWithDaisiess = () => {
 }
 
 
-console.log(w, h)
 createHillsWithDaisiess()
 setSize()
 drawScene()

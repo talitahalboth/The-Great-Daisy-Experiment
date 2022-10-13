@@ -19,14 +19,13 @@ export const calculateYFromXAndANgle = (x: number, y: number, width: number, ang
 }
 
 
-const setSize = () => {
-    // console.log(innerHeight, innerWidth)
-    console.log()
-    h = canvas.height = innerHeight
-    w = canvas.width = innerWidth
-    ctx.globalCompositeOperation = 'destination-over'
-}
-addEventListener("resize", () => setSize())
+// const setSize = () => {
+//     // console.log(innerHeight, innerWidth)
+//     // h = canvas.height = innerHeight
+//     // w = canvas.width = innerWidth
+//     ctx.globalCompositeOperation = 'destination-over'
+// }
+// addEventListener("resize", () => setSize())
 
 
 const hexToRGB = (hex: string) => {

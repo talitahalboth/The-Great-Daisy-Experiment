@@ -6,7 +6,7 @@ interface Properties {
     h: number
 }
 
-const initialSize = 8
+const initialSize = 6
 export class Figure {
 
     properties: Properties

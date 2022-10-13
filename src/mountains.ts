@@ -12,6 +12,7 @@ export class HillsWithDaisies {
     lowestYAxis: number
     slopeAngle: number
     offsetHeight: number
+
     constructor(props: { range: Perlin[], height: number, daisies: Figure[], color: string, slopeAngle: number, w?: number }) {
         const { range, height, daisies, color, slopeAngle, w } = props
         this.range = range
@@ -19,26 +20,30 @@ export class HillsWithDaisies {
         this.daisies = daisies
         this.color = color
         this.rangeCombined = CombineNoise(range)
+        this.calcuHighestAndLowestYAxis()
+        this.slopeAngle = slopeAngle
+        this.updateOffsetHeight(w)
+    }
+
+    updateOffsetHeight(w: number) {
+        this.offsetHeight = Math.sin(this.slopeAngle) * w / 2
+        this.offsetHeight = Math.abs(this.offsetHeight)
+    }
+
+    calcuHighestAndLowestYAxis() {
         this.lowestYAxis = Math.min(...this.rangeCombined.pos) + this.height
         this.highestYAxis = Math.max(...this.rangeCombined.pos) + this.height
-        this.slopeAngle = slopeAngle
-        this.offsetHeight = Math.sin(slopeAngle) * (w ?? 0) / 2
-        this.offsetHeight = this.offsetHeight > 0 ? this.offsetHeight : this.offsetHeight * -1
-
-
     }
 
     updateMountains(h: number, w: number) {
-        this.offsetHeight = Math.sin(this.slopeAngle) * (w ?? 0) / 2
-        this.offsetHeight = this.offsetHeight > 0 ? this.offsetHeight : this.offsetHeight * -1
+        this.updateOffsetHeight(w)
 
         this.range.forEach((noise) => noise.fillPos(w))
         if (this.height === 0) {
             this.height = h
         }
         this.rangeCombined = CombineNoise(this.range)
-        this.lowestYAxis = Math.min(...this.rangeCombined.pos) + this.height
-        this.highestYAxis = Math.max(...this.rangeCombined.pos) + this.height
+        this.calcuHighestAndLowestYAxis()
     }
 
     drawDaisies(ctx: CanvasRenderingContext2D) {
