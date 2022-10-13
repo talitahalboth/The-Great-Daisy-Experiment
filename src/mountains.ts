@@ -1,6 +1,6 @@
 import { Figure } from "./figure"
 import { Perlin, CombineNoise } from "./perlin"
-import { calculateYFromXAndANgle } from "./utils"
+import { calculateYFromXAndANgle, int } from "./utils"
 
 export class HillsWithDaisies {
     range: Perlin[]
@@ -57,7 +57,7 @@ export class HillsWithDaisies {
         ctx.fillStyle = this.color
         ctx.strokeStyle = this.color
         ctx.beginPath()
-        ctx.moveTo(0, this.height + this.rangeCombined.pos[0] ?? this.height);
+        ctx.moveTo(0, int(this.height + this.rangeCombined.pos[0] ?? this.height));
         for (var i = 0; i < this.rangeCombined.pos.length; i++) {
             var y = calculateYFromXAndANgle(
                 i,
@@ -65,7 +65,7 @@ export class HillsWithDaisies {
                 w,
                 this.slopeAngle
             )
-            ctx.lineTo(i, y);
+            ctx.lineTo(i, int(y));
         }
         ctx.lineTo(w, h);
         ctx.lineTo(0, h);

@@ -35,9 +35,9 @@ class Sun {
     y: number
     r: number
     constructor(x: number, y: number, r: number) {
-        this.x = x;
-        this.y = y;
-        this.r = r;
+        this.x = int(x)
+        this.y = int(y)
+        this.r = int(r)
     }
     draw(ctx: CanvasRenderingContext2D) {
 
@@ -86,12 +86,18 @@ const createMountains = () => {
     }
 }
 
-addEventListener("resize", () => setSizeBackground())
+// addEventListener("resize", () => setSizeBackground())
 
 
 export const setSizeBackground = () => {
+    height = backgroundCanvas.height = h
+    width = backgroundCanvas.width = w
     backgroundCtx.globalCompositeOperation = 'destination-over'
     backgroundCtx.clearRect(0, 0, width, backgroundCanvas.height)
+
+    mountainRanges.forEach((mountain, index) => {
+        mountain.updateMountains(h / (index + 1), w)
+    })
 
     mountainRanges.forEach((mountain) => {
         mountain.drawMountain(backgroundCtx, w, h)
@@ -108,7 +114,6 @@ export const setSizeBackground = () => {
     // backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height)
 
 }
-
 
 
 createMountains()

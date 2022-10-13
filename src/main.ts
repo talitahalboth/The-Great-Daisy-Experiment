@@ -24,9 +24,6 @@ const setSize = () => {
     hillsWithDaisies.forEach((mountain, index) => {
         mountain.updateMountains(h / (index + 1), w)
     })
-    mountainRanges.forEach((mountain, index) => {
-        mountain.updateMountains(h / (index + 1), w)
-    })
     drawScene()
 }
 
@@ -50,18 +47,18 @@ const getXY = (canvas: { getBoundingClientRect: () => any; }, event: { clientX: 
 const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, rand: number, img: HTMLImageElement) => {
     var pushed = false
     for (let index = 0; index < hillsWithDaisies.length; index++) {
-        const otherNewDaisy = new Figure(pos.x, pos.y, calculateScale(pos.y, planeYCoordinate + index * 50, scalingFactor, initialHeight), img)
+        const newDaisy = new Figure(pos.x, pos.y, calculateScale(pos.y, planeYCoordinate + index * 50, scalingFactor, initialHeight), img)
         const combinedNoise = hillsWithDaisies[index].rangeCombined
         const yPosition = calculateYFromXAndANgle(pos.x, combinedNoise.pos[pos.x] + hillsWithDaisies[index].height, w, hillsWithDaisies[index].slopeAngle)
         const isGreaterTop = yPosition < (pos.y)
-        const isGreaterBottom = yPosition < (otherNewDaisy.properties.y + otherNewDaisy.properties.h)
+        const isGreaterBottom = yPosition < (newDaisy.properties.y + newDaisy.properties.h)
         if (!isGreaterTop && isGreaterBottom && !pushed && rand < 0.5) {
-            addElementToOrderedList(hillsWithDaisies[index].daisies, otherNewDaisy)
+            addElementToOrderedList(hillsWithDaisies[index].daisies, newDaisy)
             pushed = true
         }
         if (isGreaterTop && !pushed) {
 
-            addElementToOrderedList(hillsWithDaisies[index].daisies, otherNewDaisy)
+            addElementToOrderedList(hillsWithDaisies[index].daisies, newDaisy)
             pushed = true
         }
 
@@ -74,7 +71,7 @@ const generateRandomDaisies = () => {
         const y = mountain.rangeCombined.pos[x] + mountain.height
         return y
     })
-    const pow = hillsWithDaisies.length / 2 + 1
+    const pow = hillsWithDaisies.length / 5 + 3
     const max = pow ** yCoordinates.length
     const rand = getRandomArbitrary(1, max)
     let ix = 0
@@ -95,7 +92,7 @@ const generateRandomDaisies = () => {
         )
     }
     if (pos.y > yCoordinates[hillIndex]) {
-        const otherNewDaisy = new Figure(
+        const newDaisy = new Figure(
             pos.x,
             calculateYFromXAndANgle(
                 pos.x,
@@ -106,14 +103,13 @@ const generateRandomDaisies = () => {
             calculateScale(pos.y, planeYCoordinate + (hillIndex) * 60, scalingFactor, initialHeight),
             img
         )
-        addElementToOrderedList(hillsWithDaisies[hillIndex].daisies, otherNewDaisy)
+        addElementToOrderedList(hillsWithDaisies[hillIndex].daisies, newDaisy)
     }
 
 }
 
 
 document.addEventListener("click", (e) => {
-
     const img = imagesArray[getRandomInt(imagesArray.length)]
     if (img) {
         const rand = Math.random()
@@ -126,8 +122,6 @@ document.addEventListener("click", (e) => {
 
     drawScene()
 })
-
-addEventListener("resize", () => setSize())
 
 
 const createHillsWithDaisiess = () => {
@@ -161,6 +155,6 @@ const createHillsWithDaisiess = () => {
 createHillsWithDaisiess()
 setSize()
 drawScene()
-
 setSizeBackground()
+
 

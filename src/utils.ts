@@ -1,3 +1,4 @@
+import { setSizeBackground } from "./background"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
 
@@ -7,8 +8,8 @@ export const imagesArray: HTMLImageElement[] = []
 export const figuresArray: Figure[] = []
 export const hillsWithDaisies: HillsWithDaisies[] = []
 export const mountainRanges: HillsWithDaisies[] = []
-export let w = canvas.width = 700
-export let h = canvas.height = 450
+export let w = canvas.width = canvas.getBoundingClientRect().width
+export let h = canvas.height = canvas.getBoundingClientRect().height
 export const initialHeight = h
 export const planeYCoordinate = 50
 export const scalingFactor = 8
@@ -19,13 +20,15 @@ export const calculateYFromXAndANgle = (x: number, y: number, width: number, ang
 }
 
 
-// const setSize = () => {
-//     // console.log(innerHeight, innerWidth)
-//     // h = canvas.height = innerHeight
-//     // w = canvas.width = innerWidth
-//     ctx.globalCompositeOperation = 'destination-over'
-// }
-// addEventListener("resize", () => setSize())
+const setSize = () => {
+    // console.log(innerHeight, innerWidth)
+    h = canvas.height = canvas.getBoundingClientRect().height
+    w = canvas.width = canvas.getBoundingClientRect().width
+    ctx.globalCompositeOperation = 'destination-over'
+    setSizeBackground()
+
+}
+addEventListener("resize", () => setSize())
 
 
 const hexToRGB = (hex: string) => {

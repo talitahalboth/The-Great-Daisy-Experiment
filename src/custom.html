@@ -7,28 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>var exports = {};</script>
 
-    <!-- <script src="https://unpkg.com/lodash@4.17.20"></script>
-
-    <script src="src/script/utils.js" async></script>
-    <script src="src/script/mountains.js" async></script>
-    <script src="src/script/figure.js" async></script>
-    <script src="src/script/perlin.js" async></script>
-    <script src="src/script/main.js" async></script>
-    <script src="src/script/background.js" async></script> -->
-    <!-- <script src="dist/bundle.js" async></script> -->
-
     <link rel="stylesheet" href="index.css" />
 </head>
 
 
 <body>
-    <div class="canvas-container" id="canvas-container">
-        <canvas class="canvas" id="canvas"></canvas>
-        <canvas  id="background-layer" class="background-layer" width="480" height="320"></canvas>
+    <div style="display: flex; flex-direction: column;">
 
+        <h3></h3>
+        <div class="canvas-container" id="canvas-container">
+            <canvas class="canvas daisies" id="canvas"></canvas>
+            <canvas id="background-layer" class="background-layer canvas"></canvas>
+        </div>
     </div>
 
 </body>
 
 </html>
-<!-- tsc .\script.ts --watch   --outDir scripts -->
