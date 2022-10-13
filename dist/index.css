@@ -1,4 +1,4 @@
-#canvas {
+.canvas {
     height: 450px;
     width: 450px;
     position: fixed;
@@ -11,14 +11,14 @@ body {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-#canvas-container {
+.canvas-container {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
 }
 
-#background-layer {
+.background-layer {
     height: 450px;
     width: 450px;
     position: fixed;

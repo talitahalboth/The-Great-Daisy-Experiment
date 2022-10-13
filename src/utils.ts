@@ -1,3 +1,5 @@
+import { Figure } from "./figure"
+import { MountainRange } from "./mountains"
 
 export const canvas = document.getElementById("canvas") as HTMLCanvasElement ?? new HTMLCanvasElement
 export const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()

@@ -4,7 +4,7 @@ var M = 4294967296,
     C = 1;
 
 //psuedo-random number generator (linear congruential)
-function PSNG() {
+function PSNG(): any {
     this.Z = Math.floor(Math.random() * M);
     this.next = function () {
         this.Z = (A * this.Z + C) % M;
@@ -19,7 +19,7 @@ const Interpolate = (pa: number, pb: number, px: number) => {
     return pa * (1 - f) + pb * f;
 }
 
-class Perlin {
+export class Perlin {
     index: number
     x: number
     amp: number
@@ -34,7 +34,9 @@ class Perlin {
         this.amp = amp;
         this.wl = wl;
         this.fq = 1 / wl;
-        this.psng = new PSNG();
+        // let test1 = new (TestConstructorFunction as any)(1, 2);
+
+        this.psng = new (PSNG as any)();
         this.a = this.psng.next();
         this.b = this.psng.next();
         this.pos = []
@@ -63,7 +65,7 @@ class Perlin {
 
 
 //octave generator
-const GenerateNoise = (amp: number, wl: number, octaves: number, divisor: number, width: number) => {
+export const GenerateNoise = (amp: number, wl: number, octaves: number, divisor: number, width: number) => {
     var result: Perlin[] = [];
 
     for (var i = 0; i < octaves; i++) {
@@ -75,7 +77,7 @@ const GenerateNoise = (amp: number, wl: number, octaves: number, divisor: number
 }
 
 //combines octaves together
-const CombineNoise = (pl: string | any[]) => {
+export const CombineNoise = (pl: string | any[]) => {
     var result: { pos: number[] } = { pos: [] };
     if (!pl[0].pos) return result
     for (var i = 0, total = 0, j = 0; i < pl[0].pos.length; i++) {

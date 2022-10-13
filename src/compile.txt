@@ -1,7 +1,0 @@
---module amd 
-background.ts 
-daisyImages.ts 
-figure.ts 
-main.ts 
-mountains.ts 
-perlin.ts

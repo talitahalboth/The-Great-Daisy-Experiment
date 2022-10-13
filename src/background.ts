@@ -13,7 +13,7 @@ const initialBackgroundHeight = height
 addEventListener("resize", () => setSizeBackground())
 
 
-function setSizeBackground() {
+export function setSizeBackground() {
     // height = backgroundCanvas.height = innerHeight
     // width = backgroundCanvas.width = innerWidth
     backgroundCtx.globalCompositeOperation = 'destination-over'
@@ -32,5 +32,3 @@ function setSizeBackground() {
 }
 
 
-
-setSizeBackground()

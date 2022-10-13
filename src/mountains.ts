@@ -1,4 +1,7 @@
-class MountainRange {
+import { Figure } from "./figure"
+import { Perlin, CombineNoise } from "./perlin"
+
+export class MountainRange {
     range: Perlin[]
     rangeCombined: { pos: number[] }
     height: number
@@ -22,13 +25,13 @@ class MountainRange {
         this.rangeCombined = CombineNoise(this.range)
     }
 
-    drawDaisies(ctx) {
+    drawDaisies(ctx: CanvasRenderingContext2D) {
         this.daisies.forEach((figure) => {
             figure.draw(ctx)
         })
     }
 
-    drawMountain(ctx, w, h) {
+    drawMountain(ctx: CanvasRenderingContext2D, w: number, h: number) {
 
         // const combinedNoise = CombineNoise(this.range)
         ctx.fillStyle = this.color

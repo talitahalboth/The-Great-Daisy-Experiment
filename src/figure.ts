@@ -7,7 +7,7 @@ interface Properties {
 }
 
 const initialSize = 3
-class Figure {
+export class Figure {
 
     properties: Properties
     img: HTMLImageElement
