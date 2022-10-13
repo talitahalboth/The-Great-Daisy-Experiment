@@ -21,14 +21,11 @@ imagesArray.push(img2)
 imagesArray.push(img3)
 addEventListener("resize", () => setSize())
 
-
-
-
 function setSize() {
     console.log(innerHeight, innerWidth)
     console.log()
-    h = canvas.height = document.getElementById("canvas")?.clientHeight ?? innerHeight
-    w = canvas.width = document.getElementById("canvas")?.clientWidth ?? innerWidth
+    h = canvas.height = innerHeight
+    w = canvas.width = innerWidth
     ctx.globalCompositeOperation = 'destination-over'
     mountainsRanges2.forEach((mountain, index) => {
         mountain.updateMountains(h / (index + 1))

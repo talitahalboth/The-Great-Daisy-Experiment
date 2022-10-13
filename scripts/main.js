@@ -10,11 +10,10 @@ imagesArray.push(img2);
 imagesArray.push(img3);
 addEventListener("resize", function () { return setSize(); });
 function setSize() {
-    var _a, _b, _c, _d;
     console.log(innerHeight, innerWidth);
     console.log();
-    h = canvas.height = (_b = (_a = document.getElementById("canvas")) === null || _a === void 0 ? void 0 : _a.clientHeight) !== null && _b !== void 0 ? _b : innerHeight;
-    w = canvas.width = (_d = (_c = document.getElementById("canvas")) === null || _c === void 0 ? void 0 : _c.clientWidth) !== null && _d !== void 0 ? _d : innerWidth;
+    h = canvas.height = innerHeight;
+    w = canvas.width = innerWidth;
     ctx.globalCompositeOperation = 'destination-over';
     mountainsRanges2.forEach(function (mountain, index) {
         mountain.updateMountains(h / (index + 1));
