@@ -21,7 +21,7 @@ export class HillsWithDaisies {
         this.color = color
         this.rangeCombined = CombineNoise(range)
         this.calcuHighestAndLowestYAxis()
-        this.slopeAngle = slopeAngle
+        this.slopeAngle = 0
         this.updateOffsetHeight(w)
     }
 

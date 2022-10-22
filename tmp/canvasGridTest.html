@@ -34,6 +34,15 @@
                 -
             </button>
         </div>
+        <div>
+            Grid
+            <button onclick="incGrid()" id="incGrid">
+                +
+            </button>
+            <button onclick="decGrid()" id="decGrid">
+                -
+            </button>
+        </div>
     </div>
 
 
@@ -192,6 +201,18 @@
         function decFov() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             fov = fov / 2;
+            drawGrid();
+        }
+
+        function incGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            grid = grid * 2;
+            drawGrid();
+        }
+
+        function decGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            grid = grid / 2;
             drawGrid();
         }
         /* var a = reverseRotateX(Math.random() * canvas.width, Math.random() * canvas.height)

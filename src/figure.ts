@@ -1,5 +1,6 @@
-import { canvas, h, w } from "./utils"
+// import { angle, canvas, canvasHalfh, canvasHalfw, fov, grid, h, w } from "./utils"
 
+import { canvasHalfw, canvasHalfh, fov, angle, grid } from './main'
 import { reverseRotateX, rotateX } from './perspectiveCalculator'
 interface Properties {
     x: number
@@ -12,15 +13,17 @@ const initialSize = 6
 
 // const canvas = document.getElementById("canvas") as HTMLCanvasElement ?? new HTMLCanvasElement
 // const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
-const fov = 1024 /// Field of view kind of the lense, smaller values = spheric
-// const viewDist = 30 /// view distance, higher values = further away
-// const w = canvas.width / 2 /// center of screen
-// const h = canvas.height / 2
-const angle = -60 /// grid angle
-/* i, p1, p2,         /// counter and two points (corners) */
-const grid = 20 /// grid size in Cartesian
-const canvasHalfh = h / 2
-const canvasHalfw = w / 2
+// const fov = 1024 /// Field of view kind of the lense, smaller values = spheric
+// // const viewDist = 30 /// view distance, higher values = further away
+// // const w = canvas.width / 2 /// center of screen
+// // const h = canvas.height / 2
+// const angle = -60 /// grid angle
+// /* i, p1, p2,         /// counter and two points (corners) */
+// const grid = 20 /// grid size in Cartesian
+// const canvasHalfh = h / 2
+// const canvasHalfw = w / 2
+
+
 
 
 const calcStuff = (cx: number, cy: number, fov: number, viewDist: number, w: number, h: number, angle: number, grid: any, proportion: number) => {
@@ -48,6 +51,8 @@ export class Figure {
     img: HTMLImageElement
     maxY: number
     minY: number
+    iniX: number
+    iniY: number
     constructor(
         x2d: number,
         y2d: number,
@@ -55,7 +60,8 @@ export class Figure {
         img: HTMLImageElement) {
         // var randomScale = Math.random()
         this.img = img
-
+        this.iniX = x2d
+        this.iniY = y2d
         const proportion = img.height / img.width
         const t1 = reverseRotateX(x2d, y2d, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
         // const c1 = rotateX(t1[0], t1[1], fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
@@ -88,6 +94,16 @@ export class Figure {
         //     x, y, w, h
         // }
     }
+
+    changeProperties(fov: number, viewDist: number, angle: number, grid: any) {
+        const t1 = reverseRotateX(this.iniX, this.iniY, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
+        const newProperties = calcStuff(t1[0], t1[1], fov, viewDist, canvasHalfw, canvasHalfh, angle, grid, this.img.height / this.img.width)
+        // console.log("------------------")
+        // console.log(this.properties)
+        // console.log(newProperties)
+        this.properties = newProperties
+    }
+
     draw(ctx: CanvasRenderingContext2D) {
 
         // ctx.fillStyle = "white"

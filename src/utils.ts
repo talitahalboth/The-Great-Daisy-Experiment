@@ -15,6 +15,8 @@ export const planeYCoordinate = 50
 export const scalingFactor = 8
 export let closestToXAxis = h
 
+
+
 export const calculateYFromXAndANgle = (x: number, y: number, width: number, angle: number) => {
     return y + Math.sin(angle) * (x - width / 2)
 }
