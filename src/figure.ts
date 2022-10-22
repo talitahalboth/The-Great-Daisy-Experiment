@@ -60,9 +60,9 @@ export class Figure {
         img: HTMLImageElement) {
         // var randomScale = Math.random()
         this.img = img
+        const proportion = img.height / img.width
         this.iniX = x2d
         this.iniY = y2d
-        const proportion = img.height / img.width
         const t1 = reverseRotateX(x2d, y2d, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
         // const c1 = rotateX(t1[0], t1[1], fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
         // const t2 = reverseRotateX(x2d, y2d, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
@@ -114,8 +114,8 @@ export class Figure {
         // ctx.stroke()
         ctx.drawImage(
             this.img,
-            Math.floor(this.properties.x),
-            Math.floor(this.properties.y),
+            Math.floor(this.properties.x - this.properties.w / 2),
+            Math.floor(this.properties.y - this.properties.w / 2),
             Math.floor(this.properties.w),
             Math.floor(this.properties.h)
         )

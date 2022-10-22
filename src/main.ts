@@ -1,5 +1,5 @@
 import { setSizeBackground } from "./background"
-import { src1, src2, src3 } from "./daisyImages"
+import { src1, src2, src3, src4, src5, src6 } from "./daisyImages"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
 import { GenerateNoise } from "./perlin"
@@ -20,13 +20,13 @@ export var fov = 1024 /// Field of view kind of the lense, smaller values = sphe
 // export var viewDist = 30 /// view distance, higher values = further away
 // export var w = canvas.width / 2 /// center of screen
 // export var h = canvas.height / 2
-export var angle = -60 /// grid angle
+export var angle = -45 /// grid angle
 /* i, p1, p2,         /// counter and two points (corners) */
 export var grid = 20 /// grid size in Cartesian
 export var canvasHalfh = h / 2
 export var canvasHalfw = w / 2
-export var viewDist = 20
-export var deltaDist = 30
+export var viewDist = 70
+export var deltaDist = 45
 
 /**
  * 
@@ -48,7 +48,7 @@ export var deltaDist = 30
 
 function addFlowers() {
 
-    for (let index = 0; index < 100; index++) {
+    for (let index = 0; index < 1000; index++) {
         generateRandomDaisies()
     }
     drawScene()
@@ -159,9 +159,18 @@ const img2 = new Image()
 img2.src = src2
 const img3 = new Image()
 img3.src = src3
+const img4 = new Image()
+img4.src = src4
+const img5 = new Image()
+img5.src = src5
+const img6 = new Image()
+img6.src = src6
 imagesArray.push(img1)
 imagesArray.push(img2)
 imagesArray.push(img3)
+imagesArray.push(img4)
+imagesArray.push(img5)
+imagesArray.push(img6)
 addEventListener("resize", () => setSize())
 
 const setSize = () => {
@@ -264,13 +273,14 @@ const generateRandomDaisies = () => {
     if (pos.y > yCoordinates[hillIndex]) {
         const newDaisy = new Figure(
             pos.x,
-            pos.y,
-            // calculateYFromXAndANgle(
-            //     pos.x,
-            //     pos.y,
-            //     hillIndex * deltaDist + viewDist,
-            //     hillsWithDaisies[hillIndex].slopeAngle
-            // ),
+            // pos.y,
+            calculateYFromXAndANgle(
+                pos.x,
+                pos.y,
+                w,
+                // hillIndex * deltaDist + viewDist,
+                hillsWithDaisies[hillIndex].slopeAngle
+            ),
             hillIndex * deltaDist + viewDist,
             // calculateScale(pos.y, planeYCoordinate, scalingFactor, initialHeight, hillIndex),
             img
