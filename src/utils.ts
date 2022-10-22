@@ -80,11 +80,20 @@ export const addElementToOrderedList = ((figArray: Figure[], element: Figure) =>
     figArray.push(element)
 })
 
+const fact = (n: number): number => n <= 0 ? 1 : n * (fact(n - 1))
 
-export const calculateScale = (y: number, planeYCoordinate: number, scalingFactor: number, initialHeight: number) => {
+
+export const binomialCoefficient = (n: number, k: number) => {
+    if (n < 0 || k < 0) return 0;
+    return (fact(n) / (fact(k) * fact(n - k)))
+}
+
+export const calculateScale = (y: number, planeYCoordinate: number, scalingFactor: number, initialHeight: number, layer: number) => {
     const signedScale = (y - (initialHeight) / (scalingFactor)) / planeYCoordinate
     const scale = signedScale > 0 ? signedScale : 0
-    return scale
+    const res = scale / (layer + 1)
+    // console.log(res, layer)
+    return res
 }
 
 export const getRandomArbitrary = (min: number, max: number) => {
