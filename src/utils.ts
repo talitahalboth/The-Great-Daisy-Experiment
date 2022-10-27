@@ -21,7 +21,7 @@ export const fov = 1024 /// Field of view kind of the lense, smaller values = sp
 // export const viewDist = 30 /// view distance, higher values = further away
 // export const w = canvas.width / 2 /// center of screen
 // export const h = canvas.height / 2
-export const angle = -60 /// grid angle
+export const angle = -70 /// grid angle
 /* i, p1, p2,         /// counter and two points (corners) */
 export const grid = 20 /// grid size in Cartesian
 export const canvasHalfh = h / 2

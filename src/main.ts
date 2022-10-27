@@ -41,7 +41,7 @@ const setSize = () => {
     })
 
     //calculate area of hill based on height and scale
-    //this will be used to generate daisies propostionally on each hill
+    //this will be used to generate daisies proportionally on each hill
     hillsWithDaisies.forEach((mountain, index) => {
         if (index > 0) {
             const top = mountain.lowestYAxis
@@ -99,10 +99,6 @@ const getXY = (canvas: { getBoundingClientRect: () => any; }, event: { clientX: 
 
 const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, rand: number, img: HTMLImageElement) => {
     var pushed = false
-    // const newDaisyFake = new Figure(pos.x, pos.y, 20, img)
-    // addElementToOrderedList(figuresArray, newDaisyFake)
-    // console.log("--------")
-    // console.log(pos.y, reverseCalculateYFromXAndANgle(pos.x, pos.y, w, Math.PI / 12))
     for (let index = 0; index < hillsWithDaisies.length; index++) {
         const newDaisy = new Figure(
             pos.x,
@@ -160,7 +156,7 @@ const createHillsWithDaisiess = () => {
     const bottom = h * 0.5
     const top = h * 0.9
 
-    const slope = Math.PI / 12//getRandomArbitrary(-Math.PI / 12, Math.PI / 12)
+    const slope = getRandomArbitrary(-Math.PI / 12, Math.PI / 12)
 
     var heightUnit = (bottom - top) / (layers + 1)
 
