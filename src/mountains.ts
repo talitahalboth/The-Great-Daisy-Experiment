@@ -12,6 +12,7 @@ export class HillsWithDaisies {
     lowestYAxis: number
     slopeAngle: number
     offsetHeight: number
+    areaProportionalToHeight: number
 
     constructor(props: { range: Perlin[], height: number, daisies: Figure[], color: string, slopeAngle: number, w?: number }) {
         const { range, height, daisies, color, slopeAngle, w } = props
@@ -30,9 +31,21 @@ export class HillsWithDaisies {
         this.offsetHeight = Math.abs(this.offsetHeight)
     }
 
+    updateArea(height: number) {
+        this.areaProportionalToHeight = height
+        console.log(height)
+    }
+
     calcuHighestAndLowestYAxis() {
         this.lowestYAxis = Math.min(...this.rangeCombined.pos) + this.height
         this.highestYAxis = Math.max(...this.rangeCombined.pos) + this.height
+        const diff = Math.abs(this.highestYAxis - this.lowestYAxis)
+        // if (diff !== Infinity) {
+        //     console.log("diff:", diff)
+        //     console.log("highest:", this.highestYAxis)
+        //     console.log("lowest:", this.lowestYAxis)
+        //     console.log("---------------")
+        // }
     }
 
     updateMountains(h: number, w: number) {

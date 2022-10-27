@@ -1,4 +1,5 @@
 import { setSizeBackground } from "./background"
+import { DaisiesGenerator } from "./daisiesGenerator"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
 
@@ -14,6 +15,21 @@ export const initialHeight = h
 export const planeYCoordinate = 50
 export const scalingFactor = 8
 export let closestToXAxis = h
+
+
+export const fov = 1024 /// Field of view kind of the lense, smaller values = spheric
+// export const viewDist = 30 /// view distance, higher values = further away
+// export const w = canvas.width / 2 /// center of screen
+// export const h = canvas.height / 2
+export const angle = -60 /// grid angle
+/* i, p1, p2,         /// counter and two points (corners) */
+export const grid = 20 /// grid size in Cartesian
+export const canvasHalfh = h / 2
+export const canvasHalfw = w / 2
+export var viewDist = 50
+export var deltaDist = 30
+
+export const daisiesGenerator: DaisiesGenerator = new DaisiesGenerator()
 
 
 
@@ -119,7 +135,7 @@ const exponentialFunction = (a: number, b: number, r: number, t: number) => {
 }
 
 export const getRandomWithProbBounded = (min: number, max: number) => {
-    var d = 30
+    var d = 3
     var rand = Math.random() * d
     var a = 3
     var b = 3

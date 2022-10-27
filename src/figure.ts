@@ -1,7 +1,8 @@
 // import { angle, canvas, canvasHalfh, canvasHalfw, fov, grid, h, w } from "./utils"
 
-import { canvasHalfw, canvasHalfh, fov, angle, grid } from './main'
+// import { canvasHalfw, canvasHalfh, fov, angle, grid } from './main'
 import { reverseRotateX, rotateX } from './perspectiveCalculator'
+import { angle, canvasHalfh, canvasHalfw, fov, grid, h, w } from './utils'
 interface Properties {
     x: number
     y: number
@@ -11,17 +12,6 @@ interface Properties {
 
 const initialSize = 6
 
-// const canvas = document.getElementById("canvas") as HTMLCanvasElement ?? new HTMLCanvasElement
-// const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
-// const fov = 1024 /// Field of view kind of the lense, smaller values = spheric
-// // const viewDist = 30 /// view distance, higher values = further away
-// // const w = canvas.width / 2 /// center of screen
-// // const h = canvas.height / 2
-// const angle = -60 /// grid angle
-// /* i, p1, p2,         /// counter and two points (corners) */
-// const grid = 20 /// grid size in Cartesian
-// const canvasHalfh = h / 2
-// const canvasHalfw = w / 2
 
 
 
@@ -32,17 +22,7 @@ const calcStuff = (cx: number, cy: number, fov: number, viewDist: number, w: num
     const newHeight = Math.abs(c3[1] - c1[1])
 
     return ({ x: c1[0], y: c1[1], w: -newHeight, h: -newHeight * proportion })
-    // /// draw a polygon between the points
-    // ctx.beginPath();
-    // ctx.moveTo(c1[0], c1[1]);
-    // ctx.lineTo(c2[0], c2[1]);
-    // ctx.lineTo(c3[0], c3[1]);
-    // ctx.lineTo(c4[0], c4[1]);
-    // ctx.closePath();
 
-    // /// fill the polygon
-    // ctx.fill();
-    // ctx.strokeStyle = "black";
 }
 
 export class Figure {
