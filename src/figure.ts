@@ -2,7 +2,7 @@
 
 // import { canvasHalfw, canvasHalfh, fov, angle, grid } from './main'
 import { reverseRotateX, rotateX } from './perspectiveCalculator'
-import { angle, canvasHalfh, canvasHalfw, fov, grid, h, w } from './utils'
+import { angle, calculateYFromXAndANgle, canvasHalfh, canvasHalfw, fov, grid, h, reverseCalculateYFromXAndANgle, w } from './utils'
 interface Properties {
     x: number
     y: number
@@ -33,43 +33,36 @@ export class Figure {
     minY: number
     iniX: number
     iniY: number
+    slope: number
     constructor(
         x2d: number,
         y2d: number,
         viewDist: number,
-        img: HTMLImageElement) {
+        img: HTMLImageElement,
+        slope: number) {
         // var randomScale = Math.random()
         this.img = img
         const proportion = img.height / img.width
         this.iniX = x2d
         this.iniY = y2d
+        const yWithoutSlope = reverseCalculateYFromXAndANgle(x2d, y2d, w, slope)
         const t1 = reverseRotateX(x2d, y2d, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
-        // const c1 = rotateX(t1[0], t1[1], fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
-        // const t2 = reverseRotateX(x2d, y2d, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
-        // const c2 = rotateX(t2[0] + 1, t2[1] + 1, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
 
-        // console.log(x2d, y2d, c1, c2)
-
-        // const x = c1[0]
-        // const y = c1[1]
-        // const w = c2[0]
-        // const h = c2[1]
-
-        // const x = 0
-        // const y = 0
-        // const w = 0
-        // const h = 0
-
-        // var size = initialSize
-        // size = size * scale
-        // slightly increase the size randomly
-        // size += size * randomScale / 5
-        // var y = x2d - Math.floor((size * img.height / img.width) / 2)
-        // var x = y2d - Math.floor((size) / 2)
-        // var color = "white"
-        // var w = Math.floor(size * img.width / img.width)
-        // var h = Math.floor(size * img.height / img.width)
         this.properties = calcStuff(t1[0], t1[1], fov, viewDist, canvasHalfw, canvasHalfh, angle, grid, proportion)
+
+        const t2 = reverseRotateX(x2d, yWithoutSlope, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
+
+        const properties = calcStuff(t2[0], t2[1], fov, viewDist, canvasHalfw, canvasHalfh, angle, grid, proportion)
+        // console.log(this.properties.h)
+        // console.log(properties.h)
+        // console.log('a-----------')
+        // console.log(y2d, yWithoutSlope)
+        // console.log(t1)
+        // console.log(t2)
+        this.properties.h = properties.h
+        this.properties.w = properties.w
+
+        // const 
         // {
         //     x, y, w, h
         // }

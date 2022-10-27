@@ -3,7 +3,7 @@ import { src1, src2, src3, src4, src5, src6 } from "./daisyImages"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
 import { GenerateNoise } from "./perlin"
-import { addElementToOrderedList, calculateScale, canvas, ctx, getRandomArbitrary, getRandomInt, getRandomWithProb, h, imagesArray, initialHeight, int, lerpColor, linearFunctionBounded, hillsWithDaisies, planeYCoordinate, scalingFactor, w, mountainRanges, calculateYFromXAndANgle, binomialCoefficient, figuresArray, angle, canvasHalfh, canvasHalfw, fov, grid, deltaDist, viewDist, daisiesGenerator } from './utils'
+import { addElementToOrderedList, calculateScale, canvas, ctx, getRandomArbitrary, getRandomInt, getRandomWithProb, h, imagesArray, initialHeight, int, lerpColor, linearFunctionBounded, hillsWithDaisies, planeYCoordinate, scalingFactor, w, mountainRanges, calculateYFromXAndANgle, binomialCoefficient, figuresArray, angle, canvasHalfh, canvasHalfw, fov, grid, deltaDist, viewDist, daisiesGenerator, reverseCalculateYFromXAndANgle } from './utils'
 
 function addFlowers() {
 
@@ -50,7 +50,8 @@ const setSize = () => {
                 0,
                 calculateYFromXAndANgle(0, bottom, w, mountain.slopeAngle),
                 (index) * deltaDist + viewDist,
-                imagesArray[getRandomInt(imagesArray.length)])
+                imagesArray[getRandomInt(imagesArray.length)],
+                mountain.slopeAngle)
             randFig.changeProperties(fov, (index) * deltaDist + viewDist, angle, grid)
 
             mountain.updateArea((Math.abs(top - bottom) * w)
@@ -58,12 +59,13 @@ const setSize = () => {
         }
         else {
             const top = mountain.lowestYAxis
-            const bottom = h + 10
+            const bottom = h + mountain.offsetHeight + 10
             const randFig = new Figure(
                 0,
                 calculateYFromXAndANgle(0, bottom, w, mountain.slopeAngle),
                 (index) * deltaDist + viewDist,
-                imagesArray[getRandomInt(imagesArray.length)])
+                imagesArray[getRandomInt(imagesArray.length)],
+                mountain.slopeAngle)
             randFig.changeProperties(fov, (index) * deltaDist + viewDist, angle, grid)
 
             mountain.updateArea((Math.abs(top - bottom) * w)
@@ -99,8 +101,16 @@ const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, ran
     var pushed = false
     // const newDaisyFake = new Figure(pos.x, pos.y, 20, img)
     // addElementToOrderedList(figuresArray, newDaisyFake)
+    // console.log("--------")
+    // console.log(pos.y, reverseCalculateYFromXAndANgle(pos.x, pos.y, w, Math.PI / 12))
     for (let index = 0; index < hillsWithDaisies.length; index++) {
-        const newDaisy = new Figure(pos.x, pos.y, (index) * deltaDist + viewDist, img)
+        const newDaisy = new Figure(
+            pos.x,
+            pos.y,
+            (index) * deltaDist + viewDist,
+            img,
+            hillsWithDaisies[index].slopeAngle
+        )
         const combinedNoise = hillsWithDaisies[index].rangeCombined
         const yPosition = calculateYFromXAndANgle(pos.x, combinedNoise.pos[pos.x] + hillsWithDaisies[index].height, w, hillsWithDaisies[index].slopeAngle)
         const isGreaterTop = yPosition < (pos.y)
@@ -115,6 +125,8 @@ const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, ran
             addElementToOrderedList(hillsWithDaisies[index].daisies, newDaisy)
             pushed = true
         }
+        if (pushed)
+            break
 
     }
 }
@@ -133,6 +145,7 @@ document.addEventListener("click", (e) => {
     if (img) {
         const rand = Math.random()
         const pos = getXY(canvas, e)
+        // console.log(pos.y, reverseCalculateYFromXAndANgle(pos.x, pos.y, w, Math.PI / 12))
         createFigureFromCoordinatesRandomPos(pos, rand, img)
     }
 
@@ -147,7 +160,7 @@ const createHillsWithDaisiess = () => {
     const bottom = h * 0.5
     const top = h * 0.9
 
-    const slope = getRandomArbitrary(-Math.PI / 12, Math.PI / 12)
+    const slope = Math.PI / 12//getRandomArbitrary(-Math.PI / 12, Math.PI / 12)
 
     var heightUnit = (bottom - top) / (layers + 1)
 

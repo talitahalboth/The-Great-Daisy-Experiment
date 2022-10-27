@@ -1,6 +1,6 @@
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
-import { getRandomArbitrary, h, calculateYFromXAndANgle, w, deltaDist, viewDist, fov, angle, grid, addElementToOrderedList } from "./utils"
+import { getRandomArbitrary, h, calculateYFromXAndANgle, w, deltaDist, viewDist, fov, angle, grid, addElementToOrderedList, reverseCalculateYFromXAndANgle } from "./utils"
 
 export class DaisiesGenerator {
     areasSum = 0
@@ -37,21 +37,33 @@ export class DaisiesGenerator {
             )
         }
         if (pos.y > this.yCoordinates[hillIndex]) {
+            const newY = calculateYFromXAndANgle(
+                pos.x,
+                pos.y,
+                w,
+                // hillIndex * deltaDist + viewDist,
+                hillsWithDaisies[hillIndex].slopeAngle
+            )
+            // console.log(newY,
+            //     reverseCalculateYFromXAndANgle(pos.x, newY, w, Math.PI / 12))
+
+            // console.log(pos.y, calculateYFromXAndANgle(
+            //     pos.x,
+            //     pos.y,
+            //     w,
+            //     // hillIndex * deltaDist + viewDist,
+            //     hillsWithDaisies[hillIndex].slopeAngle
+            // ))
             const newDaisy = new Figure(
                 pos.x,
                 // pos.y,
-                calculateYFromXAndANgle(
-                    pos.x,
-                    pos.y,
-                    w,
-                    // hillIndex * deltaDist + viewDist,
-                    hillsWithDaisies[hillIndex].slopeAngle
-                ),
+                newY,
                 (hillIndex) * deltaDist + viewDist,
                 // calculateScale(pos.y, planeYCoordinate, scalingFactor, initialHeight, hillIndex),
-                img
+                img,
+                hillsWithDaisies[hillIndex].slopeAngle
             )
-            newDaisy.changeProperties(fov, (hillIndex) * deltaDist + viewDist, angle, grid)
+            // newDaisy.changeProperties(fov, (hillIndex) * deltaDist + viewDist, angle, grid)
 
             addElementToOrderedList(hillsWithDaisies[hillIndex].daisies, newDaisy)
         }

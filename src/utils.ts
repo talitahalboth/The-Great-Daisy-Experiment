@@ -37,6 +37,11 @@ export const calculateYFromXAndANgle = (x: number, y: number, width: number, ang
     return y + Math.sin(angle) * (x - width / 2)
 }
 
+export const reverseCalculateYFromXAndANgle = (x: number, newY: number, width: number, angle: number) => {
+    return newY - Math.sin(angle) * (x - width / 2)
+    // newy = y + Math.sin(angle) * (x - width / 2)
+}
+
 
 const setSize = () => {
     // console.log(innerHeight, innerWidth)

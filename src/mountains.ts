@@ -33,7 +33,6 @@ export class HillsWithDaisies {
 
     updateArea(height: number) {
         this.areaProportionalToHeight = height
-        console.log(height)
     }
 
     calcuHighestAndLowestYAxis() {
