@@ -1,6 +1,6 @@
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
-import { getRandomArbitrary, h, calculateYFromXAndANgle, w, deltaDist, viewDist, fov, angle, grid, addElementToOrderedList, reverseCalculateYFromXAndANgle } from "./utils"
+import { getRandomArbitrary, h, calculateYFromXAndANgle, w, deltaDist, viewDist, fov, angle, grid, addElementToOrderedList, reverseCalculateYFromXAndANgle, getRandomWithProbBounded } from "./utils"
 
 export class DaisiesGenerator {
     areasSum = 0
@@ -31,7 +31,7 @@ export class DaisiesGenerator {
         const offSetHeight = hillsWithDaisies[hillsWithDaisies.length - 1].offsetHeight
         const pos = {
             x,
-            y: getRandomArbitrary(
+            y: getRandomWithProbBounded(
                 hillsWithDaisies[hillIndex].lowestYAxis,
                 hillIndex - 1 >= 0 ? hillsWithDaisies[hillIndex - 1].highestYAxis : (h + offSetHeight + 10)
             )

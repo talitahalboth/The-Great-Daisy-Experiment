@@ -141,20 +141,21 @@ const exponentialFunction = (a: number, b: number, r: number, t: number) => {
 
 export const getRandomWithProbBounded = (min: number, max: number) => {
     var d = 3
-    var rand = Math.random() * d
-    var a = 3
-    var b = 3
-    var r = 5
-    var y = exponentialFunction(a, b, r, rand)
-    return int(
-        map(
-            y,
-            0,
-            exponentialFunction(a, b, r, d),
-            min,
-            max
-        )
-    )
+    var rand = Math.random()
+    return int(map(rand * rand, 0, 1, min, max))
+    // var a = 3
+    // var b = 3
+    // var r = 5
+    // var y = exponentialFunction(a, b, r, rand)
+    // return int(
+    //     map(
+    //         y,
+    //         0,
+    //         exponentialFunction(a, b, r, d),
+    //         min,
+    //         max
+    //     )
+    // )
 }
 
 export const getRandomWithProb = () => {
