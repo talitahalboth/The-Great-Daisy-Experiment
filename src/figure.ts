@@ -59,8 +59,8 @@ export class Figure {
         // console.log(y2d, yWithoutSlope)
         // console.log(t1)
         // console.log(t2)
-        this.properties.h = properties.h
-        this.properties.w = properties.w
+        this.properties.h = Math.abs(properties.h)
+        this.properties.w = Math.abs(properties.w)
 
         // const 
         // {

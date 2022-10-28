@@ -88,10 +88,24 @@ const createMountains = () => {
 
 // addEventListener("resize", () => setSizeBackground())
 
+export const drawBackgroundOnContextReverse = (backgroundCtx: CanvasRenderingContext2D) => {
 
-export const setSizeBackground = () => {
-    height = backgroundCanvas.height = h
-    width = backgroundCanvas.width = w
+    var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300)
+    grd.addColorStop(0, "#9eb9d4")
+    grd.addColorStop(1, "#FFFFFF")
+    backgroundCtx.fillStyle = grd
+    backgroundCtx.fillRect(0, 0, width, backgroundCanvas.height)
+
+
+    sun.draw(backgroundCtx)
+
+    mountainRanges.slice().reverse().forEach((mountain) => {
+        mountain.drawMountain(backgroundCtx, w, h)
+    })
+    backgroundCtx.globalCompositeOperation = 'destination-over'
+}
+
+export const drawBackgroundOnContext = (backgroundCtx: CanvasRenderingContext2D) => {
     backgroundCtx.globalCompositeOperation = 'destination-over'
     backgroundCtx.clearRect(0, 0, width, backgroundCanvas.height)
 
@@ -109,6 +123,16 @@ export const setSizeBackground = () => {
     grd.addColorStop(1, "#FFFFFF")
     backgroundCtx.fillStyle = grd
     backgroundCtx.fillRect(0, 0, width, backgroundCanvas.height)
+}
+
+
+
+export const setSizeBackground = () => {
+    height = backgroundCanvas.height = h
+    width = backgroundCanvas.width = w
+
+    drawBackgroundOnContext(backgroundCtx)
+
 
     // backgroundCtx.fillStyle = "#9ab843"
     // backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height)

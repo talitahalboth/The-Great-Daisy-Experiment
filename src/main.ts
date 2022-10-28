@@ -1,38 +1,26 @@
-import { setSizeBackground } from "./background"
-import { myDaisy, src1, src2, src3, src4, src5, src6 } from "./daisyImages"
+import { drawBackgroundOnContext, drawBackgroundOnContextReverse, setSizeBackground } from "./background"
+import { sources } from "./daisyImages"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
 import { GenerateNoise } from "./perlin"
-import { addElementToOrderedList, calculateScale, canvas, ctx, getRandomArbitrary, getRandomInt, getRandomWithProb, h, imagesArray, initialHeight, int, lerpColor, linearFunctionBounded, hillsWithDaisies, planeYCoordinate, scalingFactor, w, mountainRanges, calculateYFromXAndANgle, binomialCoefficient, figuresArray, angle, canvasHalfh, canvasHalfw, fov, grid, deltaDist, viewDist, daisiesGenerator, reverseCalculateYFromXAndANgle } from './utils'
+import { addElementToOrderedList, calculateScale, canvas, ctx, getRandomArbitrary, getRandomInt, getRandomWithProb, h, imagesArray, initialHeight, int, lerpColor, linearFunctionBounded, hillsWithDaisies, planeYCoordinate, scalingFactor, w, mountainRanges, calculateYFromXAndANgle, binomialCoefficient, figuresArray, angle, canvasHalfh, canvasHalfw, fov, grid, deltaDist, viewDist, daisiesGenerator, reverseCalculateYFromXAndANgle, exportCanvas } from './utils'
+
 
 function addFlowers() {
-
     console.log(hillsWithDaisies.length)
     for (let index = 0; index < 1000; index++) {
         generateRandomDaisies()
     }
     drawScene()
 }
-document.getElementById("addFlowers").onclick = addFlowers
 
-const img1 = new Image()
-img1.src = myDaisy
-// const img2 = new Image()
-// img2.src = src2
-// const img3 = new Image()
-// img3.src = src3
-// const img4 = new Image()
-// img4.src = src4
-// const img5 = new Image()
-// img5.src = src5
-// const img6 = new Image()
-// img6.src = src6
-imagesArray.push(img1)
-// imagesArray.push(img2)
-// imagesArray.push(img3)
-// imagesArray.push(img4)
-// imagesArray.push(img5)
-// imagesArray.push(img6)
+document.getElementById("exportCanvas").onclick = exportCanvas
+document.getElementById("addFlowers").onclick = addFlowers
+sources.forEach((source, index) => {
+    const img = new Image()
+    img.src = source
+    imagesArray.push(img)
+})
 addEventListener("resize", () => setSize())
 
 const setSize = () => {

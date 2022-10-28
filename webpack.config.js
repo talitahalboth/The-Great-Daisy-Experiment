@@ -30,10 +30,12 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'our project', // Load a custom template (lodash by default)
-            template: 'src/custom.html' }),
+            template: 'src/custom.html'
+        }),
         new MiniCssExtractPlugin({
-          filename:"bundle.css"})
-      ],
+            filename: "bundle.css"
+        })
+    ],
 
     devServer: {
         static: path.join(__dirname, "dist"),

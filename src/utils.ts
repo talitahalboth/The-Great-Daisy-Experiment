@@ -1,7 +1,8 @@
-import { setSizeBackground } from "./background"
+import { drawBackgroundOnContextReverse, setSizeBackground } from "./background"
 import { DaisiesGenerator } from "./daisiesGenerator"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
+import C2S from '@mithrandirii/canvas2svg'
 
 export const canvas = document.getElementById("canvas") as HTMLCanvasElement ?? new HTMLCanvasElement
 export const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
@@ -176,4 +177,59 @@ export const getRandomWithProb = () => {
     //             h
     //         )
     //     )
+}
+
+
+
+function saveSvg(svgEl: SVGSVGElement, name: string) {
+    var serializer = new XMLSerializer();
+    var source = serializer.serializeToString(svgEl);
+
+    //add name spaces.
+    if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+        source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+    if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+        source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+    }
+
+    //add xml declaration
+    source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+
+    //convert svg source to URI data scheme.
+    var url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+
+    //set url value to a element's href attribute.
+
+    var downloadLink = document.createElement("a");
+    downloadLink.href = url;
+    downloadLink.download = name;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    //you can download svg file by right click menu.
+}
+
+
+export function exportCanvas() {
+    console.log("heeeeeeeey")
+    var ctx = new C2S({ width: w, height: h })
+    ctx.globalCompositeOperation = 'destination-over'
+    ctx.clearRect(0, 0, w, h)
+
+    drawBackgroundOnContextReverse(ctx)
+
+    hillsWithDaisies.slice().reverse().forEach((mountain, index) => {
+        mountain.drawMountain(ctx, w, h)
+        mountain.drawDaisies(ctx)
+    })
+    //serialize your SVG
+    var mySerializedSVG = ctx.getSerializedSvg(true) //true here, if you need to convert named to numbered entities.
+
+    //If you really need to you can access the shadow inline SVG created by calling:
+    var svg = ctx.getSvg()
+
+    console.log(svg)
+    saveSvg(svg, "mySVG.svg")
+
 }
