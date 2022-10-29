@@ -7,40 +7,40 @@ import { GenerateNoise } from "./perlin"
 import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, lerpColor, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, exportCanvas, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array } from './utils'
 addEventListener("resize", () => setSize())
 
-const sources = ["..\\tmp\\ref\\minhaFlor1.svg", "..\\tmp\\ref\\minhaFlor2.svg"]
+// const sources = ["..\\tmp\\ref\\minhaFlor1.svg", "..\\tmp\\ref\\minhaFlor2.svg"]
 
-// const sources = ["..\\tmp\\ref\\multipleDaisies\\drawing_d10s1.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d1s1.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d2s1.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d3s1.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d4s1.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d5s1.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d6s1.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d7s1.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d8s1.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d9s1.svg"]
+const sources = ["..\\tmp\\ref\\multipleDaisies\\drawing_d10s1.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d1s1.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d2s1.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d3s1.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d4s1.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d5s1.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d6s1.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d7s1.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d8s1.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d9s1.svg"]
 
-// const sourcesSize2 = ["..\\tmp\\ref\\multipleDaisies\\drawing_d10s2.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d1s2.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d2s2.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d3s2.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d4s2.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d5s2.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d6s2.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d7s2.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d8s2.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d9s2.svg"]
+const sourcesSize2 = ["..\\tmp\\ref\\multipleDaisies\\drawing_d10s2.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d1s2.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d2s2.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d3s2.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d4s2.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d5s2.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d6s2.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d7s2.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d8s2.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d9s2.svg"]
 
-// const sourcesSize3 = ["..\\tmp\\ref\\multipleDaisies\\drawing_d10s3.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d1s3.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d2s3.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d3s3.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d4s3.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d5s3.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d6s3.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d7s3.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d8s3.svg",
-//     "..\\tmp\\ref\\multipleDaisies\\drawing_d9s3.svg"]
+const sourcesSize3 = ["..\\tmp\\ref\\multipleDaisies\\drawing_d10s3.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d1s3.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d2s3.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d3s3.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d4s3.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d5s3.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d6s3.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d7s3.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d8s3.svg",
+    "..\\tmp\\ref\\multipleDaisies\\drawing_d9s3.svg"]
 
 function addFlowers() {
     setSize()
@@ -57,17 +57,17 @@ sources.forEach((source, index) => {
     imagesArray.push(img)
 })
 
-// sourcesSize2.forEach((source, index) => {
-//     const img = new Image()
-//     img.src = source
-//     imagesS2Array.push(img)
-// })
+sourcesSize2.forEach((source, index) => {
+    const img = new Image()
+    img.src = source
+    imagesS2Array.push(img)
+})
 
-// sourcesSize3.forEach((source, index) => {
-//     const img = new Image()
-//     img.src = source
-//     imagesS3Array.push(img)
-// })
+sourcesSize3.forEach((source, index) => {
+    const img = new Image()
+    img.src = source
+    imagesS3Array.push(img)
+})
 
 
 const setSize = () => {
@@ -160,7 +160,8 @@ const generateRandomDaisies = () => {
     const x = getRandomInt(w)
     daisiesGenerator.updateyCoordinates(hillsWithDaisies, x)
     const hillIndex = daisiesGenerator.getHillIndex(getRandomArbitrary(0, daisiesGenerator.areasSum), hillsWithDaisies)
-    const img = imagesArray[getRandomInt(imagesArray.length)]//hillIndex > 0 ? hillIndex > 1 ? imagesS3Array[getRandomInt(imagesArray.length)] : imagesS2Array[getRandomInt(imagesArray.length)] : imagesArray[getRandomInt(imagesArray.length)]
+    const img = hillIndex > 0 ? hillIndex > 1 ? imagesS3Array[getRandomInt(imagesArray.length)] : imagesS2Array[getRandomInt(imagesArray.length)] : imagesArray[getRandomInt(imagesArray.length)]
+    // imagesArray[getRandomInt(imagesArray.length)]
     daisiesGenerator.createDaisyAtIndex(hillIndex, x, hillsWithDaisies, img)
 }
 
@@ -178,7 +179,7 @@ const createHillsWithDaisiess = () => {
 
     for (let index = 0; index < layers; index++) {
         var y = top + getRandomArbitrary(heightUnit * index, heightUnit * (index + 1))
-        const noise = GenerateNoise(60, 150, 2, 3, w)// GenerateNoise(40, 100, 16, 2, w)
+        const noise = GenerateNoise(40, 150, 2, 3, w)// GenerateNoise(40, 100, 16, 2, w)
 
         const m = new HillsWithDaisies({
             color: lerpColor(start, end, index / layers),

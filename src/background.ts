@@ -1,10 +1,12 @@
 /// <reference path="main.ts" />
 /// <reference path="perlin.ts" />
 
-import { sunColour, mountainStartColour, mountainEndColour, backgroundStartColour, backgroundEndColour } from "./constants"
+import { Cloud, cloudsOverlap } from "./clouds"
+import { mountainStartColour, mountainEndColour, backgroundStartColour, backgroundEndColour } from "./constants"
 import { HillsWithDaisies } from "./mountains"
 import { GenerateNoise } from "./perlin"
-import { getRandomArbitrary, h, int, lerpColor, mountainRanges, w } from "./utils"
+import { sun } from "./sun"
+import { getRandomArbitrary, getRandomInt, h, int, lerpColor, mountainRanges, w } from "./utils"
 
 const backgroundCanvas = document.getElementById("background-layer") as HTMLCanvasElement ?? new HTMLCanvasElement
 const backgroundCtx = backgroundCanvas.getContext("2d") ?? new CanvasRenderingContext2D()
@@ -12,49 +14,7 @@ const backgroundCtx = backgroundCanvas.getContext("2d") ?? new CanvasRenderingCo
 let width = backgroundCanvas.width = w
 let height = backgroundCanvas.height = h
 const initialBackgroundHeight = height
-
-
-class Sun {
-    x: number
-    y: number
-    r: number
-    constructor(x: number, y: number, r: number) {
-        this.x = int(x)
-        this.y = int(y)
-        this.r = int(r)
-    }
-    draw(ctx: CanvasRenderingContext2D) {
-
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
-        ctx.fillStyle = sunColour
-        ctx.fill()
-        this.drawSunWaves(ctx, sunColour, backgroundEndColour)
-    }
-
-    drawSunWaves(ctx: CanvasRenderingContext2D, start: string, end: string) {
-
-        const layers = 3
-
-        let prevR = this.r
-
-        for (let index = 0; index < layers; index++) {
-
-            ctx.globalAlpha = 1 / (index + 3)
-            const color = lerpColor(start, end, index / layers)
-            ctx.beginPath()
-            const newR = prevR + 10 + (layers - index) * 5
-            ctx.arc(this.x, this.y, newR, 0, Math.PI * 2)
-            prevR = newR
-            ctx.fillStyle = `${color}`
-            ctx.fill()
-
-        }
-        ctx.globalAlpha = 1
-    }
-}
-
-const sun = new Sun(int(getRandomArbitrary(w / 3, 3 * w / 4)), int(getRandomArbitrary(h / 8, 2 * h / 8)), 50 + Math.random() * 10)
+const clouds: Cloud[] = []
 
 
 const createMountains = () => {
@@ -66,6 +26,7 @@ const createMountains = () => {
 
     var heightUnit = (bottom - top) / (layers + 1)
 
+
     for (let index = 0; index < layers; index++) {
         var y = top + getRandomArbitrary(heightUnit * index, heightUnit * (index + 1))
         const noise = GenerateNoise(100, 150, 2, 3, w)
@@ -75,12 +36,35 @@ const createMountains = () => {
             range: noise,
             height: y,
             daisies: [],
-            slopeAngle: 0//- Math.PI / 12
+            slopeAngle: getRandomArbitrary(-Math.PI / 12, Math.PI / 12)
         })
         mountainRanges.push(m)
     }
 }
-// addEventListener("resize", () => setSizeBackground())
+
+const createClouds = () => {
+    const numClouds = int(getRandomArbitrary(2, 4))
+    for (let index = 0; index < numClouds; index++) {
+        let attempts = 0
+        let overlap = false
+        do {
+            overlap = false
+            const newCloud = new Cloud()
+
+            clouds.forEach(cloud => {
+                overlap = overlap ? overlap : cloudsOverlap(newCloud, cloud)
+                overlap = overlap ? overlap : cloudsOverlap(cloud, newCloud)
+
+            })
+            if (!overlap) clouds.push(newCloud)
+            else {
+
+            }
+            attempts++
+        } while (overlap && attempts < 20)
+
+    }
+}
 
 export const drawBackgroundOnContextReverse = (backgroundCtx: CanvasRenderingContext2D) => {
 
@@ -92,6 +76,7 @@ export const drawBackgroundOnContextReverse = (backgroundCtx: CanvasRenderingCon
 
 
     sun.draw(backgroundCtx)
+    clouds.forEach((cloud) => cloud.draw(backgroundCtx))
 
     mountainRanges.slice().reverse().forEach((mountain) => {
         mountain.drawMountain(backgroundCtx, w, h)
@@ -110,7 +95,10 @@ export const drawBackgroundOnContext = (backgroundCtx: CanvasRenderingContext2D)
     mountainRanges.forEach((mountain) => {
         mountain.drawMountain(backgroundCtx, w, h)
     })
+
+    clouds.forEach((cloud) => cloud.draw(backgroundCtx))
     sun.draw(backgroundCtx)
+
     backgroundCtx.globalCompositeOperation = 'destination-over'
     var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300)
     grd.addColorStop(0, backgroundStartColour)
@@ -136,3 +124,4 @@ export const setSizeBackground = () => {
 //https://www.123rf.com/clipart-vector/pastoral_scene.html
 
 createMountains()
+createClouds()

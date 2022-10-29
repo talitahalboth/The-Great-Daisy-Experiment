@@ -10,3 +10,4 @@ export const mountainEndColour = "#93b7d9"
 
 export const hillsStartColour = "#417303"
 export const hilssEndColour = "#84bd2a"
+// export const hillsMiddleCOlour =

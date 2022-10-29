@@ -19,12 +19,12 @@ export let closestToXAxis = h
 
 
 export const fov = 1024 /// Field of view kind of the lense, smaller values = spheric
-export const angle = -75 /// grid angle
+export const angle = -80 /// grid angle
 export const grid = 20 /// grid size in Cartesian
 export const canvasHalfh = h / 2
 export const canvasHalfw = w / 2
-export var viewDist = 50
-export var deltaDist = 40 /// view distance, higher values = further away
+export var viewDist = 60
+export var deltaDist = 50 /// view distance, higher values = further away
 
 export interface PerspectiveValues {
     fov: number
@@ -96,6 +96,10 @@ const lerp = (a: number, b: number, n: number) => {
 export const lerpColor = (beginning: string, end: string, percent: number) => {
     var c1 = hexToRGB(beginning) ?? { r: 0, b: 0, g: 0 }
     var c2 = hexToRGB(end) ?? { r: 0, b: 0, g: 0 }
+
+    // p < 0.5
+    // ? colorA * p * 2.0 + colorB * (1.0 - p * 2.0)
+    // : colorB * (p - 0.5) * 2.0 + colorC * (1.0 - (p - 0.5) * 2.0)
     return rgbToHex(
         lerp(c1.r, c2.r, percent),
         lerp(c1.g, c2.g, percent),
