@@ -1,4 +1,9 @@
-export function reverseRotateX(x2d: number, y2d: number, fov: number, viewDist: number, w: number, h: number, angle: number, grid: any) {
+import { PerspectiveValues } from "./utils";
+
+export function reverseRotateX(x2d: number, y2d: number, values: PerspectiveValues) {
+
+    const { fov, viewDist, w, h, angle, grid } = values
+
     let rd, ca, sa, ry, rz, f;
 
     rd = angle * Math.PI / 180; /// convert angle into radians
@@ -23,7 +28,9 @@ export function reverseRotateX(x2d: number, y2d: number, fov: number, viewDist: 
 
 }
 
-export function rotateX(x: number, y: number, fov: number, viewDist: number, w: number, h: number, angle: number, grid: any) {
+export function rotateX(x: number, y: number, values: PerspectiveValues) {
+
+    const { fov, viewDist, w, h, angle, grid } = values
 
     let rd, ca, sa, ry, rz, f;
 

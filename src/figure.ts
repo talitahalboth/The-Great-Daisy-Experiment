@@ -2,7 +2,7 @@
 
 // import { canvasHalfw, canvasHalfh, fov, angle, grid } from './main'
 import { reverseRotateX, rotateX } from './perspectiveCalculator'
-import { angle, calculateYFromXAndANgle, canvasHalfh, canvasHalfw, fov, grid, h, reverseCalculateYFromXAndANgle, w } from './utils'
+import { PerspectiveValues, reverseCalculateYFromXAndANgle, w } from './utils'
 interface Properties {
     x: number
     y: number
@@ -16,9 +16,9 @@ const initialSize = 6
 
 
 
-const calcStuff = (cx: number, cy: number, fov: number, viewDist: number, w: number, h: number, angle: number, grid: any, proportion: number) => {
-    const c1 = rotateX(cx, cy, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
-    const c3 = rotateX(cx + 2, cy + 2, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
+const calcStuff = (cx: number, cy: number, perspectiveCalculatingValues: PerspectiveValues, proportion: number) => {
+    const c1 = rotateX(cx, cy, perspectiveCalculatingValues); /// upper left corner
+    const c3 = rotateX(cx + 2, cy + 2, perspectiveCalculatingValues); /// upper left corner
     const newHeight = Math.abs(c3[1] - c1[1])
 
     return ({ x: c1[0], y: c1[1], w: -newHeight, h: -newHeight * proportion })
@@ -39,19 +39,20 @@ export class Figure {
         y2d: number,
         viewDist: number,
         img: HTMLImageElement,
-        slope: number) {
+        slope: number,
+        perspectiveCalculatingValues: PerspectiveValues) {
         this.img = img
         const proportion = img.height / img.width
         this.iniX = x2d
         this.iniY = y2d
         const yWithoutSlope = reverseCalculateYFromXAndANgle(x2d, y2d, w, slope)
-        const t1 = reverseRotateX(x2d, y2d, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
+        const t1 = reverseRotateX(x2d, y2d, { ...perspectiveCalculatingValues, viewDist }); /// upper left corner
 
-        this.properties = calcStuff(t1[0], t1[1], fov, viewDist, canvasHalfw, canvasHalfh, angle, grid, proportion)
+        this.properties = calcStuff(t1[0], t1[1], { ...perspectiveCalculatingValues, viewDist }, proportion)
 
-        const t2 = reverseRotateX(x2d, yWithoutSlope, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
+        const t2 = reverseRotateX(x2d, yWithoutSlope, { ...perspectiveCalculatingValues, viewDist }); /// upper left corner
 
-        const properties = calcStuff(t2[0], t2[1], fov, viewDist, canvasHalfw, canvasHalfh, angle, grid, proportion)
+        const properties = calcStuff(t2[0], t2[1], { ...perspectiveCalculatingValues, viewDist }, proportion)
 
         this.properties.h = Math.abs(properties.h)
         this.properties.w = Math.abs(properties.w)
@@ -59,9 +60,9 @@ export class Figure {
 
     }
 
-    changeProperties(fov: number, viewDist: number, angle: number, grid: any) {
-        const t1 = reverseRotateX(this.iniX, this.iniY, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
-        const newProperties = calcStuff(t1[0], t1[1], fov, viewDist, canvasHalfw, canvasHalfh, angle, grid, this.img.height / this.img.width)
+    changeProperties(perspectiveCalculatingValues: PerspectiveValues) {
+        const t1 = reverseRotateX(this.iniX, this.iniY, perspectiveCalculatingValues); /// upper left corner
+        const newProperties = calcStuff(t1[0], t1[1], perspectiveCalculatingValues, this.img.height / this.img.width)
 
         this.properties = newProperties
     }

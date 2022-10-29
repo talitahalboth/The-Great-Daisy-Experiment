@@ -24,6 +24,26 @@ export const canvasHalfw = w / 2
 export var viewDist = 50
 export var deltaDist = 30 /// view distance, higher values = further away
 
+export interface PerspectiveValues {
+    fov: number
+    angle: number
+    grid: number
+    w: number
+    h: number
+    viewDist: number
+    deltaDist: number
+}
+
+export const perspectiveCalculatingValues: PerspectiveValues = {
+    fov,
+    angle,
+    grid,
+    w: canvasHalfw,
+    h: canvasHalfh,
+    viewDist,
+    deltaDist
+}
+
 export const daisiesGenerator: DaisiesGenerator = new DaisiesGenerator()
 
 export const calculateYFromXAndANgle = (x: number, y: number, width: number, angle: number) => {

@@ -1,6 +1,6 @@
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
-import { h, calculateYFromXAndANgle, w, deltaDist, viewDist, addElementToOrderedList, getRandomWithProbBounded } from "./utils"
+import { h, calculateYFromXAndANgle, w, deltaDist, viewDist, addElementToOrderedList, getRandomWithProbBounded, perspectiveCalculatingValues } from "./utils"
 
 export class DaisiesGenerator {
     areasSum = 0
@@ -49,7 +49,8 @@ export class DaisiesGenerator {
                 newY,
                 (hillIndex) * deltaDist + viewDist,
                 img,
-                hillsWithDaisies[hillIndex].slopeAngle
+                hillsWithDaisies[hillIndex].slopeAngle,
+                perspectiveCalculatingValues
             )
 
             addElementToOrderedList(hillsWithDaisies[hillIndex].daisies, newDaisy)

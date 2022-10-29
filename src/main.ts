@@ -3,7 +3,7 @@ import { sources } from "./daisyImages"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
 import { GenerateNoise } from "./perlin"
-import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, lerpColor, hillsWithDaisies, w, calculateYFromXAndANgle, angle, fov, grid, deltaDist, viewDist, daisiesGenerator, exportCanvas, getXY } from './utils'
+import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, lerpColor, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, exportCanvas, getXY, perspectiveCalculatingValues } from './utils'
 
 addEventListener("resize", () => setSize())
 
@@ -40,8 +40,9 @@ const setSize = () => {
                 calculateYFromXAndANgle(0, bottom, w, mountain.slopeAngle),
                 (index) * deltaDist + viewDist,
                 imagesArray[getRandomInt(imagesArray.length)],
-                mountain.slopeAngle)
-            randFig.changeProperties(fov, (index) * deltaDist + viewDist, angle, grid)
+                mountain.slopeAngle,
+                perspectiveCalculatingValues)
+            randFig.changeProperties({ ...perspectiveCalculatingValues, viewDist: index * deltaDist + viewDist })//fov, (index) * deltaDist + viewDist, angle, grid)
 
             mountain.updateArea((Math.abs(top - bottom) * w)
                 / (Math.abs(randFig.properties.h * randFig.properties.w)))
@@ -54,8 +55,9 @@ const setSize = () => {
                 calculateYFromXAndANgle(0, bottom, w, mountain.slopeAngle),
                 (index) * deltaDist + viewDist,
                 imagesArray[getRandomInt(imagesArray.length)],
-                mountain.slopeAngle)
-            randFig.changeProperties(fov, (index) * deltaDist + viewDist, angle, grid)
+                mountain.slopeAngle,
+                perspectiveCalculatingValues)
+            randFig.changeProperties({ ...perspectiveCalculatingValues, viewDist: index * deltaDist + viewDist })
 
             mountain.updateArea((Math.abs(top - bottom) * w)
                 / (Math.abs(randFig.properties.h * randFig.properties.w)))
@@ -85,7 +87,8 @@ const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, ran
             pos.y,
             (index) * deltaDist + viewDist,
             img,
-            hillsWithDaisies[index].slopeAngle
+            hillsWithDaisies[index].slopeAngle,
+            perspectiveCalculatingValues
         )
         const combinedNoise = hillsWithDaisies[index].rangeCombined
         const yPosition = calculateYFromXAndANgle(pos.x, combinedNoise.pos[pos.x] + hillsWithDaisies[index].height, w, hillsWithDaisies[index].slopeAngle)
