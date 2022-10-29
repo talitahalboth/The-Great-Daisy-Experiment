@@ -3,8 +3,11 @@
 A simple web app created using canvas
 
 
-![image](https://user-images.githubusercontent.com/19466053/195704940-b0380d46-000a-4901-ba32-f0d08b4edce1.png)
-![image](https://user-images.githubusercontent.com/19466053/195705303-4da8d2c8-9df1-48a0-9bee-5d0a64da89f4.png)
+[](https://user-images.githubusercontent.com/19466053/195704940-b0380d46-000a-4901-ba32-f0d08b4edce1.png)
+[](https://user-images.githubusercontent.com/19466053/195705303-4da8d2c8-9df1-48a0-9bee-5d0a64da89f4.png)
+![image](https://user-images.githubusercontent.com/19466053/198846833-c4106bd6-25d4-4645-8b5e-0d6077c9b0b4.png)
+
+
 
 Randomly generates a landscape, and randomly add daisies to the field when clicked.
 
