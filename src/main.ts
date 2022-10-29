@@ -1,11 +1,21 @@
 import { setSizeBackground } from "./background"
-import { sources } from "./daisyImages"
+// import { sources } from "./daisyImages"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
 import { GenerateNoise } from "./perlin"
 import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, lerpColor, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, exportCanvas, getXY, perspectiveCalculatingValues } from './utils'
-
 addEventListener("resize", () => setSize())
+
+const sources = ["..\\tmp\\ref\\g12374.svg",
+    "..\\tmp\\ref\\g12452.svg",
+    "..\\tmp\\ref\\g12496.svg",
+    "..\\tmp\\ref\\g12567.svg",
+    "..\\tmp\\ref\\g12646.svg",
+    "..\\tmp\\ref\\g12751.svg",
+    "..\\tmp\\ref\\g12794.svg",
+    "..\\tmp\\ref\\g12869.svg",
+    "..\\tmp\\ref\\g12957.svg",
+    "..\\tmp\\ref\\g13049.svg"]
 
 function addFlowers() {
     // hillsWithDaisies.
@@ -166,3 +176,4 @@ drawScene()
 setSizeBackground()
 document.getElementById("exportCanvas").onclick = exportCanvas
 document.getElementById("addFlowers").onclick = addFlowers
+
