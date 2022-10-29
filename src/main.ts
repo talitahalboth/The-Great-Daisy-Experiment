@@ -113,9 +113,9 @@ const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, ran
 const generateRandomDaisies = () => {
     const x = getRandomInt(w)
     daisiesGenerator.updateyCoordinates(hillsWithDaisies, x)
-    console.log("areasSum", daisiesGenerator.areasSum)
+    // console.log("areasSum", daisiesGenerator.areasSum)
     const hillIndex = daisiesGenerator.getHillIndex(getRandomArbitrary(0, daisiesGenerator.areasSum), hillsWithDaisies)
-    console.log(hillIndex)
+    // console.log(hillIndex)
     const img = imagesArray[getRandomInt(imagesArray.length)]
     daisiesGenerator.createDaisyAtIndex(hillIndex, x, hillsWithDaisies, img)
 }

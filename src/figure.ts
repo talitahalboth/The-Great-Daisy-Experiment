@@ -18,8 +18,8 @@ const initialSize = 6
 
 const calcStuff = (cx: number, cy: number, perspectiveCalculatingValues: PerspectiveValues, proportion: number) => {
     const c1 = rotateX(cx, cy, perspectiveCalculatingValues); /// upper left corner
-    const c3 = rotateX(cx + 2, cy + 2, perspectiveCalculatingValues); /// upper left corner
-    const newHeight = Math.abs(c3[1] - c1[1])
+    const c3 = rotateX(cx + 1, cy, perspectiveCalculatingValues); /// upper left corner
+    const newHeight = Math.abs(c3[0] - c1[0])
 
     return ({ x: c1[0], y: c1[1], w: -newHeight, h: -newHeight * proportion })
 
@@ -78,7 +78,7 @@ export class Figure {
         ctx.drawImage(
             this.img,
             Math.floor(this.properties.x - this.properties.w / 2),
-            Math.floor(this.properties.y - this.properties.w / 2),
+            Math.floor(this.properties.y - this.properties.h / 1.5),
             Math.floor(this.properties.w),
             Math.floor(this.properties.h)
         )

@@ -2,7 +2,7 @@ import { PerspectiveValues } from "./utils";
 
 export function reverseRotateX(x2d: number, y2d: number, values: PerspectiveValues) {
 
-    const { fov, viewDist, w, h, angle, grid } = values
+    const { fov, viewDist, w, h, angle } = values
 
     let rd, ca, sa, ry, rz, f;
 
@@ -30,7 +30,7 @@ export function reverseRotateX(x2d: number, y2d: number, values: PerspectiveValu
 
 export function rotateX(x: number, y: number, values: PerspectiveValues) {
 
-    const { fov, viewDist, w, h, angle, grid } = values
+    const { fov, viewDist, w, h, angle } = values
 
     let rd, ca, sa, ry, rz, f;
 

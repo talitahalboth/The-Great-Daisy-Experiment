@@ -19,7 +19,7 @@ export class DaisiesGenerator {
     getHillIndex(rand: number, hillsWithDaisies: HillsWithDaisies[]) {
         let ix = 0
         let iniValue = hillsWithDaisies[0].areaProportionalToHeight
-        console.log("rand", rand)
+        // console.log("rand", rand)
         for (let index = 1; index < hillsWithDaisies.length; index++) {
             if (rand > iniValue)
                 ix++
