@@ -1,6 +1,6 @@
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
-import { getRandomArbitrary, h, calculateYFromXAndANgle, w, deltaDist, viewDist, fov, angle, grid, addElementToOrderedList, reverseCalculateYFromXAndANgle, getRandomWithProbBounded } from "./utils"
+import { h, calculateYFromXAndANgle, w, deltaDist, viewDist, addElementToOrderedList, getRandomWithProbBounded } from "./utils"
 
 export class DaisiesGenerator {
     areasSum = 0
@@ -19,6 +19,7 @@ export class DaisiesGenerator {
     getHillIndex(rand: number, hillsWithDaisies: HillsWithDaisies[]) {
         let ix = 0
         let iniValue = hillsWithDaisies[0].areaProportionalToHeight
+        console.log("rand", rand)
         for (let index = 1; index < hillsWithDaisies.length; index++) {
             if (rand > iniValue)
                 ix++
@@ -32,7 +33,7 @@ export class DaisiesGenerator {
         const pos = {
             x,
             y: getRandomWithProbBounded(
-                hillsWithDaisies[hillIndex].lowestYAxis,
+                hillsWithDaisies[hillIndex].lowestYAxis - 10,
                 hillIndex - 1 >= 0 ? hillsWithDaisies[hillIndex - 1].highestYAxis : (h + offSetHeight + 10)
             )
         }
@@ -41,29 +42,15 @@ export class DaisiesGenerator {
                 pos.x,
                 pos.y,
                 w,
-                // hillIndex * deltaDist + viewDist,
                 hillsWithDaisies[hillIndex].slopeAngle
             )
-            // console.log(newY,
-            //     reverseCalculateYFromXAndANgle(pos.x, newY, w, Math.PI / 12))
-
-            // console.log(pos.y, calculateYFromXAndANgle(
-            //     pos.x,
-            //     pos.y,
-            //     w,
-            //     // hillIndex * deltaDist + viewDist,
-            //     hillsWithDaisies[hillIndex].slopeAngle
-            // ))
             const newDaisy = new Figure(
                 pos.x,
-                // pos.y,
                 newY,
                 (hillIndex) * deltaDist + viewDist,
-                // calculateScale(pos.y, planeYCoordinate, scalingFactor, initialHeight, hillIndex),
                 img,
                 hillsWithDaisies[hillIndex].slopeAngle
             )
-            // newDaisy.changeProperties(fov, (hillIndex) * deltaDist + viewDist, angle, grid)
 
             addElementToOrderedList(hillsWithDaisies[hillIndex].daisies, newDaisy)
         }

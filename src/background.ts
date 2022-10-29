@@ -23,7 +23,7 @@ const drawSunGradient = (ctx: CanvasRenderingContext2D, w: number, h: number) =>
     // gradient.addColorStop(0.5, '#FCCABD')
     // gradient.addColorStop(0.6, '#361e36')
     // gradient.addColorStop(0.9, '#F0AEAF')
-    gradient.addColorStop(1, '#C4A1AE')
+    gradient.addColorStop(1, '#e9e1dc')
 
     /* Sun */
     ctx.fillStyle = gradient
@@ -43,7 +43,7 @@ class Sun {
 
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
-        ctx.fillStyle = '#FFFFFF'
+        ctx.fillStyle = '#d77538'
         ctx.fill()
     }
 }
@@ -63,11 +63,11 @@ const sun = new Sun(int(getRandomArbitrary(w / 3, 3 * w / 4)), int(getRandomArbi
 
 // }
 const createMountains = () => {
-    const start = "#8ca4d0"
-    const end = "#aabad4"
+    const start = "#d77538"
+    const end = "#e4a44b"
     const layers = 2
-    const bottom = h * 0.2
-    const top = h * 0.3
+    const bottom = h * 0.25
+    const top = h * 0.45
 
     var heightUnit = (bottom - top) / (layers + 1)
 
@@ -91,7 +91,7 @@ const createMountains = () => {
 export const drawBackgroundOnContextReverse = (backgroundCtx: CanvasRenderingContext2D) => {
 
     var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300)
-    grd.addColorStop(0, "#9eb9d4")
+    grd.addColorStop(0, "#e9e1dc")
     grd.addColorStop(1, "#FFFFFF")
     backgroundCtx.fillStyle = grd
     backgroundCtx.fillRect(0, 0, width, backgroundCanvas.height)
@@ -119,7 +119,7 @@ export const drawBackgroundOnContext = (backgroundCtx: CanvasRenderingContext2D)
     sun.draw(backgroundCtx)
     backgroundCtx.globalCompositeOperation = 'destination-over'
     var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300)
-    grd.addColorStop(0, "#9eb9d4")
+    grd.addColorStop(0, "#e9e1dc")
     grd.addColorStop(1, "#FFFFFF")
     backgroundCtx.fillStyle = grd
     backgroundCtx.fillRect(0, 0, width, backgroundCanvas.height)

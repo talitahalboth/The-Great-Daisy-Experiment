@@ -1,27 +1,27 @@
-import { drawBackgroundOnContext, drawBackgroundOnContextReverse, setSizeBackground } from "./background"
+import { setSizeBackground } from "./background"
 import { sources } from "./daisyImages"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
 import { GenerateNoise } from "./perlin"
-import { addElementToOrderedList, calculateScale, canvas, ctx, getRandomArbitrary, getRandomInt, getRandomWithProb, h, imagesArray, initialHeight, int, lerpColor, linearFunctionBounded, hillsWithDaisies, planeYCoordinate, scalingFactor, w, mountainRanges, calculateYFromXAndANgle, binomialCoefficient, figuresArray, angle, canvasHalfh, canvasHalfw, fov, grid, deltaDist, viewDist, daisiesGenerator, reverseCalculateYFromXAndANgle, exportCanvas } from './utils'
+import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, lerpColor, hillsWithDaisies, w, calculateYFromXAndANgle, angle, fov, grid, deltaDist, viewDist, daisiesGenerator, exportCanvas, getXY } from './utils'
 
+addEventListener("resize", () => setSize())
 
 function addFlowers() {
-    console.log(hillsWithDaisies.length)
+    // hillsWithDaisies.
+    setSize()
+    daisiesGenerator.updateAreasSum(hillsWithDaisies)
     for (let index = 0; index < 1000; index++) {
         generateRandomDaisies()
     }
     drawScene()
 }
 
-document.getElementById("exportCanvas").onclick = exportCanvas
-document.getElementById("addFlowers").onclick = addFlowers
 sources.forEach((source, index) => {
     const img = new Image()
     img.src = source
     imagesArray.push(img)
 })
-addEventListener("resize", () => setSize())
 
 const setSize = () => {
     ctx.globalCompositeOperation = 'destination-over'
@@ -69,8 +69,6 @@ const setSize = () => {
 
 
 const drawScene = () => {
-
-
     ctx.clearRect(0, 0, w, h)
     hillsWithDaisies.forEach((mountain, index) => {
         mountain.drawDaisies(ctx)
@@ -78,13 +76,6 @@ const drawScene = () => {
     })
 }
 
-const getXY = (canvas: { getBoundingClientRect: () => any; }, event: { clientX: number; clientY: number; }) => {
-    var rect = canvas.getBoundingClientRect();  // absolute position of canvas
-    return {
-        x: int(event.clientX - rect.left),
-        y: int(event.clientY - rect.top)
-    }
-}
 
 const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, rand: number, img: HTMLImageElement) => {
     var pushed = false
@@ -119,28 +110,17 @@ const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, ran
 const generateRandomDaisies = () => {
     const x = getRandomInt(w)
     daisiesGenerator.updateyCoordinates(hillsWithDaisies, x)
+    console.log("areasSum", daisiesGenerator.areasSum)
     const hillIndex = daisiesGenerator.getHillIndex(getRandomArbitrary(0, daisiesGenerator.areasSum), hillsWithDaisies)
+    console.log(hillIndex)
     const img = imagesArray[getRandomInt(imagesArray.length)]
     daisiesGenerator.createDaisyAtIndex(hillIndex, x, hillsWithDaisies, img)
 }
 
 
-document.addEventListener("click", (e) => {
-    const img = imagesArray[getRandomInt(imagesArray.length)]
-    if (img) {
-        const rand = Math.random()
-        const pos = getXY(canvas, e)
-        // console.log(pos.y, reverseCalculateYFromXAndANgle(pos.x, pos.y, w, Math.PI / 12))
-        createFigureFromCoordinatesRandomPos(pos, rand, img)
-    }
-
-    drawScene()
-})
-
-
 const createHillsWithDaisiess = () => {
-    const start = "#447741"
-    const end = "#C6CC51"
+    const start = "#2c2e1f"
+    const end = "#6e774b"
     const layers = getRandomArbitrary(2, 5)
     const bottom = h * 0.5
     const top = h * 0.9
@@ -165,9 +145,21 @@ const createHillsWithDaisiess = () => {
     }
 }
 
+document.addEventListener("click", (e) => {
+    const img = imagesArray[getRandomInt(imagesArray.length)]
+    if (img) {
+        const rand = Math.random()
+        const pos = getXY(canvas, e)
+        // console.log(pos.y, reverseCalculateYFromXAndANgle(pos.x, pos.y, w, Math.PI / 12))
+        createFigureFromCoordinatesRandomPos(pos, rand, img)
+    }
+
+    drawScene()
+})
 
 createHillsWithDaisiess()
 setSize()
 drawScene()
 setSizeBackground()
-
+document.getElementById("exportCanvas").onclick = exportCanvas
+document.getElementById("addFlowers").onclick = addFlowers

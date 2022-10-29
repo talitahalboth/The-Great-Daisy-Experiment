@@ -38,14 +38,6 @@ export function rotateX(x: number, y: number, fov: number, viewDist: number, w: 
     f = fov / (viewDist + rz);
     const x2d = x * f + w;
     const y2d = ry * f + h;
-    // var rev = reverseRotateX(x2d, y2d)
-    // if ((Math.round(rev[0]) !== x || Math.round(rev[1]) !== y)) {
-
-    //     console.log("-------------")
-    //     console.log(x, y)
-    //     console.log(Math.round(rev[0]), Math.round(rev[1]))
-    //     console.log(x2d, y2d)
-    // }
     return [x2d, y2d];
 }
 

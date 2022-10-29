@@ -38,13 +38,6 @@ export class HillsWithDaisies {
     calcuHighestAndLowestYAxis() {
         this.lowestYAxis = Math.min(...this.rangeCombined.pos) + this.height
         this.highestYAxis = Math.max(...this.rangeCombined.pos) + this.height
-        const diff = Math.abs(this.highestYAxis - this.lowestYAxis)
-        // if (diff !== Infinity) {
-        //     console.log("diff:", diff)
-        //     console.log("highest:", this.highestYAxis)
-        //     console.log("lowest:", this.lowestYAxis)
-        //     console.log("---------------")
-        // }
     }
 
     updateMountains(h: number, w: number) {
@@ -58,10 +51,15 @@ export class HillsWithDaisies {
         this.calcuHighestAndLowestYAxis()
     }
 
-    drawDaisies(ctx: CanvasRenderingContext2D) {
-        this.daisies.forEach((figure) => {
-            figure.draw(ctx)
-        })
+    drawDaisies(ctx: CanvasRenderingContext2D, reverse?: boolean) {
+        if (reverse)
+            this.daisies.slice().reverse().forEach((figure) => {
+                figure.draw(ctx)
+            })
+        else
+            this.daisies.forEach((figure) => {
+                figure.draw(ctx)
+            })
     }
 
     drawMountain(ctx: CanvasRenderingContext2D, w: number, h: number) {

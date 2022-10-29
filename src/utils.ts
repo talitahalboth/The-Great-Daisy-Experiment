@@ -13,26 +13,18 @@ export const mountainRanges: HillsWithDaisies[] = []
 export let w = canvas.width = canvas.getBoundingClientRect().width
 export let h = canvas.height = canvas.getBoundingClientRect().height
 export const initialHeight = h
-export const planeYCoordinate = 50
-export const scalingFactor = 8
 export let closestToXAxis = h
 
 
 export const fov = 1024 /// Field of view kind of the lense, smaller values = spheric
-// export const viewDist = 30 /// view distance, higher values = further away
-// export const w = canvas.width / 2 /// center of screen
-// export const h = canvas.height / 2
 export const angle = -70 /// grid angle
-/* i, p1, p2,         /// counter and two points (corners) */
 export const grid = 20 /// grid size in Cartesian
 export const canvasHalfh = h / 2
 export const canvasHalfw = w / 2
 export var viewDist = 50
-export var deltaDist = 30
+export var deltaDist = 30 /// view distance, higher values = further away
 
 export const daisiesGenerator: DaisiesGenerator = new DaisiesGenerator()
-
-
 
 export const calculateYFromXAndANgle = (x: number, y: number, width: number, angle: number) => {
     return y + Math.sin(angle) * (x - width / 2)
@@ -40,20 +32,18 @@ export const calculateYFromXAndANgle = (x: number, y: number, width: number, ang
 
 export const reverseCalculateYFromXAndANgle = (x: number, newY: number, width: number, angle: number) => {
     return newY - Math.sin(angle) * (x - width / 2)
-    // newy = y + Math.sin(angle) * (x - width / 2)
 }
 
 
 const setSize = () => {
-    // console.log(innerHeight, innerWidth)
     h = canvas.height = canvas.getBoundingClientRect().height
     w = canvas.width = canvas.getBoundingClientRect().width
     ctx.globalCompositeOperation = 'destination-over'
     setSizeBackground()
 
 }
-addEventListener("resize", () => setSize())
 
+addEventListener("resize", () => setSize())
 
 const hexToRGB = (hex: string) => {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
@@ -91,34 +81,15 @@ export const lerpColor = (beginning: string, end: string, percent: number) => {
     )
 }
 
-
-
-
 export const addElementToOrderedList = ((figArray: Figure[], element: Figure) => {
     for (let i = 0; i < figArray.length; i++) {
-        if (figArray[i].properties.y <= element.properties.y) {
+        if (figArray[i].properties.y + figArray[i].properties.h <= element.properties.y + element.properties.h) {
             figArray.splice(i, 0, element)
             return
         }
     }
     figArray.push(element)
 })
-
-const fact = (n: number): number => n <= 0 ? 1 : n * (fact(n - 1))
-
-
-export const binomialCoefficient = (n: number, k: number) => {
-    if (n < 0 || k < 0) return 0;
-    return (fact(n) / (fact(k) * fact(n - k)))
-}
-
-export const calculateScale = (y: number, planeYCoordinate: number, scalingFactor: number, initialHeight: number, layer: number) => {
-    const signedScale = (y - (initialHeight) / (scalingFactor)) / planeYCoordinate
-    const scale = signedScale > 0 ? signedScale : 0
-    const res = scale / (layer + 1)
-    // console.log(res, layer)
-    return res
-}
 
 export const getRandomArbitrary = (min: number, max: number) => {
     return Math.random() * (max - min) + min
@@ -143,7 +114,7 @@ const exponentialFunction = (a: number, b: number, r: number, t: number) => {
 export const getRandomWithProbBounded = (min: number, max: number) => {
     var d = 3
     var rand = Math.random()
-    return int(map(rand * rand, 0, 1, min, max))
+    return int(map(rand * rand * rand, 0, 1, min, max))
     // var a = 3
     // var b = 3
     // var r = 5
@@ -212,24 +183,26 @@ function saveSvg(svgEl: SVGSVGElement, name: string) {
 
 
 export function exportCanvas() {
-    console.log("heeeeeeeey")
     var ctx = new C2S({ width: w, height: h })
-    ctx.globalCompositeOperation = 'destination-over'
     ctx.clearRect(0, 0, w, h)
 
     drawBackgroundOnContextReverse(ctx)
 
     hillsWithDaisies.slice().reverse().forEach((mountain, index) => {
         mountain.drawMountain(ctx, w, h)
-        mountain.drawDaisies(ctx)
+        mountain.drawDaisies(ctx, true)
     })
-    //serialize your SVG
-    var mySerializedSVG = ctx.getSerializedSvg(true) //true here, if you need to convert named to numbered entities.
-
-    //If you really need to you can access the shadow inline SVG created by calling:
     var svg = ctx.getSvg()
 
-    console.log(svg)
     saveSvg(svg, "mySVG.svg")
 
+}
+
+
+export const getXY = (canvas: { getBoundingClientRect: () => any; }, event: { clientX: number; clientY: number; }) => {
+    var rect = canvas.getBoundingClientRect();  // absolute position of canvas
+    return {
+        x: int(event.clientX - rect.left),
+        y: int(event.clientY - rect.top)
+    }
 }

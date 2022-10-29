@@ -40,7 +40,6 @@ export class Figure {
         viewDist: number,
         img: HTMLImageElement,
         slope: number) {
-        // var randomScale = Math.random()
         this.img = img
         const proportion = img.height / img.width
         this.iniX = x2d
@@ -53,27 +52,17 @@ export class Figure {
         const t2 = reverseRotateX(x2d, yWithoutSlope, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
 
         const properties = calcStuff(t2[0], t2[1], fov, viewDist, canvasHalfw, canvasHalfh, angle, grid, proportion)
-        // console.log(this.properties.h)
-        // console.log(properties.h)
-        // console.log('a-----------')
-        // console.log(y2d, yWithoutSlope)
-        // console.log(t1)
-        // console.log(t2)
+
         this.properties.h = Math.abs(properties.h)
         this.properties.w = Math.abs(properties.w)
 
-        // const 
-        // {
-        //     x, y, w, h
-        // }
+
     }
 
     changeProperties(fov: number, viewDist: number, angle: number, grid: any) {
         const t1 = reverseRotateX(this.iniX, this.iniY, fov, viewDist, canvasHalfw, canvasHalfh, angle, grid); /// upper left corner
         const newProperties = calcStuff(t1[0], t1[1], fov, viewDist, canvasHalfw, canvasHalfh, angle, grid, this.img.height / this.img.width)
-        // console.log("------------------")
-        // console.log(this.properties)
-        // console.log(newProperties)
+
         this.properties = newProperties
     }
 
