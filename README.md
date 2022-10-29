@@ -5,7 +5,8 @@ A simple web app created using canvas
 
 [](https://user-images.githubusercontent.com/19466053/195704940-b0380d46-000a-4901-ba32-f0d08b4edce1.png)
 [](https://user-images.githubusercontent.com/19466053/195705303-4da8d2c8-9df1-48a0-9bee-5d0a64da89f4.png)
-![image](https://user-images.githubusercontent.com/19466053/198846833-c4106bd6-25d4-4645-8b5e-0d6077c9b0b4.png)
+[](https://user-images.githubusercontent.com/19466053/198846833-c4106bd6-25d4-4645-8b5e-0d6077c9b0b4.png)
+![image](https://user-images.githubusercontent.com/19466053/198850552-3cc2ecd7-4db3-490b-9e49-66f0f517b9d5.png)
 
 
 
