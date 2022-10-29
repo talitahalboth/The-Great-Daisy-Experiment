@@ -7,6 +7,8 @@ import C2S from '@mithrandirii/canvas2svg'
 export const canvas = document.getElementById("canvas") as HTMLCanvasElement ?? new HTMLCanvasElement
 export const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
 export const imagesArray: HTMLImageElement[] = []
+export const imagesS2Array: HTMLImageElement[] = []
+export const imagesS3Array: HTMLImageElement[] = []
 export const figuresArray: Figure[] = []
 export const hillsWithDaisies: HillsWithDaisies[] = []
 export const mountainRanges: HillsWithDaisies[] = []
@@ -17,12 +19,12 @@ export let closestToXAxis = h
 
 
 export const fov = 1024 /// Field of view kind of the lense, smaller values = spheric
-export const angle = -70 /// grid angle
+export const angle = -75 /// grid angle
 export const grid = 20 /// grid size in Cartesian
 export const canvasHalfh = h / 2
 export const canvasHalfw = w / 2
 export var viewDist = 50
-export var deltaDist = 30 /// view distance, higher values = further away
+export var deltaDist = 40 /// view distance, higher values = further away
 
 export interface PerspectiveValues {
     fov: number

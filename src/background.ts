@@ -1,6 +1,7 @@
 /// <reference path="main.ts" />
 /// <reference path="perlin.ts" />
 
+import { sunColour, mountainStartColour, mountainEndColour, backgroundStartColour, backgroundEndColour } from "./constants"
 import { HillsWithDaisies } from "./mountains"
 import { GenerateNoise } from "./perlin"
 import { getRandomArbitrary, h, int, lerpColor, mountainRanges, w } from "./utils"
@@ -12,23 +13,6 @@ let width = backgroundCanvas.width = w
 let height = backgroundCanvas.height = h
 const initialBackgroundHeight = height
 
-const drawSunGradient = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
-    var gradient = ctx.createRadialGradient(w / 4, h / 6, 1, w / 3, h / 6, w)
-
-    // grd.addColorStop(0, "#9eb9d4")
-    // gradient.addColorStop(1, "#FFFFFF")
-    gradient.addColorStop(0, '#FFFFFF')
-    // gradient.addColorStop(0.1, '#F8E2E2')
-    // gradient.addColorStop(0.3, '#7AE5F5')
-    // gradient.addColorStop(0.5, '#FCCABD')
-    // gradient.addColorStop(0.6, '#361e36')
-    // gradient.addColorStop(0.9, '#F0AEAF')
-    gradient.addColorStop(1, '#e9e1dc')
-
-    /* Sun */
-    ctx.fillStyle = gradient
-    ctx.fillRect(0, 0, w, h)
-}
 
 class Sun {
     x: number
@@ -43,28 +27,39 @@ class Sun {
 
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
-        ctx.fillStyle = '#d77538'
+        ctx.fillStyle = sunColour
         ctx.fill()
+        this.drawSunWaves(ctx, sunColour, backgroundEndColour)
+    }
+
+    drawSunWaves(ctx: CanvasRenderingContext2D, start: string, end: string) {
+
+        const layers = 3
+
+        let prevR = this.r
+
+        for (let index = 0; index < layers; index++) {
+
+            ctx.globalAlpha = 1 / (index + 3)
+            const color = lerpColor(start, end, index / layers)
+            ctx.beginPath()
+            const newR = prevR + 10 + (layers - index) * 5
+            ctx.arc(this.x, this.y, newR, 0, Math.PI * 2)
+            prevR = newR
+            ctx.fillStyle = `${color}`
+            ctx.fill()
+
+        }
+        ctx.globalAlpha = 1
     }
 }
 
 const sun = new Sun(int(getRandomArbitrary(w / 3, 3 * w / 4)), int(getRandomArbitrary(h / 8, 2 * h / 8)), 50 + Math.random() * 10)
 
 
-// const drawSun = (ctx: CanvasRenderingContext2D, w: number, h: number) => {
-
-//     const x = int(getRandomArbitrary(w / 3, 3 * w / 4))
-//     const y = int(getRandomArbitrary(h / 8, 2 * h / 8))
-
-//     ctx.beginPath()
-//     ctx.arc(x, y, 50 + Math.random() * 10, 0, Math.PI * 2)
-//     ctx.fillStyle = '#FFFFFF'
-//     ctx.fill()
-
-// }
 const createMountains = () => {
-    const start = "#d77538"
-    const end = "#e4a44b"
+    const start = mountainStartColour
+    const end = mountainEndColour
     const layers = 2
     const bottom = h * 0.25
     const top = h * 0.45
@@ -85,14 +80,13 @@ const createMountains = () => {
         mountainRanges.push(m)
     }
 }
-
 // addEventListener("resize", () => setSizeBackground())
 
 export const drawBackgroundOnContextReverse = (backgroundCtx: CanvasRenderingContext2D) => {
 
     var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300)
-    grd.addColorStop(0, "#e9e1dc")
-    grd.addColorStop(1, "#FFFFFF")
+    grd.addColorStop(0, backgroundStartColour)
+    grd.addColorStop(1, backgroundEndColour)
     backgroundCtx.fillStyle = grd
     backgroundCtx.fillRect(0, 0, width, backgroundCanvas.height)
 
@@ -119,8 +113,8 @@ export const drawBackgroundOnContext = (backgroundCtx: CanvasRenderingContext2D)
     sun.draw(backgroundCtx)
     backgroundCtx.globalCompositeOperation = 'destination-over'
     var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300)
-    grd.addColorStop(0, "#e9e1dc")
-    grd.addColorStop(1, "#FFFFFF")
+    grd.addColorStop(0, backgroundStartColour)
+    grd.addColorStop(1, backgroundEndColour)
     backgroundCtx.fillStyle = grd
     backgroundCtx.fillRect(0, 0, width, backgroundCanvas.height)
 }

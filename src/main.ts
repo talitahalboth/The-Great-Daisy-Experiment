@@ -1,24 +1,48 @@
 import { setSizeBackground } from "./background"
+import { hillsStartColour, hilssEndColour } from "./constants"
 // import { sources } from "./daisyImages"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
 import { GenerateNoise } from "./perlin"
-import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, lerpColor, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, exportCanvas, getXY, perspectiveCalculatingValues } from './utils'
+import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, lerpColor, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, exportCanvas, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array } from './utils'
 addEventListener("resize", () => setSize())
 
-const sources = ["..\\tmp\\ref\\g12374.svg",
-    "..\\tmp\\ref\\g12452.svg",
-    "..\\tmp\\ref\\g12496.svg",
-    "..\\tmp\\ref\\g12567.svg",
-    "..\\tmp\\ref\\g12646.svg",
-    "..\\tmp\\ref\\g12751.svg",
-    "..\\tmp\\ref\\g12794.svg",
-    "..\\tmp\\ref\\g12869.svg",
-    "..\\tmp\\ref\\g12957.svg",
-    "..\\tmp\\ref\\g13049.svg"]
+const sources = ["..\\tmp\\ref\\minhaFlor1.svg", "..\\tmp\\ref\\minhaFlor2.svg"]
+
+// const sources = ["..\\tmp\\ref\\multipleDaisies\\drawing_d10s1.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d1s1.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d2s1.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d3s1.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d4s1.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d5s1.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d6s1.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d7s1.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d8s1.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d9s1.svg"]
+
+// const sourcesSize2 = ["..\\tmp\\ref\\multipleDaisies\\drawing_d10s2.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d1s2.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d2s2.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d3s2.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d4s2.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d5s2.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d6s2.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d7s2.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d8s2.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d9s2.svg"]
+
+// const sourcesSize3 = ["..\\tmp\\ref\\multipleDaisies\\drawing_d10s3.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d1s3.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d2s3.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d3s3.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d4s3.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d5s3.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d6s3.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d7s3.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d8s3.svg",
+//     "..\\tmp\\ref\\multipleDaisies\\drawing_d9s3.svg"]
 
 function addFlowers() {
-    // hillsWithDaisies.
     setSize()
     daisiesGenerator.updateAreasSum(hillsWithDaisies)
     for (let index = 0; index < 1000; index++) {
@@ -32,6 +56,19 @@ sources.forEach((source, index) => {
     img.src = source
     imagesArray.push(img)
 })
+
+// sourcesSize2.forEach((source, index) => {
+//     const img = new Image()
+//     img.src = source
+//     imagesS2Array.push(img)
+// })
+
+// sourcesSize3.forEach((source, index) => {
+//     const img = new Image()
+//     img.src = source
+//     imagesS3Array.push(img)
+// })
+
 
 const setSize = () => {
     ctx.globalCompositeOperation = 'destination-over'
@@ -103,8 +140,7 @@ const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, ran
         const combinedNoise = hillsWithDaisies[index].rangeCombined
         const yPosition = calculateYFromXAndANgle(pos.x, combinedNoise.pos[pos.x] + hillsWithDaisies[index].height, w, hillsWithDaisies[index].slopeAngle)
         const isGreaterTop = yPosition < (pos.y)
-        const isGreaterBottom = yPosition < (newDaisy.properties.y + newDaisy.properties.h)
-
+        const isGreaterBottom = yPosition < (newDaisy.properties.y + newDaisy.properties.h * 0.15)
         if (!isGreaterTop && isGreaterBottom && !pushed && rand < 0.5) {
             addElementToOrderedList(hillsWithDaisies[index].daisies, newDaisy)
             pushed = true
@@ -123,17 +159,15 @@ const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, ran
 const generateRandomDaisies = () => {
     const x = getRandomInt(w)
     daisiesGenerator.updateyCoordinates(hillsWithDaisies, x)
-    // console.log("areasSum", daisiesGenerator.areasSum)
     const hillIndex = daisiesGenerator.getHillIndex(getRandomArbitrary(0, daisiesGenerator.areasSum), hillsWithDaisies)
-    // console.log(hillIndex)
-    const img = imagesArray[getRandomInt(imagesArray.length)]
+    const img = imagesArray[getRandomInt(imagesArray.length)]//hillIndex > 0 ? hillIndex > 1 ? imagesS3Array[getRandomInt(imagesArray.length)] : imagesS2Array[getRandomInt(imagesArray.length)] : imagesArray[getRandomInt(imagesArray.length)]
     daisiesGenerator.createDaisyAtIndex(hillIndex, x, hillsWithDaisies, img)
 }
 
 
 const createHillsWithDaisiess = () => {
-    const start = "#2c2e1f"
-    const end = "#6e774b"
+    const start = hillsStartColour
+    const end = hilssEndColour
     const layers = getRandomArbitrary(2, 5)
     const bottom = h * 0.5
     const top = h * 0.9
@@ -163,10 +197,8 @@ document.addEventListener("click", (e) => {
     if (img) {
         const rand = Math.random()
         const pos = getXY(canvas, e)
-        // console.log(pos.y, reverseCalculateYFromXAndANgle(pos.x, pos.y, w, Math.PI / 12))
         createFigureFromCoordinatesRandomPos(pos, rand, img)
     }
-
     drawScene()
 })
 
