@@ -2,7 +2,7 @@
 /// <reference path="perlin.ts" />
 
 import { Cloud, cloudsOverlap } from "./clouds"
-import { mountainStartColour, mountainEndColour, backgroundStartColour, backgroundEndColour } from "./constants"
+import { mountainStartColour, mountainEndColour, backgroundStartColour, backgroundEndColour, skyColours } from "./constants"
 import { HillsWithDaisies } from "./mountains"
 import { GenerateNoise } from "./perlin"
 import { sun } from "./sun"
@@ -66,14 +66,23 @@ const createClouds = () => {
     }
 }
 
-export const drawBackgroundOnContextReverse = (backgroundCtx: CanvasRenderingContext2D) => {
-
+const createSkyGradient = (backgroundCtx: CanvasRenderingContext2D) => {
     var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300)
-    grd.addColorStop(0, backgroundStartColour)
-    grd.addColorStop(1, backgroundEndColour)
+
+    skyColours.forEach((colour, index) => {
+        grd.addColorStop(index / skyColours.length, colour)
+        console.log(colour)
+    })
+
     backgroundCtx.fillStyle = grd
     backgroundCtx.fillRect(0, 0, width, backgroundCanvas.height)
 
+
+}
+
+export const drawBackgroundOnContextReverse = (backgroundCtx: CanvasRenderingContext2D) => {
+
+    createSkyGradient(backgroundCtx)
 
     sun.draw(backgroundCtx)
     clouds.forEach((cloud) => cloud.draw(backgroundCtx))
@@ -84,9 +93,9 @@ export const drawBackgroundOnContextReverse = (backgroundCtx: CanvasRenderingCon
     backgroundCtx.globalCompositeOperation = 'destination-over'
 }
 
-export const drawBackgroundOnContext = (backgroundCtx: CanvasRenderingContext2D) => {
+export const drawBackgroundOnContext = (backgroundCtx: CanvasRenderingContext2D, clearRect?: boolean) => {
     backgroundCtx.globalCompositeOperation = 'destination-over'
-    backgroundCtx.clearRect(0, 0, width, backgroundCanvas.height)
+    if (clearRect) backgroundCtx.clearRect(0, 0, width, backgroundCanvas.height)
 
     mountainRanges.forEach((mountain, index) => {
         mountain.updateMountains(h / (index + 1), w)
@@ -100,11 +109,13 @@ export const drawBackgroundOnContext = (backgroundCtx: CanvasRenderingContext2D)
     sun.draw(backgroundCtx)
 
     backgroundCtx.globalCompositeOperation = 'destination-over'
-    var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300)
-    grd.addColorStop(0, backgroundStartColour)
-    grd.addColorStop(1, backgroundEndColour)
-    backgroundCtx.fillStyle = grd
-    backgroundCtx.fillRect(0, 0, width, backgroundCanvas.height)
+
+    createSkyGradient(backgroundCtx)
+    // var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300)
+    // grd.addColorStop(0, backgroundStartColour)
+    // grd.addColorStop(1, backgroundEndColour)
+    // backgroundCtx.fillStyle = grd
+    // backgroundCtx.fillRect(0, 0, width, backgroundCanvas.height)
 }
 
 

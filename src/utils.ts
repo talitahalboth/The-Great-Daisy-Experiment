@@ -1,4 +1,4 @@
-import { drawBackgroundOnContextReverse, setSizeBackground } from "./background"
+import { drawBackgroundOnContext, drawBackgroundOnContextReverse, setSizeBackground } from "./background"
 import { DaisiesGenerator } from "./daisiesGenerator"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
@@ -124,7 +124,7 @@ export const getRandomInt = (max: number) => {
     return int(Math.random() * max)
 }
 
-const map = (v: number, a1: number, b1: number, a2: number, b2: number) => {
+export const map = (v: number, a1: number, b1: number, a2: number, b2: number) => {
     return (((v - a1) / (b1 - a1)) * (b2 - a2) + a2)
 }
 
@@ -208,7 +208,7 @@ function saveSvg(svgEl: SVGSVGElement, name: string) {
 }
 
 
-export function exportCanvas() {
+export function exportCanvasSvg() {
     var ctx = new C2S({ width: w, height: h })
     ctx.clearRect(0, 0, w, h)
 
@@ -221,8 +221,31 @@ export function exportCanvas() {
     var svg = ctx.getSvg()
 
     saveSvg(svg, "mySVG.svg")
-
 }
+
+export function exportCanvasPng() {
+    const canvas = document.getElementById("hiddenCanvas") as HTMLCanvasElement ?? new HTMLCanvasElement
+    const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
+
+    canvas.width = w
+    canvas.height = h
+    ctx.globalCompositeOperation = 'destination-over'
+
+    ctx.clearRect(0, 0, w, h)
+
+    hillsWithDaisies.forEach((mountain) => {
+        // need daisies as svgUri for this addind daisies to png to work
+        // mountain.drawDaisies(ctx)
+        mountain.drawMountain(ctx, w, h)
+    })
+    drawBackgroundOnContext(ctx, false)
+
+    var link = document.createElement('a');
+    link.download = 'filename.png';
+    link.href = canvas.toDataURL()
+    link.click();
+}
+
 
 
 export const getXY = (canvas: { getBoundingClientRect: () => any; }, event: { clientX: number; clientY: number; }) => {
