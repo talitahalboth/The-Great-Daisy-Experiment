@@ -1,6 +1,6 @@
 # 🌼 The Great Daisy Experiment 🌼
 
-A web app created using canvas and pure javasscript.
+A web app created using canvas and pure javascript.
 
 
 [](https://user-images.githubusercontent.com/19466053/195704940-b0380d46-000a-4901-ba32-f0d08b4edce1.png)
@@ -14,7 +14,7 @@ A web app created using canvas and pure javasscript.
 
 Randomly generates a landscape, and randomly add daisies to the field when clicked.
 
-Daisies were by me using inkskape.
+Daisies created by me using inkskape.
 
 Hills and mountains created using perlin noises.
 
