@@ -1,4 +1,4 @@
-import { sunColour, backgroundEndColour } from "./constants"
+import { sunColour, backgroundEndColour, sunGradient } from "./constants"
 import { int, lerpColor, getRandomArbitrary, w, h } from "./utils"
 
 class Sun {
@@ -14,7 +14,13 @@ class Sun {
 
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
-        ctx.fillStyle = sunColour
+        var grd = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.r * 2)
+
+        sunGradient.forEach((colour, index) => {
+            grd.addColorStop(index / sunGradient.length, colour)
+        })
+        ctx.fillStyle = grd
+        // ctx.fillStyle = sunColour
         ctx.fill()
         this.drawSunWaves(ctx, sunColour, backgroundEndColour)
     }
@@ -39,6 +45,7 @@ class Sun {
         }
         ctx.globalAlpha = 1
     }
+
 }
 
 export const sun = new Sun(int(getRandomArbitrary(w / 3, 3 * w / 4)), int(getRandomArbitrary(h / 8, 2 * h / 8)), 50 + Math.random() * 10)

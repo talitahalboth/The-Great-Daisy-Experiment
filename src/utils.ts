@@ -1,7 +1,7 @@
 import { drawBackgroundOnContext, drawBackgroundOnContextReverse, setSizeBackground } from "./background"
 import { DaisiesGenerator } from "./daisiesGenerator"
 import { Figure } from "./figure"
-import { HillsWithDaisies } from "./mountains"
+import { HillsWithDaisies, Mountains } from "./mountains"
 import C2S from '@mithrandirii/canvas2svg'
 
 export const canvas = document.getElementById("canvas") as HTMLCanvasElement ?? new HTMLCanvasElement
@@ -11,7 +11,7 @@ export const imagesS2Array: HTMLImageElement[] = []
 export const imagesS3Array: HTMLImageElement[] = []
 export const figuresArray: Figure[] = []
 export const hillsWithDaisies: HillsWithDaisies[] = []
-export const mountainRanges: HillsWithDaisies[] = []
+export const mountainRanges: Mountains[] = []
 export let w = canvas.width = canvas.getBoundingClientRect().width
 export let h = canvas.height = canvas.getBoundingClientRect().height
 export const initialHeight = h
@@ -238,6 +238,8 @@ export function exportCanvasPng() {
         // mountain.drawDaisies(ctx)
         mountain.drawMountain(ctx, w, h)
     })
+
+    ctx.globalCompositeOperation = 'destination-over'
     drawBackgroundOnContext(ctx, false)
 
     var link = document.createElement('a');

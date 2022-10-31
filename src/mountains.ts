@@ -2,37 +2,43 @@ import { Figure } from "./figure"
 import { Perlin, CombineNoise } from "./perlin"
 import { calculateYFromXAndANgle } from "./utils"
 
-export class HillsWithDaisies {
+interface MountainProps {
+    colourGradient?: string[],
+    range: Perlin[],
+    height: number,
+    daisies: Figure[],
+    color: string,
+    slopeAngle: number,
+    w?: number
+
+}
+
+export class Mountains {
     range: Perlin[]
     rangeCombined: { pos: number[] }
     height: number
-    daisies: Figure[]
     color: string
     highestYAxis: number
     lowestYAxis: number
     slopeAngle: number
     offsetHeight: number
     areaProportionalToHeight: number
-
-    constructor(props: { range: Perlin[], height: number, daisies: Figure[], color: string, slopeAngle: number, w?: number }) {
-        const { range, height, daisies, color, slopeAngle, w } = props
+    colourGradient?: string[]
+    constructor(props: MountainProps) {
+        const { range, height, color, slopeAngle, w, colourGradient } = props
         this.range = range
         this.height = height
-        this.daisies = daisies
         this.color = color
         this.rangeCombined = CombineNoise(range)
         this.calcuHighestAndLowestYAxis()
         this.slopeAngle = slopeAngle
         this.updateOffsetHeight(w)
+        this.colourGradient = colourGradient
     }
 
     updateOffsetHeight(w: number) {
         this.offsetHeight = Math.sin(this.slopeAngle) * w / 2
         this.offsetHeight = Math.abs(this.offsetHeight)
-    }
-
-    updateArea(height: number) {
-        this.areaProportionalToHeight = height
     }
 
     calcuHighestAndLowestYAxis() {
@@ -51,22 +57,23 @@ export class HillsWithDaisies {
         this.calcuHighestAndLowestYAxis()
     }
 
-    drawDaisies(ctx: CanvasRenderingContext2D, reverse?: boolean) {
-        if (reverse)
-            this.daisies.slice().reverse().forEach((figure) => {
-                figure.draw(ctx)
-            })
-        else
-            this.daisies.forEach((figure) => {
-                figure.draw(ctx)
-            })
-    }
-
     drawMountain(ctx: CanvasRenderingContext2D, w: number, h: number) {
 
-        ctx.fillStyle = this.color
-        ctx.strokeStyle = this.color
+        if (this.colourGradient) {
+            var grd = ctx.createLinearGradient(0, this.lowestYAxis, 0, h)
+
+            this.colourGradient.forEach((colour, index) => {
+                grd.addColorStop(index / this.colourGradient.length, colour)
+            })
+            ctx.fillStyle = grd
+        }
+        else {
+            ctx.fillStyle = this.color
+            ctx.strokeStyle = this.color
+
+        }
         ctx.beginPath()
+        ctx.lineWidth = 0
         ctx.moveTo(0, this.height + this.rangeCombined.pos[0] ?? this.height)
         for (var i = 0; i < this.rangeCombined.pos.length; i++) {
             var y = calculateYFromXAndANgle(
@@ -79,9 +86,39 @@ export class HillsWithDaisies {
         }
         ctx.lineTo(w, h)
         ctx.lineTo(0, h)
-        ctx.stroke()
         ctx.closePath()
         ctx.fill()
+    }
 
+
+}
+
+interface HillsProps extends MountainProps {
+    daisies: Figure[]
+}
+
+export class HillsWithDaisies extends Mountains {
+    daisies: Figure[]
+
+    constructor(props: HillsProps) {
+        super(props)
+        const { daisies } = props
+        this.daisies = daisies
+    }
+
+    updateArea(height: number) {
+        this.areaProportionalToHeight = height
+    }
+
+
+    drawDaisies(ctx: CanvasRenderingContext2D, reverse?: boolean) {
+        if (reverse)
+            this.daisies.slice().reverse().forEach((figure) => {
+                figure.draw(ctx)
+            })
+        else
+            this.daisies.forEach((figure) => {
+                figure.draw(ctx)
+            })
     }
 }

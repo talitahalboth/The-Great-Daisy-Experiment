@@ -2,8 +2,8 @@
 /// <reference path="perlin.ts" />
 
 import { Cloud, cloudsOverlap } from "./clouds"
-import { mountainStartColour, mountainEndColour, backgroundStartColour, backgroundEndColour, skyColours } from "./constants"
-import { HillsWithDaisies } from "./mountains"
+import { mountainStartColour, mountainEndColour, backgroundStartColour, backgroundEndColour, skyColours, mounstainGradientStopColour1, mounstainGradientStopColour2 } from "./constants"
+import { HillsWithDaisies, Mountains } from "./mountains"
 import { GenerateNoise } from "./perlin"
 import { sun } from "./sun"
 import { getRandomArbitrary, getRandomInt, h, int, lerpColor, mountainRanges, w } from "./utils"
@@ -30,9 +30,14 @@ const createMountains = () => {
     for (let index = 0; index < layers; index++) {
         var y = top + getRandomArbitrary(heightUnit * index, heightUnit * (index + 1))
         const noise = GenerateNoise(100, 150, 2, 3, w)
+        const gradient = [
+            lerpColor(mounstainGradientStopColour1.start, mounstainGradientStopColour1.end, index / layers)
+            , lerpColor(mounstainGradientStopColour2.start, mounstainGradientStopColour2.end, index / layers)
 
-        const m = new HillsWithDaisies({
+        ]
+        const m = new Mountains({
             color: lerpColor(start, end, index / layers),
+            colourGradient: gradient,
             range: noise,
             height: y,
             daisies: [],
@@ -53,7 +58,7 @@ const createClouds = () => {
 
             clouds.forEach(cloud => {
                 overlap = overlap ? overlap : cloudsOverlap(newCloud, cloud)
-                overlap = overlap ? overlap : cloudsOverlap(cloud, newCloud)
+                // overlap = overlap ? overlap : cloudsOverlap(cloud, newCloud)
 
             })
             if (!overlap) clouds.push(newCloud)
@@ -71,7 +76,6 @@ const createSkyGradient = (backgroundCtx: CanvasRenderingContext2D) => {
 
     skyColours.forEach((colour, index) => {
         grd.addColorStop(index / skyColours.length, colour)
-        console.log(colour)
     })
 
     backgroundCtx.fillStyle = grd

@@ -5,7 +5,6 @@ const colorArr = new Gradient()
     .setMidpoint(MIDPOINTS)
 // .getColors()
 
-console.log(colorArr)
 
 import { hillsStartColour, hilssEndColour } from "./constants"
 import { Figure } from "./figure"

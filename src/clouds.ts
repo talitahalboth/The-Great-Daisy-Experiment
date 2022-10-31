@@ -46,27 +46,51 @@ const isBetween = (x: number, a: number, b: number): Boolean => {
     return (x >= a && x <= b)
 }
 
-export const cloudsOverlap = (c1: Cloud, c2: Cloud) => {
-    if (isBetween(c1.x, c2.x, c2.x2)) {
-        if (isBetween(c1.y, c2.y, c2.y2)) {
-            return true
-        }
-        if (isBetween(c1.y2, c2.y, c2.y2)) {
-            return true
-        }
-        return false
-    }
-    if (isBetween(c1.x2, c2.x, c2.x2)) {
-        if (isBetween(c1.y, c2.y, c2.y2)) {
-            return true
-        }
-        if (isBetween(c1.y2, c2.y, c2.y2)) {
-            return true
-        }
-        return false
-    }
+function checkRectOverlap(rect1: number[][], rect2: number[][]) {
+    /*
+     * Each array in parameter is one rectangle
+     * in each array, there is an array showing the co-ordinates of two opposite corners of the rectangle
+     * Example:
+     * [[x1, y1], [x2, y2]], [[x3, y3], [x4, y4]]
+     */
 
-    return false
+    //Check whether there is an x overlap
+    if ((rect1[0][0] < rect2[0][0] && rect2[0][0] < rect1[1][0]) //Event that x3 is inbetween x1 and x2
+        || (rect1[0][0] < rect2[1][0] && rect2[1][0] < rect1[1][0]) //Event that x4 is inbetween x1 and x2
+        || (rect2[0][0] < rect1[0][0] && rect1[1][0] < rect2[1][0])) {  //Event that x1 and x2 are inbetween x3 and x4
+        //Check whether there is a y overlap using the same procedure
+        if ((rect1[0][1] < rect2[0][1] && rect2[0][1] < rect1[1][1]) //Event that y3 is between y1 and y2
+            || (rect1[0][1] < rect2[1][1] && rect2[1][1] < rect1[1][1]) //Event that y4 is between y1 and y2
+            || (rect2[0][1] < rect1[0][1] && rect1[1][1] < rect2[1][1])) { //Event that y1 and y2 are between y3 and y4
+            return true;
+        }
+    }
+    return false;
+}
+
+export const cloudsOverlap = (c1: Cloud, c2: Cloud) => {
+
+    return checkRectOverlap([[c1.x, c1.y], [c1.x2, c1.y2]], [[c2.x, c2.y], [c2.x2, c2.y2]])
+    // if (isBetween(c1.x, c2.x, c2.x2)) {
+    //     if (isBetween(c1.y, c2.y, c2.y2)) {
+    //         return true
+    //     }
+    //     if (isBetween(c1.y2, c2.y, c2.y2)) {
+    //         return true
+    //     }
+    //     return false
+    // }
+    // if (isBetween(c1.x2, c2.x, c2.x2)) {
+    //     if (isBetween(c1.y, c2.y, c2.y2)) {
+    //         return true
+    //     }
+    //     if (isBetween(c1.y2, c2.y, c2.y2)) {
+    //         return true
+    //     }
+    //     return false
+    // }
+
+    // return false
 }
 
 export class Cloud {
