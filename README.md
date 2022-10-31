@@ -7,7 +7,8 @@ A web app created using canvas and pure javasscript.
 [](https://user-images.githubusercontent.com/19466053/195705303-4da8d2c8-9df1-48a0-9bee-5d0a64da89f4.png)
 [](https://user-images.githubusercontent.com/19466053/198846833-c4106bd6-25d4-4645-8b5e-0d6077c9b0b4.png)
 [](https://user-images.githubusercontent.com/19466053/198850674-e20f9d6a-2c52-473c-9a6a-933f70f6ce89.png)
-![image](https://user-images.githubusercontent.com/19466053/199083635-970b0391-e0f5-4f8f-b541-064148427aed.png)
+[](https://user-images.githubusercontent.com/19466053/199083635-970b0391-e0f5-4f8f-b541-064148427aed.png)
+![download (3)](https://user-images.githubusercontent.com/19466053/199085839-7eb367eb-296d-4144-91f6-e76cd24cbf88.png)
 
 
 
