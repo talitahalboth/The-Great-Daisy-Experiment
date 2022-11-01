@@ -6,6 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script>var exports = {};</script>
+    <link href='https://fonts.googleapis.com/css?family=Oranienbaum' rel='stylesheet'>
 
     <link rel="stylesheet" href="index.css" />
 </head>
@@ -13,100 +14,38 @@
 
 <body>
     <div>
+        <div style="display: flex; flex-direction: column;">
+
+            <h3>THE GREAT DAISY EXPERIMENT</h3>
+            <div class="canvas-container" id="canvas-container">
+                <div id="frame" class="frame">
+
+                    <div id="inner-frame" class="inner-frame ">
+                        <div class="canvas outer-canvas" id="outer-canvas">
+                        </div>
+                        <canvas class="canvas daisies" id="canvas"></canvas>
+                        <canvas class="background-layer canvas" id="background-layer"></canvas>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <div style="display: flex;
-        flex-direction: column;
-        align-items: center;">
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;">
             <button id="addFlowers">Add Flowers</button>
             <button id="removeAllFlowers">Remove all Flowers</button>
             <button id="exportCanvasSvg">Export Canvas SVG</button>
-            <button id="exportCanvasPng">Export Canvas PNG</button>
+            <!-- <button id="exportCanvasPng">Export Canvas PNG</button> -->
             <div hidden>
                 <canvas id="hiddenCanvas" style="display: hidden;"></canvas>
 
             </div>
 
-
-            <!-- <div>
-                ViewDist
-                <button onclick="incVd()" id="incVd">
-                    +
-                </button>
-                <button onclick="decVd()" id="decVd">
-                    -
-                </button>
-                <input onsubmit="setVd()" id="setVd">
-                <button onclick="setVd()" id="setVdbtn">
-                    Set
-                </button>
-            </div>
-            <div>
-                deltaDist
-                <button onclick="incdeltaDist()" id="incdeltaDist">
-                    +
-                </button>
-                <button onclick="decdeltaDist()" id="decdeltaDist">
-                    -
-                </button>
-
-                <input onsubmit="setVd()" id="setdeltaDist">
-                <button onclick="setdeltaDist()" id="setdeltaDistbtn">
-                    Set
-                </button>
-            </div>
-            <div>
-                Angle
-                <button onclick="incAngle()" id="incAngle">
-                    +
-                </button>
-                <button onclick="decAngle()" id="decAngle">
-                    -
-                </button>
-                <input onsubmit="setVd()" id="setAngle">
-                <button onclick="setAngle()" id="setAnglebtn">
-                    Set
-                </button>
-            </div>
-            <div>
-                FOV
-                <button onclick="incFov()" id="incFov">
-                    +
-                </button>
-                <button onclick="decFov()" id="decFov">
-                    -
-                </button>
-
-                <input onsubmit="setVd()" id="setFov">
-                <button onclick="setFov()" id="setFovbtn">
-                    Set
-                </button>
-            </div>
-            <div>
-                Grid
-                <button onclick="incGrid()" id="incGrid">
-                    +
-                </button>
-                <button onclick="decGrid()" id="decGrid">
-                    -
-                </button>
-
-                <input onsubmit="setVd()" id="setGrid">
-                <button onclick="setGrid()" id="setGridbtn">
-                    Set
-                </button>
-            </div> -->
         </div>
-        <div style="display: flex; flex-direction: column;">
-
-            <h3></h3>
-            <div class="canvas-container" id="canvas-container">
-                <div class="outer-canvas" id="outer-canvas">
-                </div>
-                <canvas class="canvas daisies" id="canvas"></canvas>
-                <canvas class="background-layer canvas" id="background-layer"></canvas>
-            </div>
-        </div>
-
-
     </div>
 </body>
 

@@ -50,4 +50,5 @@ class Sun {
 
 }
 
-export const sun = new Sun(int(getRandomArbitrary(w / 3, 3 * w / 4)), int(getRandomArbitrary(h / 8, 2 * h / 8)), 50 + Math.random() * 10)
+
+export const sun = new Sun(int(getRandomArbitrary(w / 3, 3 * w / 4)), int(getRandomArbitrary(h / 8, 2 * h / 8)), (h + w) / 25 + Math.random() * (h + w) / 100)

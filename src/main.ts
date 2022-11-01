@@ -158,7 +158,7 @@ setSize()
 drawScene()
 setSizeBackground()
 document.getElementById("exportCanvasSvg").onclick = exportCanvasSvg
-document.getElementById("exportCanvasPng").onclick = exportCanvasPng
+// document.getElementById("exportCanvasPng").onclick = exportCanvasPng
 document.getElementById("addFlowers").onclick = addFlowers
 document.getElementById("removeAllFlowers").onclick = removeAllFlowers
 

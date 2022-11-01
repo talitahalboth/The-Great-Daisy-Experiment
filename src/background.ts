@@ -128,11 +128,6 @@ export const drawBackgroundOnContext = (backgroundCtx: CanvasRenderingContext2D,
     backgroundCtx.globalCompositeOperation = 'destination-over'
 
     createSkyGradient(backgroundCtx)
-    // var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300)
-    // grd.addColorStop(0, backgroundStartColour)
-    // grd.addColorStop(1, backgroundEndColour)
-    // backgroundCtx.fillStyle = grd
-    // backgroundCtx.fillRect(0, 0, width, backgroundCanvas.height)
 }
 
 
@@ -144,12 +139,8 @@ export const setSizeBackground = () => {
     drawBackgroundOnContext(backgroundCtx)
 
 
-    // backgroundCtx.fillStyle = "#9ab843"
-    // backgroundCtx.fillRect(0, 0, backgroundCanvas.width, backgroundCanvas.height)
-
 }
 
-//https://www.123rf.com/clipart-vector/pastoral_scene.html
 
 createMountains()
 createClouds()
