@@ -22,6 +22,7 @@ class Sun {
         ctx.fillStyle = grd
         // ctx.fillStyle = sunColour
         ctx.fill()
+        ctx.closePath()
         this.drawSunWaves(ctx, sunColour, backgroundEndColour)
     }
 
@@ -41,6 +42,7 @@ class Sun {
             prevR = newR
             ctx.fillStyle = `${color}`
             ctx.fill()
+            ctx.closePath()
 
         }
         ctx.globalAlpha = 1

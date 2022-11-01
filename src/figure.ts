@@ -69,10 +69,9 @@ export class Figure {
 
     draw(ctx: CanvasRenderingContext2D) {
 
+        ctx.beginPath()
         // ctx.fillStyle = "white"
-        // ctx.beginPath()
         // ctx.rect(this.properties.x, this.properties.y, this.properties.w, this.properties.h)
-        // ctx.closePath()
         // ctx.fill()
         // ctx.stroke()
         ctx.drawImage(
@@ -82,5 +81,6 @@ export class Figure {
             Math.floor(this.properties.w),
             Math.floor(this.properties.h)
         )
+        ctx.closePath()
     }
 }

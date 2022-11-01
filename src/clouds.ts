@@ -1,3 +1,4 @@
+import { cloudsColour } from "./constants";
 import { getRandomArbitrary, getRandomInt, h, int, w } from "./utils";
 
 export const roundRect = (ctx: CanvasRenderingContext2D, x: any, y: any, width: number, height: number, radius: number) => {
@@ -10,8 +11,8 @@ export const roundRect = (ctx: CanvasRenderingContext2D, x: any, y: any, width: 
     ctx.beginPath()
 
     ctx.lineJoin = "round";
-    ctx.fillStyle = "#fdb9e6";
-    ctx.strokeStyle = "#fdb9e6";
+    ctx.fillStyle = cloudsColour;
+    ctx.strokeStyle = cloudsColour;
     ctx.lineWidth = cornerRadius;
     ctx.strokeRect(rectX + (cornerRadius / 2), rectY + (cornerRadius / 2), rectWidth - cornerRadius, rectHeight - cornerRadius);
     // ctx.fillRect(rectX + (cornerRadius / 2), rectY + (cornerRadius / 2), rectWidth - cornerRadius, rectHeight - cornerRadius);
@@ -71,26 +72,7 @@ function checkRectOverlap(rect1: number[][], rect2: number[][]) {
 export const cloudsOverlap = (c1: Cloud, c2: Cloud) => {
 
     return checkRectOverlap([[c1.x, c1.y], [c1.x2, c1.y2]], [[c2.x, c2.y], [c2.x2, c2.y2]])
-    // if (isBetween(c1.x, c2.x, c2.x2)) {
-    //     if (isBetween(c1.y, c2.y, c2.y2)) {
-    //         return true
-    //     }
-    //     if (isBetween(c1.y2, c2.y, c2.y2)) {
-    //         return true
-    //     }
-    //     return false
-    // }
-    // if (isBetween(c1.x2, c2.x, c2.x2)) {
-    //     if (isBetween(c1.y, c2.y, c2.y2)) {
-    //         return true
-    //     }
-    //     if (isBetween(c1.y2, c2.y, c2.y2)) {
-    //         return true
-    //     }
-    //     return false
-    // }
 
-    // return false
 }
 
 export class Cloud {
