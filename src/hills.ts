@@ -1,12 +1,12 @@
 import Gradient from "javascript-color-gradient"
 const MIDPOINTS = 20
 const colorArr = new Gradient()
-    .setColorGradient("#212c24", "#43571f", "#8d7316", "#efc316")
+    .setColorGradient(...hillsColours)
     .setMidpoint(MIDPOINTS)
 // .getColors()
 
 
-import { hillsStartColour, hilssEndColour } from "./constants"
+import { hillsColours, hillsStartColour, hilssEndColour } from "./constants"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
 import { GenerateNoise } from "./perlin"
@@ -15,7 +15,7 @@ import { getRandomArbitrary, h, w, lerpColor, hillsWithDaisies, calculateYFromXA
 export const createHillsWithDaisiess = () => {
     const start = hillsStartColour
     const end = hilssEndColour
-    const layers = getRandomArbitrary(3, 5)
+    const layers = 5//getRandomArbitrary(3, 5)
     const bottom = h * 0.5
     const top = h * 0.9
 

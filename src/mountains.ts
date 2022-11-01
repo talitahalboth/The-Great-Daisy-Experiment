@@ -111,7 +111,7 @@ export class MountainsWithTrees extends Mountains {
     generateTree(index: number) {
         const rand = Math.random()
         if (rand < 0.1) {
-            const height = int(map(Math.random(), 0, 1, this.treeMaxHeight / 2, this.treeMaxHeight))
+            const height = int(map(Math.random(), 0, 1, this.treeMaxHeight / 3, this.treeMaxHeight))
             this.treesPos.push({ x: index, height })
         }
     }
@@ -189,12 +189,14 @@ export const createMountainsWithTrees = (array: MountainsWithTrees[]) => {
     const start = mountainStartColour
     const end = mountainEndColour
     const layers = 2
-    const bottom = h * 0.45
-    const top = h * 0.50
+    const bottom = h * 0.50
+    const top = h * 0.55
 
     var heightUnit = (bottom - top) / (layers + 1)
     var treeMaxHeight = h / 30
 
+    const minAngle = -10 * (Math.PI / 180)
+    const maxAngle = -minAngle
     for (let index = 0; index < layers; index++) {
         var y = top + getRandomArbitrary(heightUnit * index, heightUnit * (index + 1))
         const noise = GenerateNoise(40, 150, 2, 3, w)
@@ -209,7 +211,7 @@ export const createMountainsWithTrees = (array: MountainsWithTrees[]) => {
             range: noise,
             height: y,
             daisies: [],
-            slopeAngle: getRandomArbitrary(-Math.PI / 12, Math.PI / 12),
+            slopeAngle: getRandomArbitrary(minAngle, maxAngle),
             treeMaxHeight
         })
         array.push(m)
