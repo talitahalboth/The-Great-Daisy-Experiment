@@ -10,8 +10,8 @@ export const roundRect = (ctx: CanvasRenderingContext2D, x: any, y: any, width: 
     ctx.beginPath()
 
     ctx.lineJoin = "round";
-    ctx.fillStyle = "#ffffff";
-    ctx.strokeStyle = "#ffffff";
+    ctx.fillStyle = "#fdb9e6";
+    ctx.strokeStyle = "#fdb9e6";
     ctx.lineWidth = cornerRadius;
     ctx.strokeRect(rectX + (cornerRadius / 2), rectY + (cornerRadius / 2), rectWidth - cornerRadius, rectHeight - cornerRadius);
     // ctx.fillRect(rectX + (cornerRadius / 2), rectY + (cornerRadius / 2), rectWidth - cornerRadius, rectHeight - cornerRadius);

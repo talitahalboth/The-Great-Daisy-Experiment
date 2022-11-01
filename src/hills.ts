@@ -3,7 +3,6 @@ const MIDPOINTS = 20
 const colorArr = new Gradient()
     .setColorGradient(...hillsColours)
     .setMidpoint(MIDPOINTS)
-// .getColors()
 
 
 import { hillsColours, hillsStartColour, hilssEndColour } from "./constants"
@@ -16,7 +15,7 @@ export const createHillsWithDaisiess = () => {
     const start = hillsStartColour
     const end = hilssEndColour
     const layers = 5//getRandomArbitrary(3, 5)
-    const bottom = h * 0.5
+    const bottom = h * 0.55
     const top = h * 0.9
 
     const slope = getRandomArbitrary(-Math.PI / 12, Math.PI / 12)
