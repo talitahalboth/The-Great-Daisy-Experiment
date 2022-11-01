@@ -1,4 +1,4 @@
-import { setSizeBackground } from "./background"
+import { drawBackgroundOnContext, setSizeBackground } from "./background"
 import { Figure } from "./figure"
 import { createHillsWithDaisiess, updateHillsOnSizeChange } from "./hills"
 import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasPng, exportCanvasSvg } from './utils'
@@ -138,6 +138,7 @@ const generateRandomDaisies = () => {
 
 
 document.addEventListener("click", (e) => {
+
     const img = imagesArray[getRandomInt(imagesArray.length)]
     if (img) {
         const rand = Math.random()
@@ -145,6 +146,11 @@ document.addEventListener("click", (e) => {
         createFigureFromCoordinatesRandomPos(pos, rand, img)
     }
     drawScene()
+})
+
+
+document.getElementById("canvas")?.addEventListener('contextmenu', (event) => {
+    drawBackgroundOnContext(ctx, false)
 })
 
 createHillsWithDaisiess()

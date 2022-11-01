@@ -3,7 +3,7 @@
 
 import { Cloud, cloudsOverlap } from "./clouds"
 import { mountainStartColour, mountainEndColour, backgroundStartColour, backgroundEndColour, skyColours, mounstainGradientStopColour1, mounstainGradientStopColour2 } from "./constants"
-import { HillsWithDaisies, Mountains } from "./mountains"
+import { createMountainsWithTrees, HillsWithDaisies, Mountains, MountainsWithTrees } from "./mountains"
 import { GenerateNoise } from "./perlin"
 import { sun } from "./sun"
 import { getRandomArbitrary, getRandomInt, h, int, lerpColor, mountainRanges, w } from "./utils"
@@ -15,7 +15,10 @@ let width = backgroundCanvas.width = w
 let height = backgroundCanvas.height = h
 const initialBackgroundHeight = height
 const clouds: Cloud[] = []
+const mountainsWithTrees: MountainsWithTrees[] = []
 
+
+createMountainsWithTrees(mountainsWithTrees)
 
 const createMountains = () => {
     const start = mountainStartColour
@@ -94,6 +97,12 @@ export const drawBackgroundOnContextReverse = (backgroundCtx: CanvasRenderingCon
     mountainRanges.slice().reverse().forEach((mountain) => {
         mountain.drawMountain(backgroundCtx, w, h)
     })
+
+    mountainsWithTrees.slice().reverse().forEach((mountain, index) => {
+        mountain.updateMountains(h / (index + 1), w)
+        mountain.drawMountain(backgroundCtx, w, h)
+        mountain.drawTrees(backgroundCtx, w, h)
+    })
     backgroundCtx.globalCompositeOperation = 'destination-over'
 }
 
@@ -101,13 +110,17 @@ export const drawBackgroundOnContext = (backgroundCtx: CanvasRenderingContext2D,
     backgroundCtx.globalCompositeOperation = 'destination-over'
     if (clearRect) backgroundCtx.clearRect(0, 0, width, backgroundCanvas.height)
 
-    mountainRanges.forEach((mountain, index) => {
+    mountainsWithTrees.forEach((mountain, index) => {
         mountain.updateMountains(h / (index + 1), w)
-    })
-
-    mountainRanges.forEach((mountain) => {
+        mountain.drawTrees(backgroundCtx, w, h)
         mountain.drawMountain(backgroundCtx, w, h)
     })
+    mountainRanges.forEach((mountain, index) => {
+        mountain.updateMountains(h / (index + 1), w)
+        mountain.drawMountain(backgroundCtx, w, h)
+    })
+
+
 
     clouds.forEach((cloud) => cloud.draw(backgroundCtx))
     sun.draw(backgroundCtx)
