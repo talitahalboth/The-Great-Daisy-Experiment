@@ -1,6 +1,6 @@
 .canvas {
-    height: calc(100% - 40px);
-    width: calc(100% - 40px);
+    height: 100%;
+    width: 100%;
 }
 
 .daisies {
@@ -16,81 +16,112 @@ body {
 
 button {
     color: #EC8E64;
-    font-family: 'Oranienbaum';
-    font-style: normal;
+    opacity: .5;
+    font-family: Sofia Pro, serif;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.82;
+    letter-spacing: .92px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 4px;
     background-color: #FFF5EF;
-    /* border-color: transparent; */
     margin: 10px;
-    font-size: 24px;
-    /* border: 0px; */
-    /* border-bottom-width: 1px; */
-    border-width: 1px 0px 0px 1px;
+    border: 0px;
 
-    /* --s: 4px;
-    padding: var(--s);
-    border: calc(2*var(--s)) solid #0000;
-    /* outline: 1px solid #000;
-    outline-offset: calc(-1*var(--s)); */
-    /* box-shadow: inset 4px 4px 6px rgba(0, 0, 0, 0.20); */
-    /* background: conic-gradient(from 90deg at 1px 1px, #0000 25%, #000 0); */
+    display: flex;
+    justify-content: center;
+    flex-direction: row-reverse;
+    align-items: center;
 
 }
 
 button:hover {
     color: #FFF5EF;
-    background-color: #ec8e64;
+    background-color: #005B45;
+}
+
+button:hover * {
+    stroke: #FFF5EF;
+    background-color: #005B45;
+}
+
+.button-text {
+    padding-left: 5px;
 }
 
 .frame {
-    --s: 10px;
-    padding: calc(2*var(--s));
-    border: var(--s) solid #008671;
-    /* outline: 1px solid #000; */
-    /* outline-offset: calc(-1*var(--s)); */
-    /* background: conic-gradient(from 90deg at 1px 1px, #0000 25%, #000 0); */
-    background-color: white;
-
     height: 70%;
-    width: 80%;
-    max-width: 800px;
+    width: 70%;
     position: absolute;
     z-index: 0;
-    box-shadow: inset 4px 4px 6px rgba(0, 0, 0, 0.20), 4px 4px 6px rgba(0, 0, 0, 0.20);
 }
 
 .outer-canvas {
     position: absolute;
     z-index: 0;
-    box-shadow: inset 4px 4px 6px rgba(0, 0, 0, 0.20);
+    box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.10);
     pointer-events: none
 }
 
-h3 {
+.title {
+    display: flex;
+    justify-content: center;
+}
 
-    width: 95%;
+h2 {
+
     align-self: center;
     margin: 16px 0px;
 
-    font-family: 'Oranienbaum';
+    font-family: Bluu Next;
     font-style: normal;
     font-weight: 400;
-    font-size: 48px;
+    padding: 0px 10px;
+    line-height: 55px;
+
+    display: flex;
+    align-items: flex-end;
+    color: #efab7b;
+
+}
+
+h3 {
+    align-self: center;
+    margin: 16px 0px;
+    opacity: 60%;
+
+    font-family: SOfia Pro;
+    font-style: normal;
+    font-weight: 400;
+
     line-height: 55px;
     display: flex;
     align-items: flex-end;
 
-    color: #EC8E64;
+    color: #005B45;
 }
 
 .canvas-container {
     display: flex;
-    /* align-items: center; */
     justify-content: center;
-    height: 80vh;
-    /* pointer-events: none */
+    height: 75vh;
 }
 
 .background-layer {
     position: absolute;
     z-index: -2;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
+.github {
+    padding: 10px;
+}
+
+.musa {
+    padding: 10px;
 }

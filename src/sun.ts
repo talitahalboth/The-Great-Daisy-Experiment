@@ -37,7 +37,7 @@ class Sun {
             ctx.globalAlpha = 1 / (index + 3)
             const color = lerpColor(start, end, index / layers)
             ctx.beginPath()
-            const newR = prevR + 10 + (layers - index) * 5
+            const newR = prevR + (h + w) / 100 + (layers - index) * (h + w) / 200
             ctx.arc(this.x, this.y, newR, 0, Math.PI * 2)
             prevR = newR
             ctx.fillStyle = `${color}`

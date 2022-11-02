@@ -1,19 +1,15 @@
-/// <reference path="main.ts" />
-/// <reference path="perlin.ts" />
-
 import { Cloud, cloudsOverlap } from "./clouds"
-import { mountainStartColour, mountainEndColour, backgroundStartColour, backgroundEndColour, skyColours, mounstainGradientStopColour1, mounstainGradientStopColour2 } from "./constants"
-import { createMountainsWithTrees, HillsWithDaisies, Mountains, MountainsWithTrees } from "./mountains"
+import { mountainStartColour, mountainEndColour, skyColours, mounstainGradientStopColour1, mounstainGradientStopColour2 } from "./constants"
+import { createMountainsWithTrees, Mountains, MountainsWithTrees } from "./mountains"
 import { GenerateNoise } from "./perlin"
 import { sun } from "./sun"
-import { getRandomArbitrary, getRandomInt, h, int, lerpColor, mountainRanges, w } from "./utils"
+import { getRandomArbitrary, h, int, lerpColor, mountainRanges, w } from "./utils"
 
 const backgroundCanvas = document.getElementById("background-layer") as HTMLCanvasElement ?? new HTMLCanvasElement
 const backgroundCtx = backgroundCanvas.getContext("2d") ?? new CanvasRenderingContext2D()
 
 let width = backgroundCanvas.width = w
 let height = backgroundCanvas.height = h
-const initialBackgroundHeight = height
 const clouds: Cloud[] = []
 const mountainsWithTrees: MountainsWithTrees[] = []
 
@@ -61,8 +57,6 @@ const createClouds = () => {
 
             clouds.forEach(cloud => {
                 overlap = overlap ? overlap : cloudsOverlap(newCloud, cloud)
-                // overlap = overlap ? overlap : cloudsOverlap(cloud, newCloud)
-
             })
             if (!overlap) clouds.push(newCloud)
             else {
@@ -75,7 +69,7 @@ const createClouds = () => {
 }
 
 const createSkyGradient = (backgroundCtx: CanvasRenderingContext2D) => {
-    var grd = backgroundCtx.createLinearGradient(0, 0, 0, 300)
+    var grd = backgroundCtx.createLinearGradient(0, 0, 0, h / 2)
 
     skyColours.forEach((colour, index) => {
         grd.addColorStop(index / skyColours.length, colour)
@@ -103,7 +97,6 @@ export const drawBackgroundOnContextReverse = (backgroundCtx: CanvasRenderingCon
         mountain.drawMountain(backgroundCtx, w, h)
         mountain.drawTrees(backgroundCtx, w, h)
     })
-    backgroundCtx.globalCompositeOperation = 'destination-over'
 }
 
 export const drawBackgroundOnContext = (backgroundCtx: CanvasRenderingContext2D, clearRect?: boolean) => {
@@ -120,12 +113,8 @@ export const drawBackgroundOnContext = (backgroundCtx: CanvasRenderingContext2D,
         mountain.drawMountain(backgroundCtx, w, h)
     })
 
-
-
     clouds.forEach((cloud) => cloud.draw(backgroundCtx))
     sun.draw(backgroundCtx)
-
-    backgroundCtx.globalCompositeOperation = 'destination-over'
 
     createSkyGradient(backgroundCtx)
 }
@@ -137,10 +126,7 @@ export const setSizeBackground = () => {
     width = backgroundCanvas.width = w
 
     drawBackgroundOnContext(backgroundCtx)
-
-
 }
-
 
 createMountains()
 createClouds()

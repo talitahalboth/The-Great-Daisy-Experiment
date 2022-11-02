@@ -98,8 +98,6 @@ interface MountainsWithTreesProps extends MountainProps {
     treeMaxHeight: number
 }
 
-
-
 export class MountainsWithTrees extends Mountains {
     treeMaxHeight: number
     treesPos: { x: number, height: number }[]
@@ -122,7 +120,6 @@ export class MountainsWithTrees extends Mountains {
         this.treeMaxHeight = props.treeMaxHeight
         const angle = 30 * (Math.PI / 180)
         this.treeHalfWidth = int(this.treeTotalHeight * angle)
-        console.log(this.treeHalfWidth)
         for (let index = 0; index < w; index++) {
             this.generateTree(index)
         }
