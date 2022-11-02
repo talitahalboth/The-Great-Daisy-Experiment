@@ -25,6 +25,11 @@ class Sun {
         this.drawSunWaves(ctx, sunColour, backgroundEndColour)
     }
 
+    randomizeSun(x: number, y: number, r: number) {
+        this.x = int(x)
+        this.y = int(y)
+        this.r = int(r)
+    }
     drawSunWaves(ctx: CanvasRenderingContext2D, start: string, end: string) {
 
         const layers = 3
@@ -49,5 +54,6 @@ class Sun {
 
 }
 
-
 export const sun = new Sun(int(getRandomArbitrary(w / 3, 3 * w / 4)), int(getRandomArbitrary(h / 8, 2 * h / 8)), (h + w) / 25 + Math.random() * (h + w) / 100)
+
+export const newSun = () => sun.randomizeSun(int(getRandomArbitrary(w / 3, 3 * w / 4)), int(getRandomArbitrary(h / 8, 2 * h / 8)), (h + w) / 25 + Math.random() * (h + w) / 100)

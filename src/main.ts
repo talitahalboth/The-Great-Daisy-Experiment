@@ -1,4 +1,4 @@
-import { drawBackgroundOnContext, setSizeBackground } from "./background"
+import { clearBackground, drawBackgroundOnContext, setSizeBackground } from "./background"
 import { sources, sourcesSize2, sourcesSize3 } from "./daisyImages"
 import { Figure } from "./figure"
 import { createHillsWithDaisiess, updateHillsOnSizeChange } from "./hills"
@@ -85,7 +85,6 @@ const generateRandomDaisies = () => {
 
 
 document.addEventListener("click", (e) => {
-    console.log("aaaaa")
     const pos = getXY(canvas, e)
     const img = imagesArray[getRandomInt(imagesArray.length)]
     if (img) {
@@ -142,4 +141,19 @@ if (removeAllFlowersButton)
     removeAllFlowersButton.onclick = ((e) => {
         e.stopPropagation()
         removeAllFlowers()
+    })
+
+const landomizeLandscapeButton = document.getElementById("landomizeLandscape")
+if (landomizeLandscapeButton)
+    landomizeLandscapeButton.onclick = ((e) => {
+        e.stopPropagation()
+        removeAllFlowers()
+        while (hillsWithDaisies.length > 0) {
+            hillsWithDaisies.pop();
+        }
+        clearBackground()
+        createHillsWithDaisiess()
+        setSize()
+        drawScene()
+        setSizeBackground()
     })

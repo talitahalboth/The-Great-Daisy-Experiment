@@ -2,7 +2,7 @@ import { Cloud, cloudsOverlap } from "./clouds"
 import { mountainStartColour, mountainEndColour, skyColours, mounstainGradientStopColour1, mounstainGradientStopColour2 } from "./constants"
 import { createMountainsWithTrees, Mountains, MountainsWithTrees } from "./mountains"
 import { GenerateNoise } from "./perlin"
-import { sun } from "./sun"
+import { newSun, sun } from "./sun"
 import { getRandomArbitrary, h, int, lerpColor, mountainRanges, w } from "./utils"
 
 const backgroundCanvas = document.getElementById("background-layer") as HTMLCanvasElement ?? new HTMLCanvasElement
@@ -14,7 +14,6 @@ const clouds: Cloud[] = []
 const mountainsWithTrees: MountainsWithTrees[] = []
 
 
-createMountainsWithTrees(mountainsWithTrees)
 
 const createMountains = () => {
     const start = mountainStartColour
@@ -130,3 +129,15 @@ export const setSizeBackground = () => {
 
 createMountains()
 createClouds()
+createMountainsWithTrees(mountainsWithTrees)
+
+export const clearBackground = () => {
+    while (clouds.length > 0) clouds.pop()
+    while (mountainsWithTrees.length > 0) mountainsWithTrees.pop()
+    while (mountainRanges.length > 0) mountainRanges.pop()
+    newSun()
+    createMountainsWithTrees(mountainsWithTrees)
+    createMountains()
+    createClouds()
+
+}

@@ -164,26 +164,24 @@ body {
         flex-direction: column;
     }
 
-    /* .title {
+    .title {
         flex-direction: column;
-    } */
+    }
 
     h2 {
-        font-size: medium;
         align-self: center;
         margin: 2px 0px;
 
         padding: 0px 5px;
-        line-height: 30px;
+        line-height: 40px;
 
     }
 
     h3 {
-        font-size: small;
         align-self: center;
         margin: 2px 0px;
 
         padding: 0px;
-        line-height: 20px;
+        line-height: 30px;
     }
 }
