@@ -50,6 +50,13 @@ button:hover * {
     padding-left: 5px;
 }
 
+.button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 .frame {
     height: 70%;
     width: 70%;
@@ -105,7 +112,7 @@ h3 {
 .canvas-container {
     display: flex;
     justify-content: center;
-    height: 75vh;
+    height: 70vh;
 }
 
 .background-layer {
