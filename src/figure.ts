@@ -1,6 +1,3 @@
-// import { angle, canvas, canvasHalfh, canvasHalfw, fov, grid, h, w } from "./utils"
-
-// import { canvasHalfw, canvasHalfh, fov, angle, grid } from './main'
 import { reverseRotateX, rotateX } from './perspectiveCalculator'
 import { PerspectiveValues, reverseCalculateYFromXAndANgle, w } from './utils'
 interface Properties {
@@ -9,10 +6,6 @@ interface Properties {
     w: number
     h: number
 }
-
-const initialSize = 6
-
-
 
 
 

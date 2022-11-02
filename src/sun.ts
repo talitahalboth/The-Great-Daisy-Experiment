@@ -20,7 +20,6 @@ class Sun {
             grd.addColorStop(index / sunGradient.length, colour)
         })
         ctx.fillStyle = grd
-        // ctx.fillStyle = sunColour
         ctx.fill()
         ctx.closePath()
         this.drawSunWaves(ctx, sunColour, backgroundEndColour)

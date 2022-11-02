@@ -97,9 +97,6 @@ export const lerpColor = (beginning: string, end: string, percent: number) => {
     var c1 = hexToRGB(beginning) ?? { r: 0, b: 0, g: 0 }
     var c2 = hexToRGB(end) ?? { r: 0, b: 0, g: 0 }
 
-    // p < 0.5
-    // ? colorA * p * 2.0 + colorB * (1.0 - p * 2.0)
-    // : colorB * (p - 0.5) * 2.0 + colorC * (1.0 - (p - 0.5) * 2.0)
     return rgbToHex(
         lerp(c1.r, c2.r, percent),
         lerp(c1.g, c2.g, percent),
@@ -138,42 +135,14 @@ const exponentialFunction = (a: number, b: number, r: number, t: number) => {
 }
 
 export const getRandomWithProbBounded = (min: number, max: number) => {
-    var d = 3
+
     var rand = Math.random()
     return int(map(rand * rand * rand, 0, 1, min, max))
-    // var a = 3
-    // var b = 3
-    // var r = 5
-    // var y = exponentialFunction(a, b, r, rand)
-    // return int(
-    //     map(
-    //         y,
-    //         0,
-    //         exponentialFunction(a, b, r, d),
-    //         min,
-    //         max
-    //     )
-    // )
 }
 
 export const getRandomWithProb = () => {
     var min = h * 0.2 + 40
     return getRandomWithProbBounded(min, h)
-    //     var d = 30
-    //     var rand = Math.random() * d
-    //     var a = 3
-    //     var b = 3
-    //     var r = 5
-    //     var y = exponentialFunction(a, b, r, rand)
-    //     return int(
-    //         map(
-    //             y,
-    //             0,
-    //             exponentialFunction(a, b, r, d),
-    //             min,
-    //             h
-    //         )
-    //     )
 }
 
 

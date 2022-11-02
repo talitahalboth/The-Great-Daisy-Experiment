@@ -22,4 +22,3 @@ export const cloudsColour = "#ffffff"
 
 export const hillsStartColour = "#343e28"
 export const hilssEndColour = "#84bd2a"
-// export const hillsMiddleCOlour =

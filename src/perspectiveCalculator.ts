@@ -6,7 +6,7 @@ export function reverseRotateX(x2d: number, y2d: number, values: PerspectiveValu
 
     let rd, ca, sa, ry, rz, f;
 
-    rd = angle * Math.PI / 180; /// convert angle into radians
+    rd = angle * Math.PI / 180;
     ca = Math.cos(rd);
     sa = Math.sin(rd);
 
@@ -15,10 +15,9 @@ export function reverseRotateX(x2d: number, y2d: number, values: PerspectiveValu
 
     const y = numerator / denominator
 
-    ry = y * ca; /// convert y value as we are rotating
-    rz = y * sa; /// only around x. Z will also change
+    ry = y * ca;
+    rz = y * sa;
 
-    /// Project the new coords into screen coords
     f = fov / (viewDist + rz);
 
     const x = (x2d - w) / f

@@ -1,5 +1,5 @@
 import { cloudsColour } from "./constants";
-import { getRandomArbitrary, getRandomInt, h, int, w } from "./utils";
+import { getRandomArbitrary, h, int, w } from "./utils";
 
 export const roundRect = (ctx: CanvasRenderingContext2D, x: any, y: any, width: number, height: number, radius: number) => {
     radius = Math.min(Math.max(width - 1, 1), Math.max(height - 1, 1), radius);
@@ -15,7 +15,6 @@ export const roundRect = (ctx: CanvasRenderingContext2D, x: any, y: any, width: 
     ctx.strokeStyle = cloudsColour;
     ctx.lineWidth = cornerRadius;
     ctx.strokeRect(rectX + (cornerRadius / 2), rectY + (cornerRadius / 2), rectWidth - cornerRadius, rectHeight - cornerRadius);
-    // ctx.fillRect(rectX + (cornerRadius / 2), rectY + (cornerRadius / 2), rectWidth - cornerRadius, rectHeight - cornerRadius);
 
 
     ctx.stroke();
@@ -29,10 +28,10 @@ class CloudPiece {
     w: number
     h: number
     constructor(x: number, y: number, w: number, h: number) {
-        this.x = x
-        this.y = y
-        this.w = w
-        this.h = h
+        this.x = int(x)
+        this.y = int(y)
+        this.w = int(w)
+        this.h = int(h)
     }
 
     draw(ctx: CanvasRenderingContext2D) {
@@ -41,10 +40,6 @@ class CloudPiece {
         ctx.globalAlpha = 1
     }
 
-}
-
-const isBetween = (x: number, a: number, b: number): Boolean => {
-    return (x >= a && x <= b)
 }
 
 function checkRectOverlap(rect1: number[][], rect2: number[][]) {
@@ -88,9 +83,7 @@ export class Cloud {
         const height = int(getRandomArbitrary(40, 50))
         const x = int(getRandomArbitrary(0 - width / 2, w - width / 2))
         const y = int(getRandomArbitrary(0, h / 2))
-        // const firstPiece = 
         let previousPiece = (new CloudPiece(x, y, width, height))
-        // rectX + (cornerRadius / 2), rectY + (cornerRadius / 2), rectWidth - cornerRadius, rectHeight - cornerRadius
         this.x = previousPiece.x
         this.y = previousPiece.y
         this.x2 = previousPiece.x + previousPiece.w
@@ -104,7 +97,6 @@ export class Cloud {
             const y = previousPiece.y + (rand > 0.5 ? previousPiece.h : -height)
             const next = (new CloudPiece(x, y, width, height))
 
-            // this.cloudPieces.push(next)
             this.cloudPieces.push(previousPiece)
             previousPiece = next
             this.x = Math.min(previousPiece.x, this.x)

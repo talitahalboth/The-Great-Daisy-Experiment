@@ -14,7 +14,7 @@ import { getRandomArbitrary, h, w, lerpColor, hillsWithDaisies, calculateYFromXA
 export const createHillsWithDaisiess = () => {
     const start = hillsStartColour
     const end = hilssEndColour
-    const layers = 5//getRandomArbitrary(3, 5)
+    const layers = 5
     const bottom = h * 0.55
     const top = h * 0.9
 
@@ -24,10 +24,10 @@ export const createHillsWithDaisiess = () => {
 
     for (let index = 0; index < layers; index++) {
         var y = top + getRandomArbitrary(heightUnit * index, heightUnit * (index + 1))
-        const noise = GenerateNoise(30, 150, 2, 3, w)// GenerateNoise(40, 100, 16, 2, w)
+        const noise = GenerateNoise(30, 150, 2, 3, w)
 
         const m = new HillsWithDaisies({
-            color: colorArr.getColor(map(index, 0, layers - 1, 0, MIDPOINTS) + 1),//lerpColor(start, end, index / layers),
+            color: colorArr.getColor(map(index, 0, layers - 1, 0, MIDPOINTS) + 1),
             range: noise,
             height: y,
             daisies: [],

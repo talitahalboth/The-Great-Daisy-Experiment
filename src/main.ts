@@ -1,46 +1,11 @@
 import { drawBackgroundOnContext, setSizeBackground } from "./background"
+import { sources, sourcesSize2, sourcesSize3 } from "./daisyImages"
 import { Figure } from "./figure"
 import { createHillsWithDaisiess, updateHillsOnSizeChange } from "./hills"
-import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasPng, exportCanvasSvg } from './utils'
+import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg } from './utils'
 addEventListener("resize", () => setSize())
 
 
-const sources = ["..\\tmp\\ref\\minhaFlor1.svg", "..\\tmp\\ref\\minhaFlor2.svg"]
-/*["..\\tmp\\ref\\multipleDaisies\\drawing_d10s1.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d1s1.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d2s1.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d3s1.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d4s1.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d5s1.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d6s1.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d7s1.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d8s1.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d9s1.svg"]*/
-
-const sourcesSize2 = ["..\\tmp\\ref\\minhaFlor1.svg", "..\\tmp\\ref\\minhaFlor2.svg"]
-
-/*["..\\tmp\\ref\\multipleDaisies\\drawing_d10s2.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d1s2.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d2s2.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d3s2.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d4s2.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d5s2.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d6s2.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d7s2.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d8s2.svg",
-    "..\\tmp\\ref\\multipleDaisies\\drawing_d9s2.svg"]*/
-
-const sourcesSize3 = ["..\\tmp\\ref\\minhaFlor1.svg", "..\\tmp\\ref\\minhaFlor2.svg"]
-/*["..\\tmp\\ref\\multipleDaisies\\drawing_d10s3.svg",
-   "..\\tmp\\ref\\multipleDaisies\\drawing_d1s3.svg",
-   "..\\tmp\\ref\\multipleDaisies\\drawing_d2s3.svg",
-   "..\\tmp\\ref\\multipleDaisies\\drawing_d3s3.svg",
-   "..\\tmp\\ref\\multipleDaisies\\drawing_d4s3.svg",
-   "..\\tmp\\ref\\multipleDaisies\\drawing_d5s3.svg",
-   "..\\tmp\\ref\\multipleDaisies\\drawing_d6s3.svg",
-   "..\\tmp\\ref\\multipleDaisies\\drawing_d7s3.svg",
-   "..\\tmp\\ref\\multipleDaisies\\drawing_d8s3.svg",
-   "..\\tmp\\ref\\multipleDaisies\\drawing_d9s3.svg"]*/
 
 function addFlowers() {
     setSize()
@@ -56,23 +21,6 @@ function removeAllFlowers() {
     hillsWithDaisies.forEach((hill) => hill.daisies = [])
     drawScene()
 }
-sources.forEach((source) => {
-    const img = new Image()
-    img.src = source
-    imagesArray.push(img)
-})
-
-sourcesSize2.forEach((source) => {
-    const img = new Image()
-    img.src = source
-    imagesS2Array.push(img)
-})
-
-sourcesSize3.forEach((source) => {
-    const img = new Image()
-    img.src = source
-    imagesS3Array.push(img)
-})
 
 
 const setSize = () => {
@@ -132,13 +80,11 @@ const generateRandomDaisies = () => {
     daisiesGenerator.updateyCoordinates(hillsWithDaisies, x)
     const hillIndex = daisiesGenerator.getHillIndex(getRandomArbitrary(0, daisiesGenerator.areasSum), hillsWithDaisies)
     const img = hillIndex > 0 ? hillIndex > 1 ? imagesS3Array[getRandomInt(imagesArray.length)] : imagesS2Array[getRandomInt(imagesArray.length)] : imagesArray[getRandomInt(imagesArray.length)]
-    // imagesArray[getRandomInt(imagesArray.length)]
     daisiesGenerator.createDaisyAtIndex(hillIndex, x, hillsWithDaisies, img)
 }
 
 
 document.addEventListener("click", (e) => {
-
     const img = imagesArray[getRandomInt(imagesArray.length)]
     if (img) {
         const rand = Math.random()
@@ -149,8 +95,26 @@ document.addEventListener("click", (e) => {
 })
 
 
-document.getElementById("canvas")?.addEventListener('contextmenu', (event) => {
+document.getElementById("canvas")?.addEventListener('contextmenu', () => {
     drawBackgroundOnContext(ctx, false)
+})
+
+sources.forEach((source) => {
+    const img = new Image()
+    img.src = source
+    imagesArray.push(img)
+})
+
+sourcesSize2.forEach((source) => {
+    const img = new Image()
+    img.src = source
+    imagesS2Array.push(img)
+})
+
+sourcesSize3.forEach((source) => {
+    const img = new Image()
+    img.src = source
+    imagesS3Array.push(img)
 })
 
 createHillsWithDaisiess()
@@ -158,7 +122,6 @@ setSize()
 drawScene()
 setSizeBackground()
 document.getElementById("exportCanvasSvg").onclick = exportCanvasSvg
-// document.getElementById("exportCanvasPng").onclick = exportCanvasPng
 document.getElementById("addFlowers").onclick = addFlowers
 document.getElementById("removeAllFlowers").onclick = removeAllFlowers
 

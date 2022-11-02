@@ -1,7 +1,7 @@
 import { mountainStartColour, mountainEndColour, treesGradientStopColour1, treesGradientStopColour2 } from "./constants"
 import { Figure } from "./figure"
 import { Perlin, CombineNoise, GenerateNoise } from "./perlin"
-import { calculateYFromXAndANgle, getRandomArbitrary, h, int, lerpColor, map, mountainRanges, w } from "./utils"
+import { calculateYFromXAndANgle, getRandomArbitrary, h, int, lerpColor, map, w } from "./utils"
 
 interface MountainProps {
     colourGradient?: string[],
@@ -212,7 +212,6 @@ export const createMountainsWithTrees = (array: MountainsWithTrees[]) => {
             treeMaxHeight
         })
         array.push(m)
-        // mountainRanges.push(m)
     }
 }
 
