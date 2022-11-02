@@ -1,4 +1,6 @@
-export const sources = ["..\\tmp\\ref\\minhaFlor1.svg", "..\\tmp\\ref\\minhaFlor2.svg"]
+require('../tmp/ref/minhaFlor1.svg')
+require('../tmp/ref/minhaFlor2.svg')
+export const sources = ["minhaFlor1.svg", "minhaFlor2.svg"]
 /*["..\\tmp\\ref\\multipleDaisies\\drawing_d10s1.svg",
     "..\\tmp\\ref\\multipleDaisies\\drawing_d1s1.svg",
     "..\\tmp\\ref\\multipleDaisies\\drawing_d2s1.svg",
@@ -10,7 +12,7 @@ export const sources = ["..\\tmp\\ref\\minhaFlor1.svg", "..\\tmp\\ref\\minhaFlor
     "..\\tmp\\ref\\multipleDaisies\\drawing_d8s1.svg",
     "..\\tmp\\ref\\multipleDaisies\\drawing_d9s1.svg"]*/
 
-export const sourcesSize2 = ["..\\tmp\\ref\\minhaFlor1.svg", "..\\tmp\\ref\\minhaFlor2.svg"]
+export const sourcesSize2 = ["minhaFlor1.svg", "minhaFlor2.svg"]
 
 /*["..\\tmp\\ref\\multipleDaisies\\drawing_d10s2.svg",
     "..\\tmp\\ref\\multipleDaisies\\drawing_d1s2.svg",

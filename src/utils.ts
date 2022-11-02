@@ -204,7 +204,7 @@ export function exportCanvasPng() {
 
     hillsWithDaisies.forEach((mountain) => {
         // need daisies as svgUri for this addind daisies to png to work
-        // mountain.drawDaisies(ctx)
+        mountain.drawDaisies(ctx)
         mountain.drawMountain(ctx, w, h)
     })
 

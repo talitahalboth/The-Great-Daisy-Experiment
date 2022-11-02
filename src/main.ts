@@ -4,7 +4,7 @@ import { Figure } from "./figure"
 import { createHillsWithDaisiess, updateHillsOnSizeChange } from "./hills"
 import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg } from './utils'
 addEventListener("resize", () => setSize())
-
+require('./favicon.ico')
 
 
 function addFlowers() {
@@ -122,15 +122,24 @@ createHillsWithDaisiess()
 setSize()
 drawScene()
 setSizeBackground()
-document.getElementById("exportCanvasSvg").onclick = ((e) => {
-    e.stopPropagation()
-    exportCanvasSvg()
-})
-document.getElementById("addFlowers").onclick = ((e) => {
-    e.stopPropagation()
-    addFlowers()
-})
-document.getElementById("removeAllFlowers").onclick = ((e) => {
-    e.stopPropagation()
-    removeAllFlowers()
-})
+
+const exportCanvasSvgButton = document.getElementById("exportCanvasSvg")
+
+if (exportCanvasSvgButton)
+    exportCanvasSvgButton.onclick = ((e) => {
+        e.stopPropagation()
+        exportCanvasSvg()
+    })
+const addFlowerButton = document.getElementById("addFlowers")
+if (addFlowerButton)
+    addFlowerButton.onclick = ((e) => {
+        e.stopPropagation()
+        addFlowers()
+    })
+
+const removeAllFlowersButton = document.getElementById("removeAllFlowers")
+if (removeAllFlowersButton)
+    removeAllFlowersButton.onclick = ((e) => {
+        e.stopPropagation()
+        removeAllFlowers()
+    })
