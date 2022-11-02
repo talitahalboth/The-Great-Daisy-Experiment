@@ -85,10 +85,11 @@ const generateRandomDaisies = () => {
 
 
 document.addEventListener("click", (e) => {
+    console.log("aaaaa")
+    const pos = getXY(canvas, e)
     const img = imagesArray[getRandomInt(imagesArray.length)]
     if (img) {
         const rand = Math.random()
-        const pos = getXY(canvas, e)
         createFigureFromCoordinatesRandomPos(pos, rand, img)
     }
     drawScene()
@@ -121,7 +122,15 @@ createHillsWithDaisiess()
 setSize()
 drawScene()
 setSizeBackground()
-document.getElementById("exportCanvasSvg").onclick = exportCanvasSvg
-document.getElementById("addFlowers").onclick = addFlowers
-document.getElementById("removeAllFlowers").onclick = removeAllFlowers
-
+document.getElementById("exportCanvasSvg").onclick = ((e) => {
+    e.stopPropagation()
+    exportCanvasSvg()
+})
+document.getElementById("addFlowers").onclick = ((e) => {
+    e.stopPropagation()
+    addFlowers()
+})
+document.getElementById("removeAllFlowers").onclick = ((e) => {
+    e.stopPropagation()
+    removeAllFlowers()
+})
