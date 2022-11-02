@@ -1,4 +1,5 @@
-
+import { reverseRotateX, rotateX } from './perspectiveCalculator'
+import { PerspectiveValues, reverseCalculateYFromXAndANgle, w } from './utils'
 interface Properties {
     x: number
     y: number
@@ -6,43 +7,73 @@ interface Properties {
     h: number
 }
 
-const initialSize = 6
+
+
+const calcStuff = (cx: number, cy: number, perspectiveCalculatingValues: PerspectiveValues, proportion: number) => {
+    const c1 = rotateX(cx, cy, perspectiveCalculatingValues); /// upper left corner
+    const c3 = rotateX(cx + 1, cy, perspectiveCalculatingValues); /// upper left corner
+    const newHeight = Math.abs(c3[0] - c1[0])
+
+    return ({ x: c1[0], y: c1[1], w: -newHeight, h: -newHeight * proportion })
+
+}
+
 export class Figure {
 
     properties: Properties
     img: HTMLImageElement
     maxY: number
     minY: number
-    constructor(newX: number, newY: number, scale: number, img: HTMLImageElement) {
-        var randomScale = Math.random()
+    iniX: number
+    iniY: number
+    slope: number
+    constructor(
+        x2d: number,
+        y2d: number,
+        viewDist: number,
+        img: HTMLImageElement,
+        slope: number,
+        perspectiveCalculatingValues: PerspectiveValues) {
         this.img = img
-        var size = initialSize
-        size = size * scale
-        // slightly increase the size randomly
-        size += size * randomScale / 5
-        var y = newY - Math.floor((size * img.height / img.width) / 2)
-        var x = newX - Math.floor((size) / 2)
-        var color = "white"
-        var w = Math.floor(size * img.width / img.width)
-        var h = Math.floor(size * img.height / img.width)
-        this.properties = {
-            x, y, w, h
-        }
+        const proportion = img.height / img.width
+        this.iniX = x2d
+        this.iniY = y2d
+        const yWithoutSlope = reverseCalculateYFromXAndANgle(x2d, y2d, w, slope)
+        const t1 = reverseRotateX(x2d, y2d, { ...perspectiveCalculatingValues, viewDist }); /// upper left corner
+
+        this.properties = calcStuff(t1[0], t1[1], { ...perspectiveCalculatingValues, viewDist }, proportion)
+
+        const t2 = reverseRotateX(x2d, yWithoutSlope, { ...perspectiveCalculatingValues, viewDist }); /// upper left corner
+
+        const properties = calcStuff(t2[0], t2[1], { ...perspectiveCalculatingValues, viewDist }, proportion)
+
+        this.properties.h = Math.abs(properties.h)
+        this.properties.w = Math.abs(properties.w)
+
+
     }
+
+    changeProperties(perspectiveCalculatingValues: PerspectiveValues) {
+        const t1 = reverseRotateX(this.iniX, this.iniY, perspectiveCalculatingValues); /// upper left corner
+        const newProperties = calcStuff(t1[0], t1[1], perspectiveCalculatingValues, this.img.height / this.img.width)
+
+        this.properties = newProperties
+    }
+
     draw(ctx: CanvasRenderingContext2D) {
 
+        ctx.beginPath()
         // ctx.fillStyle = "white"
-        // ctx.beginPath()
         // ctx.rect(this.properties.x, this.properties.y, this.properties.w, this.properties.h)
-        // ctx.closePath()
         // ctx.fill()
         // ctx.stroke()
         ctx.drawImage(
             this.img,
-            Math.floor(this.properties.x),
-            Math.floor(this.properties.y),
+            Math.floor(this.properties.x - this.properties.w / 2),
+            Math.floor(this.properties.y - this.properties.h / 1.5),
             Math.floor(this.properties.w),
             Math.floor(this.properties.h)
         )
+        ctx.closePath()
     }
 }
