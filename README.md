@@ -3,7 +3,7 @@
 <div align="center">
 <h2>🌼 The Great Daisy Experiment 🌼</h2>
   <span>
-    <img src="https://user-images.githubusercontent.com/19466053/199351416-44094ec0-3263-460d-bcd0-d284e5d710cb.png" >
+    <img width="400px" src="https://user-images.githubusercontent.com/19466053/199751910-f7f74028-b8c1-4daa-8ba3-7b959b5668a5.png" >
   </span>
 </div>
 
@@ -15,6 +15,8 @@
 [](https://user-images.githubusercontent.com/19466053/199083635-970b0391-e0f5-4f8f-b541-064148427aed.png)
 [](https://user-images.githubusercontent.com/19466053/199085839-7eb367eb-296d-4144-91f6-e76cd24cbf88.png)
 [](https://user-images.githubusercontent.com/19466053/199351416-44094ec0-3263-460d-bcd0-d284e5d710cb.png)
+[](https://user-images.githubusercontent.com/19466053/199751910-f7f74028-b8c1-4daa-8ba3-7b959b5668a5.png)
+
 
 
 ## About
