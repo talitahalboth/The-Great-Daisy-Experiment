@@ -37,6 +37,7 @@ const setSize = () => {
 
 
 const drawScene = () => {
+    return
     ctx.clearRect(0, 0, w, h)
     hillsWithDaisies.forEach((mountain, index) => {
         mountain.drawDaisies(ctx)

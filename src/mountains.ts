@@ -63,6 +63,7 @@ export class Mountains {
         if (this.colourGradient) {
             var grd = ctx.createLinearGradient(0, this.lowestYAxis, 0, h)
 
+
             this.colourGradient.forEach((colour, index) => {
                 grd.addColorStop(index / this.colourGradient.length, colour)
             })
@@ -187,16 +188,17 @@ export const createMountainsWithTrees = (array: MountainsWithTrees[]) => {
     const end = mountainEndColour
     const layers = 2
     const bottom = h * 0.50
-    const top = h * 0.55
+    const top = h * 0.58
 
     var heightUnit = (bottom - top) / (layers + 1)
-    var treeMaxHeight = h / 30
+    var treeMaxHeight = h / 20
 
     const minAngle = -10 * (Math.PI / 180)
     const maxAngle = -minAngle
     for (let index = 0; index < layers; index++) {
         var y = top + getRandomArbitrary(heightUnit * index, heightUnit * (index + 1))
-        const noise = GenerateNoise(40, 150, 2, 3, w)
+
+        const noise = GenerateNoise(index == 0 ? 0 : 60, 150, 2, 3, w)
         const gradient = [
             lerpColor(treesGradientStopColour1.start, treesGradientStopColour1.end, index / layers)
             , lerpColor(treesGradientStopColour2.start, treesGradientStopColour2.end, index / layers)
@@ -208,8 +210,8 @@ export const createMountainsWithTrees = (array: MountainsWithTrees[]) => {
             range: noise,
             height: y,
             daisies: [],
-            slopeAngle: getRandomArbitrary(minAngle, maxAngle),
-            treeMaxHeight
+            slopeAngle: index == 0 ? 0 : getRandomArbitrary(minAngle, maxAngle),
+            treeMaxHeight: treeMaxHeight - treeMaxHeight * (index * 0.5)
         })
         array.push(m)
     }

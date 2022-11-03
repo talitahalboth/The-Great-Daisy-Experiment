@@ -3,22 +3,26 @@ export const backgroundStartColour = "#5fb0d7"
 export const backgroundEndColour = "#fceeb5"
 
 export const sunColour = '#fceeb5'
-export const sunGradient = ["#fdd647", "#fceeb5"]
+export const sunGradient = ["#fceeb5", "#ffff"]
 
 export const mountainStartColour = "#766972"
 export const mountainEndColour = "#a18591"
 
 
-export const skyColours = ["#c4dfb9", "#e8d3b8", "#fdfe78"]
+export const skyColours = ["#462032", "#fd5048", "#fd655e"]
 
-export const mounstainGradientStopColour1 = { start: "#ec8e64", end: "#fee074" }
-export const mounstainGradientStopColour2 = { start: "#efab7b", end: "#efab7b" }
-export const treesGradientStopColour1 = { start: "#855354", end: "#cc825f" }
-export const treesGradientStopColour2 = { start: "#efab7b", end: "#efab7b" }
+export const mounstainGradientStopColour1 = { start: "#512134", end: "#872f3d" }
+export const mounstainGradientStopColour2 = { start: "#872f3d", end: "#ae3a41" }
+export const treesGradientStopColour1 = { start: "#000000", end: "#332f5d" }
+export const treesGradientStopColour2 = { start: "#000000", end: "#332f5d" }
+export const treesLakeGradientStopColour2 = { start: "#752d31", end: "#ad4949" }
+export const treesLakeGradientStopColour1 = { start: "#4d2034", end: "#872f3d" }
+export const mounstainLakeGradientStopColour1 = { start: "#ad4949", end: "#ad4949" }
+export const mounstainLakeGradientStopColour2 = { start: "#ad4949cc", end: "#ad4949cc" }
 
 export const hillsColours = ["#212c24", "#a54f01", "#f4ba00"]
 
-export const cloudsColour = "#ffffff"
+export const cloudsColour = "#fe9792"
 
 export const hillsStartColour = "#343e28"
 export const hilssEndColour = "#84bd2a"

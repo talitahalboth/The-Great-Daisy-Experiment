@@ -183,10 +183,10 @@ export function exportCanvasSvg() {
 
     drawBackgroundOnContextReverse(ctx)
 
-    hillsWithDaisies.slice().reverse().forEach((mountain, index) => {
-        mountain.drawMountain(ctx, w, h)
-        mountain.drawDaisies(ctx, true)
-    })
+    // hillsWithDaisies.slice().reverse().forEach((mountain, index) => {
+    //     mountain.drawMountain(ctx, w, h)
+    //     mountain.drawDaisies(ctx, true)
+    // })
     var svg = ctx.getSvg()
 
     saveSvg(svg, "mySVG.svg")
