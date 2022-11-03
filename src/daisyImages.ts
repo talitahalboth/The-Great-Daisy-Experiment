@@ -25,7 +25,7 @@ export const sourcesSize2 = ["minhaFlor1.svg", "minhaFlor2.svg"]
     "..\\tmp\\ref\\multipleDaisies\\drawing_d8s2.svg",
     "..\\tmp\\ref\\multipleDaisies\\drawing_d9s2.svg"]*/
 
-export const sourcesSize3 = ["..\\tmp\\ref\\minhaFlor1.svg", "..\\tmp\\ref\\minhaFlor2.svg"]
+export const sourcesSize3 = ["minhaFlor1.svg", "minhaFlor2.svg"]
 /*["..\\tmp\\ref\\multipleDaisies\\drawing_d10s3.svg",
    "..\\tmp\\ref\\multipleDaisies\\drawing_d1s3.svg",
    "..\\tmp\\ref\\multipleDaisies\\drawing_d2s3.svg",

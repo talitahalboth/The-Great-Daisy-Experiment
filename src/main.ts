@@ -2,7 +2,7 @@ import { clearBackground, drawBackgroundOnContext, setSizeBackground } from "./b
 import { sources, sourcesSize2, sourcesSize3 } from "./daisyImages"
 import { Figure } from "./figure"
 import { createHillsWithDaisiess, updateHillsOnSizeChange } from "./hills"
-import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg } from './utils'
+import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg, setSize } from './utils'
 addEventListener("resize", () => setSize())
 require('./favicon.ico')
 
@@ -23,7 +23,7 @@ function removeAllFlowers() {
 }
 
 
-const setSize = () => {
+export const setHillsSize = () => {
     ctx.globalCompositeOperation = 'destination-over'
     hillsWithDaisies.forEach((mountain, index) => {
         mountain.updateMountains(h / (index + 1), w)
@@ -42,6 +42,7 @@ const drawScene = () => {
         mountain.drawDaisies(ctx)
         mountain.drawMountain(ctx, w, h)
     })
+    drawBackgroundOnContext(ctx)
 }
 
 
