@@ -1,4 +1,4 @@
-import { clearBackground, drawBackgroundOnContext, setSizeBackground } from "./background"
+import { clearBackground, drawBackgroundOnContext } from "./background"
 import { sources, sourcesSize2, sourcesSize3 } from "./daisyImages"
 import { Figure } from "./figure"
 import { createHillsWithDaisiess, updateHillsOnSizeChange } from "./hills"
@@ -121,8 +121,7 @@ sourcesSize3.forEach((source) => {
 createHillsWithDaisiess()
 setSize()
 drawScene()
-setSizeBackground()
-
+drawBackgroundOnContext(ctx, false)
 const exportCanvasSvgButton = document.getElementById("exportCanvasSvg")
 
 if (exportCanvasSvgButton)
@@ -156,5 +155,5 @@ if (landomizeLandscapeButton)
         createHillsWithDaisiess()
         setSize()
         drawScene()
-        setSizeBackground()
+        drawBackgroundOnContext(ctx, false)
     })

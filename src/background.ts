@@ -3,13 +3,8 @@ import { mountainStartColour, mountainEndColour, skyColours, mounstainGradientSt
 import { createMountainsWithTrees, Mountains, MountainsWithTrees } from "./mountains"
 import { GenerateNoise } from "./perlin"
 import { newSun, sun } from "./sun"
-import { canvas, ctx, getRandomArbitrary, h, int, lerpColor, mountainRanges, w } from "./utils"
+import { ctx, getRandomArbitrary, h, int, lerpColor, mountainRanges, w } from "./utils"
 
-// const canvas = document.getElementById("background-layer") as HTMLCanvasElement ?? new HTMLCanvasElement
-// const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
-
-// let width = canvas.width = w
-// let height = canvas.height = h
 const clouds: Cloud[] = []
 const mountainsWithTrees: MountainsWithTrees[] = []
 
@@ -120,12 +115,6 @@ export const drawBackgroundOnContext = (ctx: CanvasRenderingContext2D, clearRect
 
 
 
-export const setSizeBackground = () => {
-    // height = canvas.height = h
-    // width = canvas.width = w
-
-    drawBackgroundOnContext(ctx)
-}
 
 createMountains()
 createClouds()

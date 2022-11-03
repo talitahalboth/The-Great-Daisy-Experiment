@@ -1,4 +1,4 @@
-import { drawBackgroundOnContext, drawBackgroundOnContextReverse, setSizeBackground } from "./background"
+import { drawBackgroundOnContext, drawBackgroundOnContextReverse } from "./background"
 import { DaisiesGenerator } from "./daisiesGenerator"
 import { Figure } from "./figure"
 import { HillsWithDaisies, Mountains } from "./mountains"
@@ -75,7 +75,7 @@ export const setSize = () => {
     h = rect.height
 
     setHillsSize()
-    setSizeBackground()
+    drawBackgroundOnContext(ctx, false)
 
 }
 

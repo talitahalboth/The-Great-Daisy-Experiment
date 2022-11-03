@@ -9,7 +9,7 @@ import { hillsColours, hillsStartColour, hilssEndColour } from "./constants"
 import { Figure } from "./figure"
 import { HillsWithDaisies } from "./mountains"
 import { GenerateNoise } from "./perlin"
-import { getRandomArbitrary, h, w, lerpColor, hillsWithDaisies, calculateYFromXAndANgle, deltaDist, getRandomInt, imagesArray, perspectiveCalculatingValues, viewDist, map } from "./utils"
+import { getRandomArbitrary, h, w, hillsWithDaisies, calculateYFromXAndANgle, deltaDist, getRandomInt, imagesArray, perspectiveCalculatingValues, viewDist, map } from "./utils"
 
 export const createHillsWithDaisiess = () => {
     const start = hillsStartColour
