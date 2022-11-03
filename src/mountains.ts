@@ -128,19 +128,18 @@ export class MountainsWithTrees extends Mountains {
     updateMountains(h: number, w: number) {
         this.updateOffsetHeight(w)
 
+        for (let index = this.rangeCombined.pos.length; index < w; index++) {
+            const rand = Math.random()
+            if (rand < 0.01) {
+                this.generateTree(index)
+            }
+        }
+
         this.range.forEach((noise) => noise.fillPos(w))
         if (this.height === 0) {
             this.height = h
         }
         this.rangeCombined = CombineNoise(this.range)
-
-        for (let index = this.treesPos.length; index < w; index++) {
-            const rand = Math.random()
-            if (rand < 0.01) {
-                this.generateTree(index)
-            }
-
-        }
 
         this.calcuHighestAndLowestYAxis()
     }

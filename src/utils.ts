@@ -1,8 +1,9 @@
-import { drawBackgroundOnContext, drawBackgroundOnContextReverse, setSizeBackground } from "./background"
+import { drawBackgroundOnContext, drawBackgroundOnContextReverse } from "./background"
 import { DaisiesGenerator } from "./daisiesGenerator"
 import { Figure } from "./figure"
 import { HillsWithDaisies, Mountains } from "./mountains"
 import C2S from '@mithrandirii/canvas2svg'
+import { setHillsSize } from "./main"
 
 export const canvas = document.getElementById("canvas") as HTMLCanvasElement ?? new HTMLCanvasElement
 export const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
@@ -57,11 +58,24 @@ export const reverseCalculateYFromXAndANgle = (x: number, newY: number, width: n
 }
 
 
-const setSize = () => {
-    h = canvas.height = canvas.getBoundingClientRect().height
-    w = canvas.width = canvas.getBoundingClientRect().width
+export const setSize = () => {
+    // h = canvas.height = canvas.getBoundingClientRect().height
+    // w = canvas.width = canvas.getBoundingClientRect().width
+    let rect = canvas.getBoundingClientRect();
+
+    // increase the actual size of our canvas
+    canvas.width = rect.width * devicePixelRatio;
+    canvas.height = rect.height * devicePixelRatio;
+
+    // ensure all drawing operations are scaled
+    ctx.scale(devicePixelRatio, devicePixelRatio);
     ctx.globalCompositeOperation = 'destination-over'
-    setSizeBackground()
+
+    w = rect.width
+    h = rect.height
+
+    setHillsSize()
+    drawBackgroundOnContext(ctx, false)
 
 }
 
@@ -204,7 +218,7 @@ export function exportCanvasPng() {
 
     hillsWithDaisies.forEach((mountain) => {
         // need daisies as svgUri for this addind daisies to png to work
-        // mountain.drawDaisies(ctx)
+        mountain.drawDaisies(ctx)
         mountain.drawMountain(ctx, w, h)
     })
 

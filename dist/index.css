@@ -47,22 +47,13 @@ h3 {
     display: inline-block;
 }
 
-.background-layer {
-    width: 70%;
-}
 
 .daisies {
-    height: 70%;
-    width: 70%;
-    position: absolute;
+    height: 70vh;
+    width: 70vw;
+    margin-bottom: 10px;
 }
 
-.outer-canvas {
-    box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.10);
-    height: 70%;
-    width: 70%;
-    position: absolute;
-}
 
 .wrapper {
     height: 100%;
@@ -164,26 +155,24 @@ body {
         flex-direction: column;
     }
 
-    /* .title {
+    .title {
         flex-direction: column;
-    } */
+    }
 
     h2 {
-        font-size: medium;
         align-self: center;
         margin: 2px 0px;
 
         padding: 0px 5px;
-        line-height: 30px;
+        line-height: 40px;
 
     }
 
     h3 {
-        font-size: small;
         align-self: center;
         margin: 2px 0px;
 
         padding: 0px;
-        line-height: 20px;
+        line-height: 30px;
     }
 }

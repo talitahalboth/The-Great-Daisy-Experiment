@@ -2,19 +2,13 @@ import { Cloud, cloudsOverlap } from "./clouds"
 import { mountainStartColour, mountainEndColour, skyColours, mounstainGradientStopColour1, mounstainGradientStopColour2 } from "./constants"
 import { createMountainsWithTrees, Mountains, MountainsWithTrees } from "./mountains"
 import { GenerateNoise } from "./perlin"
-import { sun } from "./sun"
-import { getRandomArbitrary, h, int, lerpColor, mountainRanges, w } from "./utils"
+import { newSun, sun } from "./sun"
+import { ctx, getRandomArbitrary, h, int, lerpColor, mountainRanges, w } from "./utils"
 
-const backgroundCanvas = document.getElementById("background-layer") as HTMLCanvasElement ?? new HTMLCanvasElement
-const backgroundCtx = backgroundCanvas.getContext("2d") ?? new CanvasRenderingContext2D()
-
-let width = backgroundCanvas.width = w
-let height = backgroundCanvas.height = h
 const clouds: Cloud[] = []
 const mountainsWithTrees: MountainsWithTrees[] = []
 
 
-createMountainsWithTrees(mountainsWithTrees)
 
 const createMountains = () => {
     const start = mountainStartColour
@@ -68,65 +62,71 @@ const createClouds = () => {
     }
 }
 
-const createSkyGradient = (backgroundCtx: CanvasRenderingContext2D) => {
-    var grd = backgroundCtx.createLinearGradient(0, 0, 0, h / 2)
+const createSkyGradient = (ctx: CanvasRenderingContext2D) => {
+    var grd = ctx.createLinearGradient(0, 0, 0, h / 2)
 
     skyColours.forEach((colour, index) => {
         grd.addColorStop(index / skyColours.length, colour)
     })
 
-    backgroundCtx.fillStyle = grd
-    backgroundCtx.fillRect(0, 0, width, backgroundCanvas.height)
+    ctx.fillStyle = grd
+    ctx.fillRect(0, 0, w, h)
 
 
 }
 
-export const drawBackgroundOnContextReverse = (backgroundCtx: CanvasRenderingContext2D) => {
+export const drawBackgroundOnContextReverse = (ctx: CanvasRenderingContext2D) => {
 
-    createSkyGradient(backgroundCtx)
+    createSkyGradient(ctx)
 
-    sun.draw(backgroundCtx)
-    clouds.forEach((cloud) => cloud.draw(backgroundCtx))
+    sun.draw(ctx)
+    clouds.forEach((cloud) => cloud.draw(ctx))
 
     mountainRanges.slice().reverse().forEach((mountain) => {
-        mountain.drawMountain(backgroundCtx, w, h)
+        mountain.drawMountain(ctx, w, h)
     })
 
     mountainsWithTrees.slice().reverse().forEach((mountain, index) => {
         mountain.updateMountains(h / (index + 1), w)
-        mountain.drawMountain(backgroundCtx, w, h)
-        mountain.drawTrees(backgroundCtx, w, h)
+        mountain.drawMountain(ctx, w, h)
+        mountain.drawTrees(ctx, w, h)
     })
 }
 
-export const drawBackgroundOnContext = (backgroundCtx: CanvasRenderingContext2D, clearRect?: boolean) => {
-    backgroundCtx.globalCompositeOperation = 'destination-over'
-    if (clearRect) backgroundCtx.clearRect(0, 0, width, backgroundCanvas.height)
+export const drawBackgroundOnContext = (ctx: CanvasRenderingContext2D, clearRect?: boolean) => {
+    ctx.globalCompositeOperation = 'destination-over'
+    if (clearRect) ctx.clearRect(0, 0, w, h)
 
     mountainsWithTrees.forEach((mountain, index) => {
         mountain.updateMountains(h / (index + 1), w)
-        mountain.drawTrees(backgroundCtx, w, h)
-        mountain.drawMountain(backgroundCtx, w, h)
+        mountain.drawTrees(ctx, w, h)
+        mountain.drawMountain(ctx, w, h)
     })
     mountainRanges.forEach((mountain, index) => {
         mountain.updateMountains(h / (index + 1), w)
-        mountain.drawMountain(backgroundCtx, w, h)
+        mountain.drawMountain(ctx, w, h)
     })
 
-    clouds.forEach((cloud) => cloud.draw(backgroundCtx))
-    sun.draw(backgroundCtx)
+    clouds.forEach((cloud) => cloud.draw(ctx))
+    sun.draw(ctx)
 
-    createSkyGradient(backgroundCtx)
+    createSkyGradient(ctx)
 }
 
 
 
-export const setSizeBackground = () => {
-    height = backgroundCanvas.height = h
-    width = backgroundCanvas.width = w
-
-    drawBackgroundOnContext(backgroundCtx)
-}
 
 createMountains()
 createClouds()
+createMountainsWithTrees(mountainsWithTrees)
+
+export const clearBackground = () => {
+    while (clouds.length > 0) clouds.pop()
+    while (mountainsWithTrees.length > 0) mountainsWithTrees.pop()
+    while (mountainRanges.length > 0) mountainRanges.pop()
+    newSun()
+    createMountainsWithTrees(mountainsWithTrees)
+    createMountains()
+    createClouds()
+
+}

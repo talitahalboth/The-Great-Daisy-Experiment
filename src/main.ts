@@ -1,10 +1,10 @@
-import { drawBackgroundOnContext, setSizeBackground } from "./background"
+import { clearBackground, drawBackgroundOnContext } from "./background"
 import { sources, sourcesSize2, sourcesSize3 } from "./daisyImages"
 import { Figure } from "./figure"
 import { createHillsWithDaisiess, updateHillsOnSizeChange } from "./hills"
-import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg } from './utils'
+import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg, setSize } from './utils'
 addEventListener("resize", () => setSize())
-
+require('./favicon.ico')
 
 
 function addFlowers() {
@@ -23,7 +23,7 @@ function removeAllFlowers() {
 }
 
 
-const setSize = () => {
+export const setHillsSize = () => {
     ctx.globalCompositeOperation = 'destination-over'
     hillsWithDaisies.forEach((mountain, index) => {
         mountain.updateMountains(h / (index + 1), w)
@@ -42,6 +42,7 @@ const drawScene = () => {
         mountain.drawDaisies(ctx)
         mountain.drawMountain(ctx, w, h)
     })
+    drawBackgroundOnContext(ctx)
 }
 
 
@@ -85,7 +86,6 @@ const generateRandomDaisies = () => {
 
 
 document.addEventListener("click", (e) => {
-    console.log("aaaaa")
     const pos = getXY(canvas, e)
     const img = imagesArray[getRandomInt(imagesArray.length)]
     if (img) {
@@ -121,16 +121,39 @@ sourcesSize3.forEach((source) => {
 createHillsWithDaisiess()
 setSize()
 drawScene()
-setSizeBackground()
-document.getElementById("exportCanvasSvg").onclick = ((e) => {
-    e.stopPropagation()
-    exportCanvasSvg()
-})
-document.getElementById("addFlowers").onclick = ((e) => {
-    e.stopPropagation()
-    addFlowers()
-})
-document.getElementById("removeAllFlowers").onclick = ((e) => {
-    e.stopPropagation()
-    removeAllFlowers()
-})
+drawBackgroundOnContext(ctx, false)
+const exportCanvasSvgButton = document.getElementById("exportCanvasSvg")
+
+if (exportCanvasSvgButton)
+    exportCanvasSvgButton.onclick = ((e) => {
+        e.stopPropagation()
+        exportCanvasSvg()
+    })
+const addFlowerButton = document.getElementById("addFlowers")
+if (addFlowerButton)
+    addFlowerButton.onclick = ((e) => {
+        e.stopPropagation()
+        addFlowers()
+    })
+
+const removeAllFlowersButton = document.getElementById("removeAllFlowers")
+if (removeAllFlowersButton)
+    removeAllFlowersButton.onclick = ((e) => {
+        e.stopPropagation()
+        removeAllFlowers()
+    })
+
+const landomizeLandscapeButton = document.getElementById("landomizeLandscape")
+if (landomizeLandscapeButton)
+    landomizeLandscapeButton.onclick = ((e) => {
+        e.stopPropagation()
+        removeAllFlowers()
+        while (hillsWithDaisies.length > 0) {
+            hillsWithDaisies.pop();
+        }
+        clearBackground()
+        createHillsWithDaisiess()
+        setSize()
+        drawScene()
+        drawBackgroundOnContext(ctx, false)
+    })

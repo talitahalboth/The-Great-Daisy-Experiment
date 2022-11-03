@@ -16,6 +16,18 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [MiniCssExtractPlugin.loader, "css-loader"]
+            }, {
+                test: /\.(jpe?g|png|gif|woff|woff2|otf|eot|ttf|svg|ico)(\?[a-z0-9=.]+)?$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 1000,
+                            name: '[name].[ext]'
+                        }
+                    }
+                ]
             }
         ],
     },
