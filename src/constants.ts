@@ -14,7 +14,7 @@ export const skyColours = ["#c4dfb9", "#e8d3b8", "#fdfe78"]
 export const mounstainGradientStopColour1 = { start: "#ec8e64", end: "#fee074" }
 export const mounstainGradientStopColour2 = { start: "#efab7b", end: "#efab7b" }
 export const treesGradientStopColour1 = { start: "#855354", end: "#cc825f" }
-export const treesGradientStopColour2 = { start: "#efab7b", end: "#efab7b" }
+export const treesGradientStopColour2 = { start: "#b07664", end: "#efab7b" }
 
 export const hillsColours = ["#212c24", "#a54f01", "#f4ba00"]
 
