@@ -5,7 +5,15 @@
     <a href="https://daisy.halboth.dev/"><img width="400px" src="https://user-images.githubusercontent.com/19466053/201544393-3da5666a-4573-4b49-8523-3cf1a637c590.png" ></a>
   </span>
   
-
+<div>
+<a href="https://github.com/talitahalboth/The-Great-Daisy-Experiment/blob/main/LICENSE">
+  <img src="https://img.shields.io/github/license/talitahalboth/The-Great-Daisy-Experiment?color=ec9267&style=flat-square">
+</a>
+<a href="https://github.com//talitahalboth/The-Great-Daisy-Experiment/stargazers">
+  <img src="https://img.shields.io/github/stars/talitahalboth/The-Great-Daisy-Experiment?color=ec9267&style=flat-square">
+</a>
+   
+</div>
     
 [**Visit the website**](https://daisy.halboth.dev/) 
 
