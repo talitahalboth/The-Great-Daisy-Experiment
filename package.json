@@ -20,6 +20,7 @@
   "homepage": "https://github.com/talitahalboth/The-Great-Daisy-Experiment#readme",
   "devDependencies": {
     "@types/javascript-color-gradient": "^2.4.0",
+    "@types/jquery": "^3.5.14",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.2.1",
     "file-loader": "^6.2.0",

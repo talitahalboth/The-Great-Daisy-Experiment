@@ -106,9 +106,9 @@ export class MountainsWithTrees extends Mountains {
     treeHalfWidth: number
     treesHeight: number[]
 
-    generateTree(index: number) {
+    generateTree(index: number, treshold: number) {
         const rand = Math.random()
-        if (rand < 0.1) {
+        if (rand < treshold) {
             const height = int(map(Math.random(), 0, 1, this.treeMaxHeight / 3, this.treeMaxHeight))
             this.treesPos.push({ x: index, height })
         }
@@ -120,19 +120,14 @@ export class MountainsWithTrees extends Mountains {
         this.treeMaxHeight = props.treeMaxHeight
         const angle = 30 * (Math.PI / 180)
         this.treeHalfWidth = int(this.treeTotalHeight * angle)
-        for (let index = 0; index < w; index++) {
-            this.generateTree(index)
-        }
     }
 
     updateMountains(h: number, w: number) {
         this.updateOffsetHeight(w)
+        const maxTreesTHatFit = w / this.treeHalfWidth
 
         for (let index = this.rangeCombined.pos.length; index < w; index++) {
-            const rand = Math.random()
-            if (rand < 0.01) {
-                this.generateTree(index)
-            }
+            this.generateTree(index, (maxTreesTHatFit * 1.7 / w))
         }
 
         this.range.forEach((noise) => noise.fillPos(w))
@@ -189,7 +184,7 @@ export const createMountainsWithTrees = (array: MountainsWithTrees[]) => {
     const top = h * 0.55
 
     var heightUnit = (bottom - top) / (layers + 1)
-    var treeMaxHeight = h / 30
+    var treeMaxHeight = h / 25
 
     const minAngle = -10 * (Math.PI / 180)
     const maxAngle = -minAngle
@@ -208,7 +203,7 @@ export const createMountainsWithTrees = (array: MountainsWithTrees[]) => {
             height: y,
             daisies: [],
             slopeAngle: getRandomArbitrary(minAngle, maxAngle),
-            treeMaxHeight
+            treeMaxHeight: treeMaxHeight / ((index + 1))
         })
         array.push(m)
     }

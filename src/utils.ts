@@ -207,28 +207,14 @@ export function exportCanvasSvg() {
 }
 
 export function exportCanvasPng() {
-    const canvas = document.getElementById("hiddenCanvas") as HTMLCanvasElement ?? new HTMLCanvasElement
-    const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
+    var image_png = canvas.toDataURL("image/png");
 
-    canvas.width = w
-    canvas.height = h
-    ctx.globalCompositeOperation = 'destination-over'
-
-    ctx.clearRect(0, 0, w, h)
-
-    hillsWithDaisies.forEach((mountain) => {
-        // need daisies as svgUri for this addind daisies to png to work
-        mountain.drawDaisies(ctx)
-        mountain.drawMountain(ctx, w, h)
-    })
-
-    ctx.globalCompositeOperation = 'destination-over'
-    drawBackgroundOnContext(ctx, false)
-
-    var link = document.createElement('a');
-    link.download = 'filename.png';
-    link.href = canvas.toDataURL()
-    link.click();
+    var download = document.createElement('a');
+    download.href = image_png;
+    download.download = "canvas.png";
+    document.body.appendChild(download);
+    download.click();
+    document.body.removeChild(download);
 }
 
 

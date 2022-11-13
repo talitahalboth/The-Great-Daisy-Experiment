@@ -2,7 +2,7 @@ import { clearBackground, drawBackgroundOnContext } from "./background"
 import { sources, sourcesSize2, sourcesSize3 } from "./daisyImages"
 import { Figure } from "./figure"
 import { createHillsWithDaisiess, updateHillsOnSizeChange } from "./hills"
-import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg, setSize } from './utils'
+import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg, setSize, exportCanvasPng } from './utils'
 addEventListener("resize", () => setSize())
 require('./favicon.ico')
 
@@ -122,30 +122,42 @@ createHillsWithDaisiess()
 setSize()
 drawScene()
 drawBackgroundOnContext(ctx, false)
-const exportCanvasSvgButton = document.getElementById("exportCanvasSvg")
+const exportCanvasImgButton = document.getElementById("exportCanvasImg")
 
-if (exportCanvasSvgButton)
-    exportCanvasSvgButton.onclick = ((e) => {
+if (exportCanvasImgButton) {
+
+    exportCanvasImgButton.onclick = ((e) => {
+        e.preventDefault();
         e.stopPropagation()
-        exportCanvasSvg()
+        exportCanvasPng()
     })
+}
 const addFlowerButton = document.getElementById("addFlowers")
-if (addFlowerButton)
+if (addFlowerButton) {
     addFlowerButton.onclick = ((e) => {
         e.stopPropagation()
         addFlowers()
     })
-
+}
 const removeAllFlowersButton = document.getElementById("removeAllFlowers")
-if (removeAllFlowersButton)
+if (removeAllFlowersButton) {
     removeAllFlowersButton.onclick = ((e) => {
         e.stopPropagation()
         removeAllFlowers()
     })
+}
 
-const landomizeLandscapeButton = document.getElementById("landomizeLandscape")
-if (landomizeLandscapeButton)
-    landomizeLandscapeButton.onclick = ((e) => {
+
+
+let rotation = 0
+const randomizeLandscapeButton = document.getElementById("randomizeLandscape")
+if (randomizeLandscapeButton) {
+    randomizeLandscapeButton.onclick = ((e) => {
+        const reloadSvg = document.getElementById("reloadSvg")
+        if (reloadSvg) {
+            rotation -= 360;
+            reloadSvg.style.transform = 'translateZ(0px) rotateZ( ' + rotation + 'deg )';
+        }
         e.stopPropagation()
         removeAllFlowers()
         while (hillsWithDaisies.length > 0) {
@@ -157,3 +169,6 @@ if (landomizeLandscapeButton)
         drawScene()
         drawBackgroundOnContext(ctx, false)
     })
+}
+
+
