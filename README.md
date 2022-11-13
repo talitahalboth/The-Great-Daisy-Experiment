@@ -42,7 +42,3 @@ Prompt:
 
 One idea for a creative programming project about daisies could be to create a program that generates a virtual daisy field. This field could be populated with different types of daisies, and users could choose to add or remove different types of daisies. 
 
-
-### ToDo
-
-- The exported svg as of now can't export the flowers as well, only the field.
