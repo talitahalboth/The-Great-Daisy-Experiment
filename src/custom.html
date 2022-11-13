@@ -35,7 +35,7 @@
                 <div class="button-container">
                     <button id="addFlowers">
                         <span class="button-text">Add Flowers</span>
-                        <svg class="svgButton" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                        <svg class="bounce" id="addSvg" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path d="M3.125 10H16.875" stroke="#E56D4B" stroke-width="1.5" stroke-linecap="round"
                                 stroke-linejoin="round" />
@@ -45,18 +45,20 @@
                     </button>
                     <button id="removeAllFlowers">
                         <span class="button-text">Clear Flowers</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.25rem" height="1.25rem" fill="currentColor"
-                            viewBox="0 0 256 256" item="[object Object]" opacity="1" class=" admin-ui-c-bIvpwP">
+                        <svg class="bounce" id="removeSvg" xmlns="http://www.w3.org/2000/svg" width="1.25rem"
+                            height="1.25rem" fill="currentColor" viewBox="0 0 256 256" item="[object Object]"
+                            opacity="1" class=" admin-ui-c-bIvpwP">
                             <line x1="200" y1="56" x2="56" y2="200" stroke="currentColor" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="18"></line>
                             <line x1="200" y1="200" x2="56" y2="56" stroke="currentColor" stroke-linecap="round"
                                 stroke-linejoin="round" stroke-width="18"></line>
                         </svg>
                     </button>
-                    <button id="landomizeLandscape">
+                    <button id="randomizeLandscape">
                         <span class="button-text">Randomize Landscape</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="1.25rem" height="1.25rem" fill="currentColor"
-                            viewBox="0 0 256 256" item="[object Object]" opacity="1" class=" admin-ui-c-bIvpwP">
+                        <svg id="reloadSvg" xmlns="http://www.w3.org/2000/svg" width="1.25rem" height="1.25rem"
+                            fill="currentColor" viewBox="0 0 256 256" item="[object Object]" opacity="1"
+                            class=" admin-ui-c-bIvpwP">
                             <polyline points="79.833 99.716 31.833 99.716 31.833 51.716" fill="none"
                                 stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="18">
                             </polyline>
@@ -69,12 +71,12 @@
                         <span class="button-text">Export SVG</span>
                         <svg class="svgButton" width="20" height="20" viewBox="0 0 20 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10 2.49969V14.3747" stroke="#E56D4B" stroke-width="1.5" stroke-linecap="round"
+                            <path class="slide" d="M10 2.49969V14.3747" stroke="#E56D4B" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <path class="slide" d="M4.375 8.74969L10 14.3747L15.625 8.74969" stroke="#E56D4B"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M3.125 16.8747H16.875" stroke="#E56D4B" stroke-width="1.5" stroke-linecap="round"
                                 stroke-linejoin="round" />
-                            <path d="M4.375 8.74969L10 14.3747L15.625 8.74969" stroke="#E56D4B" stroke-width="1.05469"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M3.125 16.8747H16.875" stroke="#E56D4B" stroke-width="1.05469"
-                                stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </button>
 

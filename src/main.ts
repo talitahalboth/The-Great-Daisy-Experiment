@@ -124,28 +124,49 @@ drawScene()
 drawBackgroundOnContext(ctx, false)
 const exportCanvasSvgButton = document.getElementById("exportCanvasSvg")
 
-if (exportCanvasSvgButton)
+if (exportCanvasSvgButton) {
+    exportCanvasSvgButton.addEventListener('animationend', () => {
+        exportCanvasSvgButton.classList.remove("animatedButton")
+    });
     exportCanvasSvgButton.onclick = ((e) => {
+        exportCanvasSvgButton.classList.add("animatedButton")
         e.stopPropagation()
         exportCanvasSvg()
     })
+}
 const addFlowerButton = document.getElementById("addFlowers")
-if (addFlowerButton)
+if (addFlowerButton) {
+    addFlowerButton.addEventListener('animationend', () => {
+        addFlowerButton.classList.remove("animatedButton")
+    });
     addFlowerButton.onclick = ((e) => {
+        addFlowerButton.classList.add("animatedButton")
         e.stopPropagation()
         addFlowers()
     })
-
+}
 const removeAllFlowersButton = document.getElementById("removeAllFlowers")
-if (removeAllFlowersButton)
+if (removeAllFlowersButton) {
+    removeAllFlowersButton.addEventListener('animationend', () => {
+        removeAllFlowersButton.classList.remove("animatedButton")
+    });
     removeAllFlowersButton.onclick = ((e) => {
+        removeAllFlowersButton.classList.add("animatedButton")
         e.stopPropagation()
         removeAllFlowers()
     })
+}
 
-const landomizeLandscapeButton = document.getElementById("landomizeLandscape")
-if (landomizeLandscapeButton)
-    landomizeLandscapeButton.onclick = ((e) => {
+let rotation = 0
+const randomizeLandscapeButton = document.getElementById("randomizeLandscape")
+if (randomizeLandscapeButton) {
+    randomizeLandscapeButton.onclick = ((e) => {
+        randomizeLandscapeButton.classList.add("animatedButton")
+        const reloadSvg = document.getElementById("reloadSvg")
+        if (reloadSvg) {
+            rotation -= 360;
+            reloadSvg.style.transform = 'translateZ(0px) rotateZ( ' + rotation + 'deg )';
+        }
         e.stopPropagation()
         removeAllFlowers()
         while (hillsWithDaisies.length > 0) {
@@ -154,6 +175,11 @@ if (landomizeLandscapeButton)
         clearBackground()
         createHillsWithDaisiess()
         setSize()
+        console.time("draw scene initial")
         drawScene()
         drawBackgroundOnContext(ctx, false)
+        console.timeEnd("draw scene initial")
     })
+}
+
+

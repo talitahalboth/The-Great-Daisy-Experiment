@@ -125,8 +125,6 @@ export class MountainsWithTrees extends Mountains {
     updateMountains(h: number, w: number) {
         this.updateOffsetHeight(w)
         const maxTreesTHatFit = w / this.treeHalfWidth
-        console.log("trees that fit", maxTreesTHatFit)
-        console.log(maxTreesTHatFit / w)
 
         for (let index = this.rangeCombined.pos.length; index < w; index++) {
             this.generateTree(index, (maxTreesTHatFit * 1.7 / w))
