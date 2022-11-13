@@ -1,8 +1,8 @@
 import { clearBackground, drawBackgroundOnContext } from "./background"
-import { sources, sourcesSize2, sourcesSize3 } from "./daisyImages"
+import { sourcesLarge, sourcesMedium, sourcesSmall, sourcesIcon } from "./daisyImages"
 import { Figure } from "./figure"
 import { createHillsWithDaisiess, updateHillsOnSizeChange } from "./hills"
-import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg, setSize, exportCanvasPng } from './utils'
+import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg, setSize, exportCanvasPng, imagesS4Array } from './utils'
 addEventListener("resize", () => setSize())
 require('./favicon.ico')
 
@@ -37,12 +37,14 @@ export const setHillsSize = () => {
 
 
 const drawScene = () => {
+    console.time("drawScene")
     ctx.clearRect(0, 0, w, h)
     hillsWithDaisies.forEach((mountain, index) => {
         mountain.drawDaisies(ctx)
         mountain.drawMountain(ctx, w, h)
     })
     drawBackgroundOnContext(ctx)
+    console.timeEnd("drawScene")
 }
 
 
@@ -80,7 +82,12 @@ const generateRandomDaisies = () => {
     const x = getRandomInt(w)
     daisiesGenerator.updateyCoordinates(hillsWithDaisies, x)
     const hillIndex = daisiesGenerator.getHillIndex(getRandomArbitrary(0, daisiesGenerator.areasSum), hillsWithDaisies)
-    const img = hillIndex > 0 ? hillIndex > 1 ? imagesS3Array[getRandomInt(imagesArray.length)] : imagesS2Array[getRandomInt(imagesArray.length)] : imagesArray[getRandomInt(imagesArray.length)]
+    const img = hillIndex > 0 ?
+        hillIndex > 1 ?
+            hillIndex > 2 ? imagesS4Array[getRandomInt(imagesArray.length)] :
+                imagesS3Array[getRandomInt(imagesArray.length)] :
+            imagesS2Array[getRandomInt(imagesArray.length)] :
+        imagesArray[getRandomInt(imagesArray.length)]
     daisiesGenerator.createDaisyAtIndex(hillIndex, x, hillsWithDaisies, img)
 }
 
@@ -100,22 +107,27 @@ document.getElementById("canvas")?.addEventListener('contextmenu', () => {
     drawBackgroundOnContext(ctx, false)
 })
 
-sources.forEach((source) => {
+sourcesLarge.forEach((source) => {
     const img = new Image()
     img.src = source
     imagesArray.push(img)
 })
 
-sourcesSize2.forEach((source) => {
+sourcesMedium.forEach((source) => {
     const img = new Image()
     img.src = source
     imagesS2Array.push(img)
 })
 
-sourcesSize3.forEach((source) => {
+sourcesSmall.forEach((source) => {
     const img = new Image()
     img.src = source
     imagesS3Array.push(img)
+})
+sourcesIcon.forEach((source) => {
+    const img = new Image()
+    img.src = source
+    imagesS4Array.push(img)
 })
 
 createHillsWithDaisiess()
