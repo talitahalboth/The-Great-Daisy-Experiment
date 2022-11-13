@@ -2,7 +2,7 @@ import { clearBackground, drawBackgroundOnContext } from "./background"
 import { sources, sourcesSize2, sourcesSize3 } from "./daisyImages"
 import { Figure } from "./figure"
 import { createHillsWithDaisiess, updateHillsOnSizeChange } from "./hills"
-import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg, setSize } from './utils'
+import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg, setSize, exportCanvasPng } from './utils'
 addEventListener("resize", () => setSize())
 require('./favicon.ico')
 
@@ -122,46 +122,37 @@ createHillsWithDaisiess()
 setSize()
 drawScene()
 drawBackgroundOnContext(ctx, false)
-const exportCanvasSvgButton = document.getElementById("exportCanvasSvg")
+const exportCanvasImgButton = document.getElementById("exportCanvasImg")
 
-if (exportCanvasSvgButton) {
-    exportCanvasSvgButton.addEventListener('animationend', () => {
-        exportCanvasSvgButton.classList.remove("animatedButton")
-    });
-    exportCanvasSvgButton.onclick = ((e) => {
-        exportCanvasSvgButton.classList.add("animatedButton")
+if (exportCanvasImgButton) {
+
+    exportCanvasImgButton.onclick = ((e) => {
+        e.preventDefault();
         e.stopPropagation()
-        exportCanvasSvg()
+        exportCanvasPng()
     })
 }
 const addFlowerButton = document.getElementById("addFlowers")
 if (addFlowerButton) {
-    addFlowerButton.addEventListener('animationend', () => {
-        addFlowerButton.classList.remove("animatedButton")
-    });
     addFlowerButton.onclick = ((e) => {
-        addFlowerButton.classList.add("animatedButton")
         e.stopPropagation()
         addFlowers()
     })
 }
 const removeAllFlowersButton = document.getElementById("removeAllFlowers")
 if (removeAllFlowersButton) {
-    removeAllFlowersButton.addEventListener('animationend', () => {
-        removeAllFlowersButton.classList.remove("animatedButton")
-    });
     removeAllFlowersButton.onclick = ((e) => {
-        removeAllFlowersButton.classList.add("animatedButton")
         e.stopPropagation()
         removeAllFlowers()
     })
 }
 
+
+
 let rotation = 0
 const randomizeLandscapeButton = document.getElementById("randomizeLandscape")
 if (randomizeLandscapeButton) {
     randomizeLandscapeButton.onclick = ((e) => {
-        randomizeLandscapeButton.classList.add("animatedButton")
         const reloadSvg = document.getElementById("reloadSvg")
         if (reloadSvg) {
             rotation -= 360;
@@ -175,10 +166,8 @@ if (randomizeLandscapeButton) {
         clearBackground()
         createHillsWithDaisiess()
         setSize()
-        console.time("draw scene initial")
         drawScene()
         drawBackgroundOnContext(ctx, false)
-        console.timeEnd("draw scene initial")
     })
 }
 
