@@ -8,6 +8,7 @@ require('./favicon.ico')
 
 
 function addFlowers() {
+    setSize()
     daisiesGenerator.updateAreasSum(hillsWithDaisies)
     for (let index = 0; index < 1000; index++) {
         generateRandomDaisies()
@@ -30,8 +31,6 @@ export const setHillsSize = () => {
 
     updateHillsOnSizeChange()
     daisiesGenerator.updateAreasSum(hillsWithDaisies)
-
-    drawScene()
 }
 
 
