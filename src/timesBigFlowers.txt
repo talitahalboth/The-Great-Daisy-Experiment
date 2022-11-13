@@ -1,0 +1,36 @@
+drawScene: 2.257080078125 ms
+main.ts:47 drawScene: 23.48486328125 ms
+main.ts:47 drawScene: 10.24609375 ms
+main.ts:47 drawScene: 164.47900390625 ms
+main.ts:47 drawScene: 157.744140625 ms
+main.ts:47 drawScene: 272.733154296875 ms
+main.ts:47 drawScene: 301.132080078125 ms
+main.ts:47 drawScene: 396.85400390625 ms
+main.ts:47 drawScene: 422.0009765625 ms
+main.ts:47 drawScene: 522.485107421875 ms
+main.ts:47 drawScene: 526.112060546875 ms
+main.ts:47 drawScene: 617.639892578125 ms
+main.ts:47 drawScene: 625.698974609375 ms
+main.ts:47 drawScene: 748.113037109375 ms
+main.ts:47 drawScene: 741.212158203125 ms
+main.ts:47 drawScene: 841.94580078125 ms
+
+
+drawScene: 17.12890625 ms
+main.ts:47 drawScene: 11.27001953125 ms
+main.ts:47 drawScene: 3.554931640625 ms
+main.ts:47 drawScene: 24.65283203125 ms
+main.ts:47 drawScene: 34.364990234375 ms
+main.ts:47 drawScene: 21.6630859375 ms
+main.ts:47 drawScene: 13.80615234375 ms
+main.ts:47 drawScene: 219.575927734375 ms
+main.ts:47 drawScene: 203.10693359375 ms
+main.ts:47 drawScene: 191.194091796875 ms
+main.ts:47 drawScene: 199.600830078125 ms
+main.ts:47 drawScene: 382.40380859375 ms
+main.ts:47 drawScene: 382.654052734375 ms
+main.ts:47 drawScene: 358.39208984375 ms
+main.ts:47 drawScene: 380.5498046875 ms
+main.ts:47 drawScene: 370.384033203125 ms
+main.ts:47 drawScene: 368.01611328125 ms
+main.ts:47 drawScene: 523.558837890625 ms

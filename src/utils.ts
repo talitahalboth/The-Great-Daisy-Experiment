@@ -10,6 +10,7 @@ export const ctx = canvas.getContext("2d") ?? new CanvasRenderingContext2D()
 export const imagesArray: HTMLImageElement[] = []
 export const imagesS2Array: HTMLImageElement[] = []
 export const imagesS3Array: HTMLImageElement[] = []
+export const imagesS4Array: HTMLImageElement[] = []
 export const figuresArray: Figure[] = []
 export const hillsWithDaisies: HillsWithDaisies[] = []
 export const mountainRanges: Mountains[] = []
