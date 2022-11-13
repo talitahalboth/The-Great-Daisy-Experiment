@@ -7,10 +7,10 @@
   
 <div>
 <a href="https://github.com/talitahalboth/The-Great-Daisy-Experiment/blob/main/LICENSE">
-  <img src="https://img.shields.io/github/license/talitahalboth/The-Great-Daisy-Experiment?color=ec9267&style=flat-square">
+  <img src="https://img.shields.io/github/license/talitahalboth/The-Great-Daisy-Experiment?color=ec9268&style=flat-square">
 </a>
 <a href="https://github.com//talitahalboth/The-Great-Daisy-Experiment/stargazers">
-  <img src="https://img.shields.io/github/stars/talitahalboth/The-Great-Daisy-Experiment?color=ec9267&style=flat-square">
+  <img src="https://img.shields.io/github/stars/talitahalboth/The-Great-Daisy-Experiment?color=ec9268&style=flat-square">
 </a>
    
 </div>
