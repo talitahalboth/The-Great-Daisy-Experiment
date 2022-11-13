@@ -2,16 +2,27 @@
 
 <div align="center">
   <span>
-    <img width="400px" src="https://user-images.githubusercontent.com/19466053/201544393-3da5666a-4573-4b49-8523-3cf1a637c590.png" >
+    <a href="https://daisy.halboth.dev/"><img width="400px" src="https://user-images.githubusercontent.com/19466053/201544393-3da5666a-4573-4b49-8523-3cf1a637c590.png" ></a>
   </span>
-
+  
+<div>
+<a href="https://github.com/talitahalboth/The-Great-Daisy-Experiment/blob/main/LICENSE">
+  <img src="https://img.shields.io/github/license/talitahalboth/The-Great-Daisy-Experiment?color=ec9267&style=flat-square">
+</a>
+<a href="https://github.com//talitahalboth/The-Great-Daisy-Experiment/stargazers">
+  <img src="https://img.shields.io/github/stars/talitahalboth/The-Great-Daisy-Experiment?color=ec9267&style=flat-square">
+</a>
+   
+</div>
+    
+[**Visit the website**](https://daisy.halboth.dev/) 
 
 <h2>🌼 The Great Daisy Experiment 🌼</h2>
  
 </div>
 
 
-**🖼️ Generate a landscape:** Randomize it and discover landscapes
+**🖼️ Generate a landscape:** Randomize it and choose what you like
 
 **🌼 Add daisies to your field:** Add in batch or click the canvas to add individually
 
@@ -36,17 +47,15 @@
 
 ## About
 
- [![License: MIT](https://img.shields.io/github/license/diksown/musa?color=ec9267&style=flat-square)](https://github.com/talitahalboth/The-Great-Daisy-Experiment/blob/main/LICENSE)
  
 A web app created using canvas and typescript.
 
-The Greate Daisy exxperimente randomly generates a landscape, and randomly add daisies to the field when clicked.  It can also export a SVG file of the generated field.
-The size of the daisies depend on the distance of them from the viewer. This distance is calculated based on the 2d `x` and `y` positions of the daisy and making a projection of it in the 3d space. Hills on the bottom of the screen have a shorter distance from the viewer as those upper on the screen.
+The Great Daisy experiment randomly generates a landscape, and randomly add daisies to the field when clicked.  It can also export a SVG file of the generated field.
+The size of the daisies depend on the distance of them from the viewer. This distance is calculated based on the 2d `x` and `y` positions of the daisy and making a projection of it in the 3d space. Hills at the bottom of the screen have a shorter distance from the viewer as those upper on the screen.
 
-The daisies created by me using inkskape.
+The daisies created by me using Inkscape.
 
 The hills and mountains are created using perlin noises.
-
 
 
 
