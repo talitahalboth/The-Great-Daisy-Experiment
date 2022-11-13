@@ -8,7 +8,7 @@ require('./favicon.ico')
 
 
 function addFlowers() {
-    setSize()
+    setSize(true)
     daisiesGenerator.updateAreasSum(hillsWithDaisies)
     for (let index = 0; index < 1000; index++) {
         generateRandomDaisies()
@@ -23,7 +23,7 @@ function removeAllFlowers() {
 }
 
 
-export const setHillsSize = () => {
+export const setHillsSize = (avoidDrawingScene?: boolean) => {
     ctx.globalCompositeOperation = 'destination-over'
     hillsWithDaisies.forEach((mountain, index) => {
         mountain.updateMountains(h / (index + 1), w)
@@ -31,6 +31,9 @@ export const setHillsSize = () => {
 
     updateHillsOnSizeChange()
     daisiesGenerator.updateAreasSum(hillsWithDaisies)
+    if (avoidDrawingScene)
+        return
+    drawScene()
 }
 
 

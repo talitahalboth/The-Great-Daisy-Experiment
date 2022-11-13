@@ -59,7 +59,7 @@ export const reverseCalculateYFromXAndANgle = (x: number, newY: number, width: n
 }
 
 
-export const setSize = () => {
+export const setSize = (avoidDrawingScene?: boolean) => {
     // h = canvas.height = canvas.getBoundingClientRect().height
     // w = canvas.width = canvas.getBoundingClientRect().width
     let rect = canvas.getBoundingClientRect();
@@ -75,7 +75,7 @@ export const setSize = () => {
     w = rect.width
     h = rect.height
 
-    setHillsSize()
+    setHillsSize(avoidDrawingScene)
     drawBackgroundOnContext(ctx, false)
 
 }
