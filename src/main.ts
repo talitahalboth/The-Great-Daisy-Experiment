@@ -37,16 +37,23 @@ export const setHillsSize = () => {
 
 
 const drawScene = () => {
-    console.time("drawScene")
     ctx.clearRect(0, 0, w, h)
     hillsWithDaisies.forEach((mountain, index) => {
         mountain.drawDaisies(ctx)
         mountain.drawMountain(ctx, w, h)
     })
     drawBackgroundOnContext(ctx)
-    console.timeEnd("drawScene")
 }
 
+const randomImageBasedOnHillIndex = (hillIndex: number) => {
+    const img = hillIndex > 0 ?
+        hillIndex > 1 ?
+            hillIndex > 2 ? imagesS4Array[getRandomInt(imagesArray.length)] :
+                imagesS3Array[getRandomInt(imagesArray.length)] :
+            imagesS2Array[getRandomInt(imagesArray.length)] :
+        imagesArray[getRandomInt(imagesArray.length)]
+    return img
+}
 
 const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, rand: number, img: HTMLImageElement) => {
     var pushed = false
@@ -68,7 +75,8 @@ const createFigureFromCoordinatesRandomPos = (pos: { x: number, y: number }, ran
             pushed = true
         }
         if (isGreaterTop && !pushed) {
-
+            const img = randomImageBasedOnHillIndex(index)
+            newDaisy.img = img
             addElementToOrderedList(hillsWithDaisies[index].daisies, newDaisy)
             pushed = true
         }
@@ -82,12 +90,7 @@ const generateRandomDaisies = () => {
     const x = getRandomInt(w)
     daisiesGenerator.updateyCoordinates(hillsWithDaisies, x)
     const hillIndex = daisiesGenerator.getHillIndex(getRandomArbitrary(0, daisiesGenerator.areasSum), hillsWithDaisies)
-    const img = hillIndex > 0 ?
-        hillIndex > 1 ?
-            hillIndex > 2 ? imagesS4Array[getRandomInt(imagesArray.length)] :
-                imagesS3Array[getRandomInt(imagesArray.length)] :
-            imagesS2Array[getRandomInt(imagesArray.length)] :
-        imagesArray[getRandomInt(imagesArray.length)]
+    const img = randomImageBasedOnHillIndex(hillIndex)
     daisiesGenerator.createDaisyAtIndex(hillIndex, x, hillsWithDaisies, img)
 }
 
