@@ -3,6 +3,9 @@ import { sourcesLarge, sourcesMedium, sourcesSmall, sourcesIcon } from "./daisyI
 import { Figure } from "./figure"
 import { createHillsWithDaisiess, updateHillsOnSizeChange } from "./hills"
 import { addElementToOrderedList, canvas, ctx, getRandomArbitrary, getRandomInt, h, imagesArray, hillsWithDaisies, w, calculateYFromXAndANgle, deltaDist, viewDist, daisiesGenerator, getXY, perspectiveCalculatingValues, imagesS2Array, imagesS3Array, exportCanvasSvg, setSize, exportCanvasPng, imagesS4Array } from './utils'
+import { inject } from '@vercel/analytics';
+
+inject();
 addEventListener("resize", () => setSize())
 require('./favicon.ico')
 
