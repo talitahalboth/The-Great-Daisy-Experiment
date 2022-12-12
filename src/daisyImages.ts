@@ -14,7 +14,7 @@ require('./graphics/small/small_0.svg')
 require('./graphics/small/small_1.svg')
 require('./graphics/small/small_2.svg')
 require('./graphics/small/small_3.svg')
-export const sourcesLarge = [document.location.href + "large_0.svg", document.location.href + "large_1.svg", document.location.href + "large_2.svg", document.location.href + "large_3.svg"]
-export const sourcesMedium = [document.location.href + "medium_0.svg", document.location.href + "medium_1.svg", document.location.href + "medium_2.svg", document.location.href + "medium_3.svg"]
-export const sourcesSmall = [document.location.href + "small_0.svg", document.location.href + "small_1.svg", document.location.href + "small_2.svg", document.location.href + "small_3.svg"]
-export const sourcesIcon = [document.location.href + "icon_0.svg", document.location.href + "icon_1.svg", document.location.href + "icon_2.svg", document.location.href + "icon_3.svg"]
+export const sourcesLarge = [document.location.origin + "/large_0.svg", document.location.origin + "/large_1.svg", document.location.origin + "/large_2.svg", document.location.origin + "/large_3.svg"]
+export const sourcesMedium = [document.location.origin + "/medium_0.svg", document.location.origin + "/medium_1.svg", document.location.origin + "/medium_2.svg", document.location.origin + "/medium_3.svg"]
+export const sourcesSmall = [document.location.origin + "/small_0.svg", document.location.origin + "/small_1.svg", document.location.origin + "/small_2.svg", document.location.origin + "/small_3.svg"]
+export const sourcesIcon = [document.location.origin + "/icon_0.svg", document.location.origin + "/icon_1.svg", document.location.origin + "/icon_2.svg", document.location.origin + "/icon_3.svg"]
