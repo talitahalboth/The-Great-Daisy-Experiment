@@ -191,3 +191,57 @@ if (randomizeLandscapeButton) {
 }
 
 
+
+
+let isDrawing = false
+
+canvas.onmousedown = function(e) {
+    isDrawing = true
+}
+
+canvas.onmousemove = function(e) {
+    if (!isDrawing) return
+
+    const pos = getXY(canvas, e)
+    const img = imagesArray[getRandomInt(imagesArray.length)]
+    if (img) {
+        const rand = Math.random()
+        createFigureFromCoordinatesRandomPos(pos, rand, img)
+    }
+    drawScene()
+}
+
+canvas.onmouseup = function() {
+    isDrawing = false
+}
+
+
+const touchStart = (evt: { preventDefault: () => void }) => {
+    isDrawing = true
+    if (isDrawing) {
+        return;
+    }
+    evt.preventDefault();
+};
+
+const touchMove = (evt: any) => {
+    if (!isDrawing)
+        return
+    const pos = getXY(canvas, evt)
+    const img = imagesArray[getRandomInt(imagesArray.length)]
+    if (img) {
+        const rand = Math.random()
+        createFigureFromCoordinatesRandomPos(pos, rand, img)
+    }
+    drawScene()
+    evt.preventDefault();
+};
+
+const touchEnd = (evt: any) => {
+    isDrawing = false;
+};
+
+canvas.addEventListener("touchstart", touchStart, false);
+canvas.addEventListener("touchend", touchEnd, false);
+canvas.addEventListener("touchcancel", touchEnd, false);
+canvas.addEventListener("touchmove", touchMove, false);

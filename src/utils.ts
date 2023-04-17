@@ -220,10 +220,13 @@ export function exportCanvasPng() {
 
 
 
-export const getXY = (canvas: { getBoundingClientRect: () => any; }, event: { clientX: number; clientY: number; }) => {
+export const getXY = (canvas: { getBoundingClientRect: () => any; }, event: {
+    targetTouches?: any, clientX: number; clientY: number; 
+}) => {
     var rect = canvas.getBoundingClientRect();  // absolute position of canvas
+    var touch = event.targetTouches[0]
     return {
-        x: int(event.clientX - rect.left),
-        y: int(event.clientY - rect.top)
+        x: int((event.clientX ?? touch.clientX)  - rect.left),
+        y: int((event.clientY ?? touch.clientY) - rect.top)
     }
 }
