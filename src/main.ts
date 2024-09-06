@@ -140,7 +140,7 @@ sourcesIcon.forEach((source) => {
 createHillsWithDaisiess()
 setSize()
 drawScene()
-drawBackgroundOnContext(ctx, false)
+// drawBackgroundOnContext(ctx, false)
 const exportCanvasImgButton = document.getElementById("exportCanvasImg")
 
 if (exportCanvasImgButton) {
@@ -190,4 +190,12 @@ if (randomizeLandscapeButton) {
     })
 }
 
+// Animation loop
+function animate() {
 
+    drawScene()
+    requestAnimationFrame(animate);
+}
+
+// Start animation
+animate();
