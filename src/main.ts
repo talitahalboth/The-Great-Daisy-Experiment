@@ -190,12 +190,3 @@ if (randomizeLandscapeButton) {
     })
 }
 
-// Animation loop
-function animate() {
-
-    drawScene()
-    requestAnimationFrame(animate);
-}
-
-// Start animation
-animate();
