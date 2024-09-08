@@ -41,7 +41,7 @@ const createMountains = () => {
 }
 
 const createClouds = () => {
-    const numClouds = int(getRandomArbitrary(2, 4))
+    const numClouds = int(getRandomArbitrary(3,5))
     for (let index = 0; index < numClouds; index++) {
         let attempts = 0
         let overlap = false
@@ -80,7 +80,9 @@ export const drawBackgroundOnContextReverse = (ctx: CanvasRenderingContext2D) =>
     createSkyGradient(ctx)
 
     sun.draw(ctx)
-    clouds.forEach((cloud) => cloud.draw(ctx))
+    clouds.forEach((cloud) =>{
+      cloud.draw(ctx)
+    })
 
     mountainRanges.slice().reverse().forEach((mountain) => {
         mountain.drawMountain(ctx, w, h)
@@ -107,7 +109,15 @@ export const drawBackgroundOnContext = (ctx: CanvasRenderingContext2D, clearRect
         mountain.drawMountain(ctx, w, h)
     })
 
-    clouds.forEach((cloud) => cloud.draw(ctx))
+    clouds.forEach((cloud) =>{
+        
+        if (cloud.fluffs[0].x - cloud.fluffs[0].r + cloud.offset > w) {
+            cloud.offset = -w
+          }
+      
+          cloud.offset += cloud.speed
+          cloud.draw(ctx)
+        })
     sun.draw(ctx)
 
     createSkyGradient(ctx)

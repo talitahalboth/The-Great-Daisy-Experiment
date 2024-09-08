@@ -145,6 +145,31 @@ export const linearFunctionBounded = (min: number, max: number) => {
     return map(rand * rand, 0, 1, min, max)
 }
 
+
+export const distance = (x1: number, y1: number, x2: number, y2: number): number => {
+    return Math.hypot(x1 - x2, y1 - y2);
+  }
+
+  
+export const rectanglesIntersect = (
+    minAx: number,
+    minAy: number,
+    maxAx: number,
+    maxAy: number,
+    minBx: number,
+    minBy: number,
+    maxBx: number,
+    maxBy: number
+  ) => {
+    const aLeftOfB = maxAx < minBx;
+    const aRightOfB = minAx > maxBx;
+    const aAboveB = minAy > maxBy;
+    const aBelowB = maxAy < minBy;
+
+    return !(aLeftOfB || aRightOfB || aAboveB || aBelowB);
+  };
+
+
 const exponentialFunction = (a: number, b: number, r: number, t: number) => {
     return a * (Math.pow(b, t / r))
 }
